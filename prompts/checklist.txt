@@ -1,0 +1,27 @@
+Run PRE-TRADE DISCIPLINE CHECKLIST.
+
+Answer YES or NO.
+
+Checklist:
+1. Traders likely exit before resolution
+2. Resolution is procedural and slow
+3. Price can remain wrong for days
+4. Capital lock acceptable
+5. No timing or latency dependency
+
+Input:
+{{DATA}}
+
+Return STRICT JSON:
+{
+  "checklist_passed": true/false,
+  "answers": {
+    "early_exit": "YES/NO",
+    "slow_resolution": "YES/NO",
+    "price_sticky": "YES/NO",
+    "capital_lock": "YES/NO",
+    "no_latency": "YES/NO"
+  },
+  "verdict": "ENTER/DO NOT ENTER",
+  "reason": ""
+}
