@@ -4,13 +4,12 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from config import MAX_MARKETS_TO_FETCH
 
-# Endpoint Gamma (Stable & Officiel)
+# Endpoint Gamma (Stable & Officiel 2025)
 BASE_URL = "https://gamma-api.polymarket.com/markets"
 
 def get_session():
     """Session HTTP blindée contre les micro-coupures."""
     session = requests.Session()
-    # Retry 3 fois avec un backoff exponentiel si erreur 5xx
     retries = Retry(total=3, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504])
     session.mount("https://", HTTPAdapter(max_retries=retries))
     return session
@@ -30,7 +29,7 @@ def fetch_markets():
                 "closed": "false",
                 "limit": limit,
                 "offset": offset,
-                "order": "volume_24h",
+                "order": "volume_24h", # On prend les plus actifs en premier
                 "ascending": "false"
             }
             
@@ -38,6 +37,7 @@ def fetch_markets():
             r.raise_for_status()
             data = r.json()
             
+            # Gestion souple du format de réponse
             batch = data if isinstance(data, list) else data.get("markets", [])
             
             if not batch:
