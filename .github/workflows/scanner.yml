@@ -2,8 +2,8 @@ name: Polymarket Scanner Cron
 
 on:
   schedule:
-    - cron: '0 */4 * * *'
-  workflow_dispatch:
+    - cron: '0 */4 * * *'  # S'exécute toutes les 4 heures
+  workflow_dispatch:      # Permet le lancement manuel
 
 jobs:
   run-scanner:
@@ -29,6 +29,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
         run: python main.py
@@ -38,5 +39,6 @@ jobs:
           git config --global user.name "Scanner Bot"
           git config --global user.email "bot@github.com"
           git add scan_history.csv
-          git commit -m "📈 Update Scan History" || exit 0
+          # On commit seulement s'il y a des changements pour éviter les erreurs
+          git commit -m "📈 Update Scan History [skip ci]" || exit 0
           git push
