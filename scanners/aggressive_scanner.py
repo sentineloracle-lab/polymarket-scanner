@@ -1,12 +1,35 @@
 import json
 import time
+import csv
+import os
 from llm_client import ask_llm
 from news.tavily_client import fetch_recent_news
 
-# Configuration des seuils (Le Mur Mathématique)
-MIN_VOLUME = 1500       # On veut un minimum d'activité
-MIN_LIQUIDITY = 500     # Pour pouvoir sortir si besoin
-MAX_SPREAD = 0.15       # 15% max (si calculable via bid/ask, sinon ignoré)
+# Configuration des seuils (Ajustés suite analyse Grok)
+# On baisse le volume car les opportunités "Redeem" (post-event) ont souvent peu de volume récent
+MIN_VOLUME = 300       
+MIN_LIQUIDITY = 300     # On garde un minimum pour pouvoir entrer/sortir
+CSV_FILE = "scan_history.csv"
+
+def log_to_csv(market, analysis, decision):
+    """Enregistre les résultats pour analyse future (Backtesting)"""
+    file_exists = os.path.isfile(CSV_FILE)
+    with open(CSV_FILE, mode='a', newline='', encoding='utf-8') as f:
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(["Timestamp", "Question", "ID", "Volume", "Liquidity", "Decision", "Strategy", "Confidence", "Edge"])
+        
+        writer.writerow([
+            time.strftime("%Y-%m-%d %H:%M:%S"),
+            market.get("question"),
+            market.get("id", "N/A"),
+            market.get("volume"),
+            market.get("liquidity"),
+            decision,
+            analysis.get("strategy_type", "N/A") if analysis else "N/A",
+            analysis.get("confidence_score", 0) if analysis else 0,
+            analysis.get("estimated_edge", 0) if analysis else 0
+        ])
 
 def run_aggressive_scanner(markets, prompts):
     candidates = []
@@ -14,95 +37,93 @@ def run_aggressive_scanner(markets, prompts):
     
     print(f"🔄 Scan démarré sur {len(markets)} marchés bruts...")
 
-    # --- PHASE 1 : FILTRE MATHÉMATIQUE (Gratuit & Rapide) ---
+    # --- PHASE 1 : FILTRE MATHÉMATIQUE (Optimisé Grok/Redeem) ---
     pre_filtered = []
     for m in markets:
-        # 1. Extraction sécurisée des données
         vol = float(m.get("volume") or 0)
         liq = float(m.get("liquidity") or 0)
         
-        # 2. Rejet immédiat des marchés morts
-        if vol < MIN_VOLUME:
-            continue
-        if liq < MIN_LIQUIDITY:
+        # On accepte un volume faible SI la liquidité est correcte (cas des marchés en attente de résolution)
+        if vol < MIN_VOLUME and liq < MIN_LIQUIDITY:
             continue
             
-        # 3. Filtre de mots-clés (Exemple : on évite le sport pur souvent trop efficient)
+        # Exclusion des mots clés "Sport pur" (souvent trop efficaces/bots)
+        # Mais on garde "Politics", "Crypto", "Business" où l'UMA est complexe
         title = m.get("question", "").lower()
-        if any(x in title for x in ["nba", "nfl", "soccer", "tennis"]):
+        if any(x in title for x in ["nba ", "nfl ", "premier league", "tennis"]):
             continue
 
         pre_filtered.append(m)
 
-    print(f"📉 Après filtre mathématique : {len(pre_filtered)} marchés retenus pour analyse IA.")
+    print(f"📉 Après filtre mathématique : {len(pre_filtered)} marchés retenus.")
 
     # --- PHASE 2 : ANALYSE PROFONDE (IA) ---
-    # On limite à 20 analyses IA max par run pour contrôler le budget/temps
-    for market in pre_filtered[:20]:
+    # On limite à 25 analyses pour contrôler les coûts API
+    for market in pre_filtered[:25]:
         try:
             analyzed_count += 1
-            print(f"🧠 Analyse IA ({analyzed_count}): {market.get('question')[:30]}...")
+            print(f"🧠 Analyse IA ({analyzed_count}): {market.get('question')[:40]}...")
 
-            # Appel unique au Mega-Prompt (remplace 3 appels)
             analysis_raw = ask_llm(
                 prompts["system"],
                 prompts["mega_analysis"].replace("{{DATA}}", json.dumps(market))
             )
             
-            # Nettoyage JSON (gestion des backticks markdown fréquents chez les LLM)
+            # Nettoyage
             analysis_raw = analysis_raw.replace("```json", "").replace("```", "").strip()
             analysis = json.loads(analysis_raw)
 
-            # Si l'IA rejette, on passe
-            if not analysis.get("is_interesting") or analysis.get("confidence_score", 0) < 80:
+            # Logging SYSTEMATIQUE (même si rejeté) pour analyse future
+            decision = "REJECTED_AI"
+            if analysis.get("is_interesting") and analysis.get("confidence_score", 0) >= 80:
+                decision = "CANDIDATE"
+
+            log_to_csv(market, analysis, decision)
+
+            if decision == "REJECTED_AI":
                 continue
 
-            # --- PHASE 3 : VALIDATION NEWS & CHECKLIST (Seulement pour les élus) ---
-            print("🔎 Candidat potentiel détecté ! Vérification News...")
+            # --- PHASE 3 : VALIDATION ---
+            print("🔎 Candidat détecté ! Vérification News & Checklist...")
             
-            # Vérification News (Tavily)
-            news = fetch_recent_news(market["question"])
-            # Ici on pourrait ajouter un prompt "News Risk", mais pour économiser
-            # on l'ajoute juste aux données pour l'humain
+            # Recherche spécifique sur les règles/résolutions
+            news_query = f"{market['question']} resolution rules UMA polymarket"
+            news = fetch_recent_news(news_query)
             
-            # Dernier check procédural
             checklist_raw = ask_llm(
                 prompts["system"], 
-                prompts["checklist"].replace("{{DATA}}", json.dumps(market))
+                prompts["checklist"]
+                .replace("{{DATA}}", json.dumps(market))
+                .replace("{{NEWS}}", json.dumps(news))
             )
-            checklist_raw = checklist_raw.replace("```json", "").replace("```", "").strip()
-            checklist = json.loads(checklist_raw)
+            checklist = json.loads(checklist_raw.replace("```json", "").replace("```", "").strip())
             
             if not checklist.get("checklist_passed", False):
                 print("❌ Rejeté par la Checklist finale.")
+                log_to_csv(market, analysis, "REJECTED_CHECKLIST")
                 continue
 
-            # Construction du candidat final
             market.update({
                 "analysis": analysis,
-                "news_summary": news[:2], # Juste les 2 premières
+                "news_summary": news[:2],
                 "found_at": time.strftime("%Y-%m-%d %H:%M:%S")
             })
             candidates.append(market)
+            log_to_csv(market, analysis, "ACCEPTED")
 
-        except json.JSONDecodeError:
-            print("⚠️ Erreur JSON LLM, on ignore.")
-            continue
         except Exception as e:
             print(f"⚠️ Erreur process: {e}")
             continue
 
-    # --- PHASE 4 : RAPPORT FINAL ---
+    # --- PHASE 4 : SORTIE ---
     if not candidates:
         return {"decision": "NO OPPORTUNITY", "scanned_math": len(pre_filtered), "scanned_ai": analyzed_count}
 
-    # Génération du résumé Telegram via LLM
     final_msg = ask_llm(
         prompts["system"],
         prompts["final_summary"].replace("{{DATA}}", json.dumps(candidates))
     )
 
-    # On retourne un objet structuré pour le main.py, mais le 'content' sera le message telegram
     return {
         "decision": "OPPORTUNITY_FOUND", 
         "count": len(candidates), 
