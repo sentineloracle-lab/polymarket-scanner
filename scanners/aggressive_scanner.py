@@ -11,11 +11,19 @@ from config import MIN_VOLUME, MIN_LIQUIDITY, CSV_LOG_FILE, MAX_AI_ANALYSIS
 # Logging configuration
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+def clean_json_response(raw_text):
+    """Extrait proprement le JSON d'une réponse texte de l'IA."""
+    content = raw_text.strip()
+    if "```json" in content:
+        content = content.split("```json")[1].split("```")[0].strip()
+    elif "```" in content:
+        content = content.split("```")[1].split("```")[0].strip()
+    return content
+
 def append_to_csv(rows):
     """Écrit une liste de résultats dans le CSV en une seule fois (Batch Write)."""
     file_exists = os.path.isfile(CSV_LOG_FILE)
     try:
-        # utf-8-sig pour compatibilité Excel immédiate
         with open(CSV_LOG_FILE, mode='a', newline='', encoding='utf-8-sig') as f:
             writer = csv.writer(f)
             if not file_exists:
@@ -36,10 +44,11 @@ def analyze_single_market(market, prompts):
             prompts["mega_analysis"].replace("{{DATA}}", json.dumps(market))
         )
         
-        clean_json = analysis_raw.replace("```json", "").replace("```", "").strip()
+        content = clean_json_response(analysis_raw)
         try:
-            analysis = json.loads(clean_json)
+            analysis = json.loads(content)
         except json.JSONDecodeError:
+            logging.error(f"Format JSON invalide (Phase 1) pour {market.get('question')}")
             return {"status": "ERROR_JSON", "market": market, "analysis": None}
 
         # Filtre primaire IA
@@ -57,8 +66,10 @@ def analyze_single_market(market, prompts):
             .replace("{{DATA}}", json.dumps(market))
             .replace("{{NEWS}}", json.dumps(news))
         )
+        
+        checklist_content = clean_json_response(checklist_raw)
         try:
-            checklist = json.loads(checklist_raw.replace("```json", "").replace("```", "").strip())
+            checklist = json.loads(checklist_content)
         except:
              checklist = {"checklist_passed": False, "risk_flags": ["JSON Checklist Error"]}
         
@@ -69,7 +80,7 @@ def analyze_single_market(market, prompts):
         # Succès
         market.update({
             "analysis": analysis,
-            "news_summary": news[:2],
+            "news_summary": news[:2] if isinstance(news, list) else [],
             "found_at": time.strftime("%Y-%m-%d %H:%M:%S")
         })
         return {"status": "ACCEPTED", "market": market, "analysis": analysis}
@@ -89,16 +100,13 @@ def run_aggressive_scanner(markets, prompts):
         if vol < MIN_VOLUME and liq < MIN_LIQUIDITY:
             continue
 
-        # Exclusion Sport pur
         title = m.get("question", "").lower()
         if any(x in title for x in ["nba ", "nfl ", "premier league", "tennis match"]):
             continue
 
         pre_filtered.append(m)
 
-    # On peut trier par liquidité décroissante pour donner les meilleurs morceaux à l'IA
     pre_filtered.sort(key=lambda x: float(x.get("liquidity") or 0), reverse=True)
-
     logging.info(f"📉 Candidats retenus pour IA : {len(pre_filtered)} (Limité à {MAX_AI_ANALYSIS})")
 
     # --- PHASE 2 : ANALYSE PARALLÈLE ---
@@ -107,20 +115,17 @@ def run_aggressive_scanner(markets, prompts):
     
     targets = pre_filtered[:MAX_AI_ANALYSIS]
     
-    # Max workers = 5 pour respecter les limites Groq/LLM
     with ThreadPoolExecutor(max_workers=5) as executor:
         future_to_market = {executor.submit(analyze_single_market, m, prompts): m for m in targets}
         
         for future in as_completed(future_to_market):
             m = future_to_market[future]
             try:
-                # Timeout de 30s par thread pour éviter le gel
-                res = future.result(timeout=30)
+                res = future.result(timeout=35) # Timeout légèrement augmenté
                 
                 status = res["status"]
                 an = res["analysis"]
                 
-                # Préparation ligne CSV
                 csv_buffer.append([
                     time.strftime("%Y-%m-%d %H:%M:%S"),
                     m.get("question"),
@@ -145,7 +150,6 @@ def run_aggressive_scanner(markets, prompts):
             except Exception as exc:
                 logging.error(f"💥 Exception thread : {exc}")
 
-    # Écriture groupée dans le CSV (Safe)
     append_to_csv(csv_buffer)
 
     # --- RAPPORT FINAL ---
@@ -156,7 +160,7 @@ def run_aggressive_scanner(markets, prompts):
             "scanned_math": len(pre_filtered)
         }
 
-    final_msg = ask_llm(
+    final_msg_raw = ask_llm(
         prompts["system"],
         prompts["final_summary"].replace("{{DATA}}", json.dumps(candidates))
     )
@@ -164,5 +168,5 @@ def run_aggressive_scanner(markets, prompts):
     return {
         "decision": "OPPORTUNITY_FOUND", 
         "count": len(candidates), 
-        "telegram_message": final_msg
+        "telegram_message": final_msg_raw
     }
