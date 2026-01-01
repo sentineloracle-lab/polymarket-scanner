@@ -34,7 +34,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
-        run: python test_tele.py
+        run: python main.py
 
       - name: Commit and Push CSV changes
         # Cette étape sauvegarde le fichier scan_history.csv sur ton repo
