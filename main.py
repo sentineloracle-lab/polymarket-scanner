@@ -1,14 +1,21 @@
-import json
 import os
+import logging
 from polymarket import fetch_markets
 from scanners.aggressive_scanner import run_aggressive_scanner
 from telegram_client import send_message
+
+# Configuration du logging global
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+    handlers=[logging.StreamHandler()]
+)
 
 def load_prompts():
     def r(p): 
         path = os.path.join(os.path.dirname(__file__), p)
         if not os.path.exists(path):
-            print(f"⚠️ Warning: Prompt {p} introuvable.")
+            logging.warning(f"Prompt {p} introuvable.")
             return ""
         return open(path, "r", encoding="utf-8").read()
 
@@ -20,36 +27,29 @@ def load_prompts():
     }
 
 def main():
-    print("🚀 Démarrage du Polymarket Scanner V3 (Deep Trawl)...")
+    logging.info("🚀 Démarrage du Polymarket Scanner V4 (Turbo Trawl)...")
     
-    # 1. Fetch Massif (Pagination active)
-    # On vise 1500 marchés pour avoir une bonne profondeur historique (Zombies)
-    markets = fetch_markets(max_markets=1500)
-    
+    # 1. Fetch
+    markets = fetch_markets()
     if not markets:
-        print("❌ Echec critique: Aucun marché récupéré.")
+        logging.error("Echec critique: Aucun marché récupéré.")
         return
 
-    # 2. Load Prompts
+    # 2. Prompts
     prompts = load_prompts()
     
-    # 3. Run Scanner
+    # 3. Run
     result = run_aggressive_scanner(markets, prompts)
     
     # 4. Resultats
-    print("-" * 30)
-    print(f"📊 Rapport de session :")
-    print(f"   • Marchés bruts : {result.get('scanned_total', 0)}")
-    print(f"   • Après filtre Math : {result.get('scanned_math', 0)}")
-    print(f"   • Analysés par IA : {result.get('scanned_ai', 0)}")
-    print(f"   • Opportunités : {result.get('count', 0)}")
-    print("-" * 30)
-
+    logging.info("-" * 30)
+    logging.info(f"📊 Résultat final : {result['decision']}")
+    
     if result["decision"] == "OPPORTUNITY_FOUND":
+        logging.info(f"🔥 {result['count']} opportunités trouvées. Envoi Telegram.")
         send_message(result["telegram_message"])
-        print("📨 Notification envoyée.")
     else:
-        print("💤 Aucune opportunité validée ce tour-ci.")
+        logging.info("💤 Dodo.")
 
 if __name__ == "__main__":
     main()
