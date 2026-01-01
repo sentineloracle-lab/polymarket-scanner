@@ -2,13 +2,14 @@ import json
 import re
 import logging
 import os
+import csv
+import time
 from openai import OpenAI
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def clean_json_response(raw_text):
-    """Extrait le bloc JSON d'une réponse texte parasite."""
     try:
         match = re.search(r'\{.*\}', raw_text, re.DOTALL)
         if match:
@@ -17,8 +18,17 @@ def clean_json_response(raw_text):
     except Exception:
         return raw_text
 
+def append_to_csv(row):
+    """Enregistre chaque analyse, même en cas d'erreur."""
+    file_path = "scan_history.csv"
+    file_exists = os.path.isfile(file_path)
+    with open(file_path, mode='a', newline='', encoding='utf-8-sig') as f:
+        writer = csv.writer(f)
+        if not file_exists:
+            writer.writerow(["Timestamp", "Question", "ID", "Volume", "Liquidity", "Decision", "Strategy", "Confidence", "Edge", "Risk_Flags"])
+        writer.writerow(row)
+
 def analyze_market_with_ai(client, market_data, news_context):
-    """Envoie les données au LLM en utilisant le dossier prompts."""
     prompt_path = os.path.join("prompts", "mega_analyst.txt")
     if not os.path.exists(prompt_path):
         prompt_path = os.path.join("prompts", "system.txt")
@@ -26,26 +36,12 @@ def analyze_market_with_ai(client, market_data, news_context):
     with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
 
-    # Sécurité pour s'assurer que les prix sont lisibles
-    prices = market_data.get('prices', 'N/A')
-    
-    user_message = f"""
-    MARKET TO ANALYZE:
-    - Question: {market_data.get('question', 'N/A')}
-    - Volume Total: {market_data.get('volume', 0)}
-    - Liquidity: {market_data.get('liquidity', 0)}
-    - Current Prices: {prices}
-    
-    NEWS CONTEXT:
-    {news_context}
-    """
-
     try:
         response = client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_message}
+                {"role": "user", "content": f"MARKET: {market_data['question']} | DATA: {market_data}"}
             ],
             temperature=0.1,
             response_format={"type": "json_object"}
@@ -55,66 +51,30 @@ def analyze_market_with_ai(client, market_data, news_context):
         logging.error(f"Erreur API LLM : {e}")
         return None
 
-def process_ai_decision(market_data, ai_response):
-    """Traite et valide la réponse JSON de l'IA."""
-    if not ai_response:
-        return "ERROR_API", "N/A", 0, 0, ["API Call failed"]
-
-    raw_content = ai_response.choices[0].message.content
-    cleaned_content = clean_json_response(raw_content)
-    
-    try:
-        analysis = json.loads(cleaned_content)
-        decision = analysis.get('decision', 'REJECTED_AI')
-        risk_flags = analysis.get('risk_flags', [])
-
-        # FIX: Conversion forcée en float pour éviter l'erreur '>' entre str et int
-        try:
-            liquidity = float(market_data.get('liquidity', 0))
-        except (ValueError, TypeError):
-            liquidity = 0
-
-        if liquidity > 200:
-            risk_flags = [f for f in risk_flags if "volume" not in f.lower() and "slippage" not in f.lower()]
-            
-        return (
-            decision,
-            analysis.get('strategy', 'N/A'),
-            analysis.get('confidence_score', 0),
-            analysis.get('edge_estimate', 0),
-            risk_flags
-        )
-    except Exception as e:
-        logging.error(f"Erreur décodage JSON : {e}")
-        return "ERROR_JSON_FORMAT", "N/A", 0, 0, [str(e)]
-
 def run_aggressive_scanner(markets, prompts_dir):
-    """
-    FONCTION PRINCIPALE.
-    Retourne un DICTIONNAIRE pour correspondre à l'attente de main.py.
-    """
-    client = OpenAI(
-        api_key=os.environ.get("GROQ_API_KEY"),
-        base_url="https://api.groq.com/openai/v1"
-    )
-    
+    client = OpenAI(api_key=os.environ.get("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1")
     candidates = []
     
     for market in markets:
-        news = "Recherche contextuelle simplifiée."
-        ai_res = analyze_market_with_ai(client, market, news)
-        decision, strategy, conf, edge, flags = process_ai_decision(market, ai_res)
+        ai_res = analyze_market_with_ai(client, market, "No news context.")
         
-        if decision == "OPPORTUNITY" and conf >= 80:
-            candidates.append(market)
-            logging.info(f"🟢 OPPORTUNITÉ : {market.get('question')}")
+        if ai_res:
+            try:
+                raw_content = ai_res.choices[0].message.content
+                analysis = json.loads(clean_json_response(raw_content))
+                
+                decision = analysis.get('decision', 'REJECTED_AI')
+                conf = analysis.get('confidence_score', 0)
+                
+                # Sauvegarde CSV
+                append_to_csv([time.strftime("%Y-%m-%d %H:%M:%S"), market['question'], market['id'], market['volume'], market['liquidity'], decision, analysis.get('strategy'), conf, analysis.get('edge_estimate'), str(analysis.get('risk_flags'))])
+                
+                if decision == "OPPORTUNITY" and conf >= 80:
+                    candidates.append(market)
+            except:
+                append_to_csv([time.strftime("%Y-%m-%d %H:%M:%S"), market['question'], market['id'], market['volume'], market['liquidity'], "ERROR_JSON", "N/A", 0, 0, "Parse error"])
+        else:
+            # Si l'API Rate Limit (Erreur 429), on note l'erreur dans le CSV
+            append_to_csv([time.strftime("%Y-%m-%d %H:%M:%S"), market['question'], market['id'], market['volume'], market['liquidity'], "ERROR_RATE_LIMIT", "N/A", 0, 0, "Quota journalier atteint"])
 
-    # Retourne un dictionnaire (pour éviter l'erreur TypeError: list indices...)
-    if not candidates:
-        return {"decision": "NO_OPPORTUNITY", "count": 0}
-    
-    return {
-        "decision": "OPPORTUNITY_FOUND", 
-        "count": len(candidates), 
-        "markets": candidates
-    }
+    return {"decision": "SCAN_COMPLETED", "count": len(candidates), "markets": candidates}
