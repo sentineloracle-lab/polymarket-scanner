@@ -29,25 +29,27 @@ def append_to_csv(row):
         writer.writerow(row)
 
 def get_ai_client():
-    """Initialise le client en fonction du fournisseur choisi."""
+    """Initialise le client. Priorité absolue à Gemini si configuré."""
+    gemini_key = os.getenv("GEMINI_API_KEY")
     provider = os.getenv("LLM_PROVIDER", "gemini").lower()
     
-    if provider == "gemini":
-        # Gemini via l'interface compatible OpenAI
+    if gemini_key and (provider == "gemini" or not os.getenv("GROQ_API_KEY")):
+        logging.info("Système : Initialisation du client GOOGLE GEMINI")
         return OpenAI(
-            api_key=os.environ.get("GEMINI_API_KEY"),
+            api_key=gemini_key,
             base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
         ), "gemini-1.5-flash"
     else:
-        # Groq par défaut
+        logging.info("Système : Initialisation du client GROQ")
         return OpenAI(
-            api_key=os.environ.get("GROQ_API_KEY"),
+            api_key=os.getenv("GROQ_API_KEY"),
             base_url="https://api.groq.com/openai/v1"
         ), "llama-3.3-70b-versatile"
 
-def analyze_market_with_ai(client, model_name, market_data, news_context):
+def analyze_market_with_ai(client, model_name, market_data):
     prompt_path = os.path.join("prompts", "mega_analyst.txt")
     if not os.path.exists(prompt_path):
+        logging.error("Fichier prompt introuvable.")
         return None
 
     with open(prompt_path, "r", encoding="utf-8") as f:
@@ -60,8 +62,7 @@ def analyze_market_with_ai(client, model_name, market_data, news_context):
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": f"MARKET: {market_data['question']} | DATA: {market_data}"}
             ],
-            temperature=0.1,
-            response_format={"type": "json_object"}
+            temperature=0.1
         )
         return response
     except Exception as e:
@@ -72,10 +73,10 @@ def run_aggressive_scanner(markets, prompts_dir):
     client, model_name = get_ai_client()
     candidates = []
     
-    logging.info(f"Utilisation du modèle : {model_name}")
+    logging.info(f"Démarrage du scan avec {model_name}")
 
     for market in markets:
-        ai_res = analyze_market_with_ai(client, model_name, market, "No news context.")
+        ai_res = analyze_market_with_ai(client, model_name, market)
         
         if ai_res:
             try:
