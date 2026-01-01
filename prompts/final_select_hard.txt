@@ -1,0 +1,20 @@
+Select ONE opportunity or NONE.
+
+Criteria:
+- type4_score >= 80
+- resolution_edge >= 70
+- liquidity_score >= 60
+- edge_percent >= 10
+- checklist_passed = true
+
+Candidates:
+{{DATA}}
+
+Return STRICT JSON:
+{
+  "decision": "TRADE/NO TRADE",
+  "emoji": "🔴/⚪",
+  "market_id": "",
+  "summary": "",
+  "risk_note": ""
+}
