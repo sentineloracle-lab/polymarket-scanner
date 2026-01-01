@@ -2,7 +2,7 @@ name: Polymarket Scanner Cron
 
 on:
   schedule:
-    - cron: '0 */4 * * *'  # S'exécute toutes les 4 heures
+    - cron: '0 */4 * * *'  # Toutes les 4 heures
   workflow_dispatch:      # Permet le lancement manuel
 
 jobs:
@@ -39,6 +39,5 @@ jobs:
           git config --global user.name "Scanner Bot"
           git config --global user.email "bot@github.com"
           git add scan_history.csv
-          # On commit seulement s'il y a des changements pour éviter les erreurs
           git commit -m "📈 Update Scan History [skip ci]" || exit 0
           git push
