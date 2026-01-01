@@ -18,12 +18,13 @@ def clean_json_response(raw_text):
         return raw_text
 
 def analyze_market_with_ai(client, market_data, news_context):
-    """Envoie les données au LLM."""
-    # Utilisation du fichier mega_analyst.txt comme demandé
-    prompt_path = os.path.join("instructions", "mega_analyst.txt")
+    """Envoie les données au LLM en utilisant le dossier prompts."""
+    # Correction du chemin : on utilise 'prompts' et non 'instructions'
+    prompt_path = os.path.join("prompts", "mega_analyst.txt")
+    
     if not os.path.exists(prompt_path):
-        # Fallback au cas où le nom diffèrerait
-        prompt_path = os.path.join("instructions", "system.txt")
+        # Fallback sur system.txt si mega_analyst n'est pas trouvé
+        prompt_path = os.path.join("prompts", "system.txt")
         
     with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
@@ -67,7 +68,7 @@ def process_ai_decision(market_data, ai_response):
         decision = analysis.get('decision', 'REJECTED_AI')
         risk_flags = analysis.get('risk_flags', [])
 
-        # Correction de la logique de volume (sécurité liquidité > 200$)
+        # Sécurité : Si liquidité > 200, on ignore les erreurs de l'IA sur le volume
         if market_data.get('liquidity', 0) > 200:
             risk_flags = [f for f in risk_flags if "volume" not in f.lower() and "slippage" not in f.lower()]
             
@@ -84,15 +85,18 @@ def process_ai_decision(market_data, ai_response):
 
 def run_aggressive_scanner(markets, prompts_dir):
     """
-    FONCTION PRINCIPALE (Ajustée pour main.py)
+    FONCTION PRINCIPALE appelée par main.py.
     """
-    # Initialisation du client ici pour éviter le manque d'argument dans main.py
-    client = OpenAI(api_key=os.environ.get("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1")
+    # Initialisation du client Groq
+    client = OpenAI(
+        api_key=os.environ.get("GROQ_API_KEY"),
+        base_url="https://api.groq.com/openai/v1"
+    )
     
     results = []
     for market in markets:
-        # On simule ou appelle une fonction de news si elle existe, sinon texte vide
-        news = "Recherche de news en cours..." 
+        # On passe un contexte vide ou simplifié si la fonction de news n'est pas passée
+        news = "Recherche contextuelle automatique."
         
         ai_res = analyze_market_with_ai(client, market, news)
         decision, strategy, conf, edge, flags = process_ai_decision(market, ai_res)
