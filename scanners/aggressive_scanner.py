@@ -3,6 +3,7 @@ import time
 import csv
 import os
 import logging
+import re
 from concurrent.futures import ThreadPoolExecutor, as_completed, TimeoutError
 from llm_client import ask_llm
 from news.tavily_client import fetch_recent_news
@@ -12,16 +13,18 @@ from config import MIN_VOLUME, MIN_LIQUIDITY, CSV_LOG_FILE, MAX_AI_ANALYSIS
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def clean_json_response(raw_text):
-    """Extrait proprement le JSON d'une réponse texte de l'IA."""
-    content = raw_text.strip()
-    if "```json" in content:
-        content = content.split("```json")[1].split("```")[0].strip()
-    elif "```" in content:
-        content = content.split("```")[1].split("```")[0].strip()
-    return content
+    """Extrait le JSON même si l'IA ajoute du texte autour."""
+    try:
+        # Cherche le premier '{' et le dernier '}'
+        match = re.search(r'(\{.*\}|\[.*\])', raw_text, re.DOTALL)
+        if match:
+            return match.group(0)
+        return raw_text.strip()
+    except:
+        return raw_text.strip()
 
 def append_to_csv(rows):
-    """Écrit une liste de résultats dans le CSV en une seule fois (Batch Write)."""
+    """Écrit une liste de résultats dans le CSV en une seule fois."""
     file_exists = os.path.isfile(CSV_LOG_FILE)
     try:
         with open(CSV_LOG_FILE, mode='a', newline='', encoding='utf-8-sig') as f:
@@ -38,7 +41,7 @@ def append_to_csv(rows):
 def analyze_single_market(market, prompts):
     """Fonction isolée pour traiter UN marché."""
     try:
-        # 1. Analyse Stratégique (Mega Prompt)
+        # 1. Analyse Stratégique
         analysis_raw = ask_llm(
             prompts["system"],
             prompts["mega_analysis"].replace("{{DATA}}", json.dumps(market))
@@ -48,15 +51,14 @@ def analyze_single_market(market, prompts):
         try:
             analysis = json.loads(content)
         except json.JSONDecodeError:
-            logging.error(f"Format JSON invalide (Phase 1) pour {market.get('question')}")
             return {"status": "ERROR_JSON", "market": market, "analysis": None}
 
         # Filtre primaire IA
         if not analysis.get("is_interesting") or analysis.get("confidence_score", 0) < 80:
             return {"status": "REJECTED_AI", "market": market, "analysis": analysis}
 
-        # 2. Validation Externe (News & UMA Rules)
-        news_query = f"{market['question']} polymarket resolution rules UMA"
+        # 2. Validation Externe (News)
+        news_query = f"{market['question']} polymarket resolution rules"
         news = fetch_recent_news(news_query)
         
         # 3. Checklist Finale
@@ -77,52 +79,36 @@ def analyze_single_market(market, prompts):
             analysis["risk_flags"] = str(checklist.get("risk_flags", []))
             return {"status": "REJECTED_CHECKLIST", "market": market, "analysis": analysis}
 
-        # Succès
-        market.update({
-            "analysis": analysis,
-            "news_summary": news[:2] if isinstance(news, list) else [],
-            "found_at": time.strftime("%Y-%m-%d %H:%M:%S")
-        })
         return {"status": "ACCEPTED", "market": market, "analysis": analysis}
 
     except Exception as e:
         return {"status": f"ERROR_PROCESS: {str(e)}", "market": market, "analysis": None}
 
 def run_aggressive_scanner(markets, prompts):
-    logging.info(f"🔄 Début du filtrage mathématique sur {len(markets)} marchés...")
-
-    # --- PHASE 1 : FILTRE MATHÉMATIQUE ---
+    logging.info(f"🔄 Filtrage mathématique sur {len(markets)} marchés...")
     pre_filtered = []
     for m in markets:
         vol = float(m.get("volume") or 0)
         liq = float(m.get("liquidity") or 0)
-        
         if vol < MIN_VOLUME and liq < MIN_LIQUIDITY:
             continue
-
         title = m.get("question", "").lower()
-        if any(x in title for x in ["nba ", "nfl ", "premier league", "tennis match"]):
+        if any(x in title for x in ["nba ", "nfl ", "premier league", "tennis"]):
             continue
-
         pre_filtered.append(m)
 
     pre_filtered.sort(key=lambda x: float(x.get("liquidity") or 0), reverse=True)
-    logging.info(f"📉 Candidats retenus pour IA : {len(pre_filtered)} (Limité à {MAX_AI_ANALYSIS})")
-
-    # --- PHASE 2 : ANALYSE PARALLÈLE ---
+    targets = pre_filtered[:MAX_AI_ANALYSIS]
+    
     candidates = []
     csv_buffer = []
     
-    targets = pre_filtered[:MAX_AI_ANALYSIS]
-    
     with ThreadPoolExecutor(max_workers=5) as executor:
         future_to_market = {executor.submit(analyze_single_market, m, prompts): m for m in targets}
-        
         for future in as_completed(future_to_market):
             m = future_to_market[future]
             try:
-                res = future.result(timeout=35) # Timeout légèrement augmenté
-                
+                res = future.result(timeout=40)
                 status = res["status"]
                 an = res["analysis"]
                 
@@ -140,27 +126,18 @@ def run_aggressive_scanner(markets, prompts):
                 ])
 
                 if status == "ACCEPTED":
-                    logging.info(f"✅ Opportunité validée : {m.get('question')}")
+                    logging.info(f"✅ ACCEPTED: {m.get('question')}")
                     candidates.append(res["market"])
-                elif status == "REJECTED_CHECKLIST":
-                    logging.info(f"❌ Rejet Checklist : {m.get('question')}")
                 
-            except TimeoutError:
-                logging.warning(f"⏳ Timeout sur le marché : {m.get('question')}")
             except Exception as exc:
-                logging.error(f"💥 Exception thread : {exc}")
+                logging.error(f"💥 Erreur thread: {exc}")
 
     append_to_csv(csv_buffer)
 
-    # --- RAPPORT FINAL ---
     if not candidates:
-        return {
-            "decision": "NO_OPPORTUNITY", 
-            "scanned_total": len(markets),
-            "scanned_math": len(pre_filtered)
-        }
+        return {"decision": "NO_OPPORTUNITY", "scanned_total": len(markets)}
 
-    final_msg_raw = ask_llm(
+    final_msg = ask_llm(
         prompts["system"],
         prompts["final_summary"].replace("{{DATA}}", json.dumps(candidates))
     )
@@ -168,5 +145,5 @@ def run_aggressive_scanner(markets, prompts):
     return {
         "decision": "OPPORTUNITY_FOUND", 
         "count": len(candidates), 
-        "telegram_message": final_msg_raw
+        "telegram_message": final_msg
     }
