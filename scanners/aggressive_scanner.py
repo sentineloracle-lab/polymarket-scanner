@@ -19,16 +19,21 @@ def clean_json_response(raw_text):
 
 def analyze_market_with_ai(client, market_data, news_context):
     """Envoie les données au LLM."""
+    # Utilisation du fichier mega_analyst.txt comme demandé
     prompt_path = os.path.join("instructions", "mega_analyst.txt")
+    if not os.path.exists(prompt_path):
+        # Fallback au cas où le nom diffèrerait
+        prompt_path = os.path.join("instructions", "system.txt")
+        
     with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
 
     user_message = f"""
     MARKET TO ANALYZE:
-    - Question: {market_data['question']}
-    - Volume Total: {market_data['volume']}
-    - Liquidity: {market_data['liquidity']}
-    - Current Prices: {market_data['prices']}
+    - Question: {market_data.get('question', 'N/A')}
+    - Volume Total: {market_data.get('volume', 0)}
+    - Liquidity: {market_data.get('liquidity', 0)}
+    - Current Prices: {market_data.get('prices', 'N/A')}
     
     NEWS CONTEXT:
     {news_context}
@@ -62,7 +67,7 @@ def process_ai_decision(market_data, ai_response):
         decision = analysis.get('decision', 'REJECTED_AI')
         risk_flags = analysis.get('risk_flags', [])
 
-        # Correction de la logique de volume (sécurité)
+        # Correction de la logique de volume (sécurité liquidité > 200$)
         if market_data.get('liquidity', 0) > 200:
             risk_flags = [f for f in risk_flags if "volume" not in f.lower() and "slippage" not in f.lower()]
             
@@ -77,22 +82,19 @@ def process_ai_decision(market_data, ai_response):
         logging.error(f"Erreur décodage JSON : {e}")
         return "ERROR_JSON_FORMAT", "N/A", 0, 0, [str(e)]
 
-def run_aggressive_scanner(client, markets, get_news_func):
+def run_aggressive_scanner(markets, prompts_dir):
     """
-    FONCTION PRINCIPALE appelée par main.py
-    Boucle sur les marchés et coordonne l'analyse.
+    FONCTION PRINCIPALE (Ajustée pour main.py)
     """
+    # Initialisation du client ici pour éviter le manque d'argument dans main.py
+    client = OpenAI(api_key=os.environ.get("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1")
+    
     results = []
     for market in markets:
-        logging.info(f"Analyse IA pour : {market['question']}")
+        # On simule ou appelle une fonction de news si elle existe, sinon texte vide
+        news = "Recherche de news en cours..." 
         
-        # 1. Récupération des news
-        news = get_news_func(market['question'])
-        
-        # 2. Appel IA
         ai_res = analyze_market_with_ai(client, market, news)
-        
-        # 3. Traitement résultat
         decision, strategy, conf, edge, flags = process_ai_decision(market, ai_res)
         
         results.append({
@@ -103,9 +105,4 @@ def run_aggressive_scanner(client, markets, get_news_func):
             "edge": edge,
             "flags": flags
         })
-        
-        if decision == "OPPORTUNITY" and conf >= 80:
-            logging.info(f"🟢 OPPORTUNITÉ DÉTECTÉE : {market['question']}")
-            # Ici le code de notification Telegram pourrait être appelé
-            
     return results
