@@ -1,1 +1,401 @@
 Timestamp,Question,ID,Volume,Liquidity,Decision,Strategy,Confidence,Edge,Risk_Flags
+2026-01-01 18:39:12,Who will win Nets vs. Celtics: Game 2?,202052,20545.640747,4991.360142,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Donald Trump federally charged by February 20th?,40935,155062.394444,9708.484873,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will Hikaru Nakamura or Ian Nepomniachtchi win in their FTX Crypto Cup preliminary match?,201483,19509.039204,4366.729923,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,What will Pak’s Sotheby’s auction generate in total sales?,123801,22486.024485,3499.959987,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will $DOGE reach $1 at any point before June 15, 2021?",132021,1050066.825323,63818.758468,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will Beeple's “Ocean Front” sell for more than $25 million at auction?,107964,30926.903464,3440.469811,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,What will the price of $DOGE be on June 26?,206797,1391596.371127,75363.263124,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"How many more tweets will be on the @mtgreenee account on March 22, 2021?",103999,59494.679271,3499.041278,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will total sales exceed $20M for the Cryptopunks auction at Christie’s?,176505,120494.949692,3413.339299,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will Ian Nepomniachtchi or Wesley So win their Semifinals Series of the FTX Crypto Cup?,203269,9011.54059,3315.186912,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will Joe Biden's disapproval rating be 40% or higher on May 19?,182011,17795.155514,4417.416251,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Who will win Nuggets vs. Trail Blazers: Game 2?,202053,55532.032082,3754.440588,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will Medina Spirit be disqualified from the 2021 Kentucky Derby by July 15?,192736,147579.387319,4470.804231,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"What will monthly NFT trading volume be on April 13, 2021?",108739,67592.226236,3332.004229,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will Donald Trump formally concede the 2020 US Election before December 1st, 2020?",77,454342.990794,8688.076983,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will the US have fewer than 35,000 new COVID-19 cases on any day before April 7, 2021?",104027,169609.598266,3027.230691,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will NASA conduct a sustained flight of Ingenuity on Mars by April 12?,120025,8060.232138,3006.391498,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,What will the 7-day average COVID-19 case count be in the US on May 15?,114358,123776.480725,2992.144138,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will there be fewer than 300K daily COVID cases in India by May 20?,184109,47231.809074,2987.580203,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will Rudy Giuliani be indicted for a federal crime by August 1?,166978,15030.292696,2771.87463,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will Donald Trump file to run for president before June 1, 2021?",100903,8290.626081,2628.429565,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will the US have fewer than 1000 COVID-19 cases on any day on or before September 1?,201358,110663.457393,2588.844185,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"How many more tweets will be on the @ElonMusk account on April 14, 2021?",118034,19437.683509,2554.00226,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will AstraZeneca's COVID-19 vaccine receive FDA approval or Emergency Use Authorization (EUA) by May 1, 2021?",108559,29069.204993,2506.50394,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"How many more tweets will be on the @laurenboebert account on April 6, 2021?",113045,16591.254448,2499.008631,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will DeFi Dominance on CoinGecko be 5.15% or higher on April 25?,114346,29974.455661,2497.000851,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will Donald Trump launch a new social media platform by June 15, 2021?",109868,27004.92812,2496.00202,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will a bill which increases long-term capital gains taxes above 20% become law by August 10, 2021?",161608,41906.512016,2492.001598,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will President Biden mention Donald Trump in his first Joint Address?,156413,12134.630335,2411.17128,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will 162 million people have received a dose of an approved COVID-19 vaccine in the US by June 1, 2021?",161502,751420.907244,2401.839509,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Who will win Clippers vs. Mavericks: Game 3?,202082,24436.093078,2390.877401,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will President Biden speak for longer than 1 hour at his Joint Address?,156265,17912.951737,2372.073735,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will Donald Trump be President of the USA on July 31, 2021?",112301,466387.588822,2223.372142,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"How many more tweets will be on the @WHCOS account on March 4, 2021?",98079,21581.530071,2213.935473,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will Man City or PSG advance to the finals of the Champions League?,156345,20550.092092,2121.931839,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will North Dakota have the most COVID-19 cases per 100k residents on May 15, 2021?",101862,477913.257305,2113.0123,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Will the Bongcloud be played during the FTX Crypto Cup?,202072,5629.080636,2106.000889,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,"Will Joe Biden's approval rating be 54% or higher on May 19, 2021?",173961,18298.399976,2094.174204,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Who will win Suns v. Nuggets: Game 1?,209019,52707.526259,2073.9246,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
+2026-01-01 18:39:12,Who will win Suns v. Lakers: Game 6?,206101,28016.556829,2057.577609,"ERROR_PROCESS: 
+
+You tried to access openai.ChatCompletion, but this is no longer supported in openai>=1.0.0 - see the README at https://github.com/openai/openai-python for the API.
+
+You can run `openai migrate` to automatically upgrade your codebase to use the 1.0.0 interface. 
+
+Alternatively, you can pin your installation to the old version, e.g. `pip install openai==0.28`
+
+A detailed migration guide is available here: https://github.com/openai/openai-python/discussions/742
+",N/A,0,0,
