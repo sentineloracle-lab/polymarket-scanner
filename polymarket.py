@@ -1,42 +1,30 @@
 import requests
 import time
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
 from config import MAX_MARKETS_TO_FETCH
 
-# Endpoint Gamma (Standard 2026)
 BASE_URL = "https://gamma-api.polymarket.com/markets"
 
-def get_session():
-    session = requests.Session()
-    retries = Retry(total=3, backoff_factor=1, status_forcelist=[429, 500, 502, 503, 504])
-    session.mount("https://", HTTPAdapter(max_retries=retries))
-    return session
-
 def fetch_markets():
-    session = get_session()
     all_markets = []
     limit = 100
     offset = 0
     
-    print(f"📡 Démarrage scraping Gamma (Cible: {MAX_MARKETS_TO_FETCH} marchés)...")
+    print(f"📡 Scraping Gamma (Cible: {MAX_MARKETS_TO_FETCH})...")
 
     while len(all_markets) < MAX_MARKETS_TO_FETCH:
         try:
-            # Correction : Paramètres simplifiés pour éviter l'erreur 422
+            # Paramètres minimalistes pour garantir l'acceptation par l'API
             params = {
-                "active": "true",
-                "closed": "false",
                 "limit": limit,
-                "offset": offset
-                # On retire 'order' et 'ascending' car ils causent souvent le 422 si mal formatés
+                "offset": offset,
+                "active": "true"
             }
             
-            r = session.get(BASE_URL, params=params, timeout=15)
+            r = requests.get(BASE_URL, params=params, timeout=15)
             
-            # Debugging si l'erreur persiste
+            # Si ça échoue, on affiche l'URL exacte pour debug
             if r.status_code != 200:
-                print(f"⚠️ Erreur API {r.status_code}: {r.text}")
+                print(f"⚠️ Erreur {r.status_code} sur URL: {r.url}")
                 break
                 
             data = r.json()
@@ -49,10 +37,10 @@ def fetch_markets():
             print(f"   ↳ Batch reçu: {len(batch)} | Total: {len(all_markets)}")
             
             offset += limit
-            time.sleep(0.2) 
+            time.sleep(0.1) 
             
         except Exception as e:
-            print(f"⚠️ Erreur fetch critique : {e}")
+            print(f"⚠️ Erreur: {e}")
             break
 
     return all_markets
