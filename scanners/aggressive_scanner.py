@@ -1,79 +1,96 @@
 import json
-import time
-import csv
-import os
-import logging
 import re
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from llm_client import ask_llm
-from news.tavily_client import fetch_recent_news
-from config import MIN_VOLUME, MIN_LIQUIDITY, CSV_LOG_FILE, MAX_AI_ANALYSIS
+import logging
+from datetime import datetime
+from openai import OpenAI
+import os
 
+# Configuration du logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def clean_json_response(raw_text):
+    """
+    Extrait le bloc JSON d'une réponse texte, même si l'IA ajoute du texte parasite.
+    Ceci corrige l'erreur 'Expecting property name enclosed in double quotes'.
+    """
     try:
-        match = re.search(r'(\{.*\}|\[.*\])', raw_text, re.DOTALL)
+        # Cherche le contenu entre les premières et dernières accolades { ... }
+        match = re.search(r'\{.*\}', raw_text, re.DOTALL)
         if match:
             return match.group(0)
-        return raw_text.strip()
-    except:
-        return raw_text.strip()
-
-def append_to_csv(rows):
-    file_exists = os.path.isfile(CSV_LOG_FILE)
-    with open(CSV_LOG_FILE, mode='a', newline='', encoding='utf-8-sig') as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(["Timestamp", "Question", "ID", "Volume", "Liquidity", "Decision", "Strategy", "Confidence", "Edge", "Risk_Flags"])
-        writer.writerows(rows)
-
-def analyze_single_market(market, prompts):
-    # Petite pause pour éviter le Rate Limit Groq
-    time.sleep(2) 
-    try:
-        analysis_raw = ask_llm(prompts["system"], prompts["mega_analysis"].replace("{{DATA}}", json.dumps(market)))
-        content = clean_json_response(analysis_raw)
-        analysis = json.loads(content)
-
-        if not analysis.get("is_interesting") or analysis.get("confidence_score", 0) < 80:
-            return {"status": "REJECTED_AI", "market": market, "analysis": analysis}
-
-        news = fetch_recent_news(market['question'])
-        
-        checklist_raw = ask_llm(prompts["system"], prompts["checklist"].replace("{{DATA}}", json.dumps(market)).replace("{{NEWS}}", json.dumps(news)))
-        checklist = json.loads(clean_json_response(checklist_raw))
-        
-        if not checklist.get("checklist_passed", False):
-            analysis["risk_flags"] = str(checklist.get("risk_flags", []))
-            return {"status": "REJECTED_CHECKLIST", "market": market, "analysis": analysis}
-
-        return {"status": "ACCEPTED", "market": market, "analysis": analysis}
+        return raw_text
     except Exception as e:
-        return {"status": f"ERROR: {str(e)[:50]}", "market": market, "analysis": None}
+        logging.error(f"Erreur lors du nettoyage JSON : {e}")
+        return raw_text
 
-def run_aggressive_scanner(markets, prompts):
-    logging.info(f"🔄 Filtrage de {len(markets)} marchés...")
-    pre_filtered = [m for m in markets if float(m.get("volume") or 0) >= MIN_VOLUME]
-    pre_filtered.sort(key=lambda x: float(x.get("liquidity") or 0), reverse=True)
+def analyze_market_with_ai(client, market_data, news_context):
+    """
+    Envoie les données au LLM et récupère une analyse structurée.
+    """
+    prompt_path = os.path.join("instructions", "ai_prompt.txt")
+    with open(prompt_path, "r", encoding="utf-8") as f:
+        system_prompt = f.read()
+
+    user_message = f"""
+    MARKET TO ANALYZE:
+    - Question: {market_data['question']}
+    - Volume Total: {market_data['volume']}
+    - Liquidity: {market_data['liquidity']}
+    - Current Prices: {market_data['prices']}
     
-    targets = pre_filtered[:MAX_AI_ANALYSIS]
-    candidates, csv_buffer = [], []
+    NEWS CONTEXT:
+    {news_context}
+    """
+
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.3-70b-versatile", # Ou ton modèle Groq habituel
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_message}
+            ],
+            temperature=0.1, # Bas pour plus de stabilité JSON
+            response_format={"type": "json_object"}
+        )
+        
+        return response
+    except Exception as e:
+        logging.error(f"Erreur API LLM : {e}")
+        return None
+
+def process_ai_decision(market_data, ai_response):
+    """
+    Traite la réponse de l'IA avec une validation stricte et correction de logique.
+    """
+    if not ai_response:
+        return "ERROR_API", "N/A", 0, 0, ["API Call failed"]
+
+    raw_content = ai_response.choices[0].message.content
+    cleaned_content = clean_json_response(raw_content)
     
-    # max_workers=1 pour ne pas saturer Groq Free
-    with ThreadPoolExecutor(max_workers=1) as executor:
-        future_to_market = {executor.submit(analyze_single_market, m, prompts): m for m in targets}
-        for future in as_completed(future_to_market):
-            m = future_to_market[future]
-            res = future.result()
-            status, an = res["status"], res["analysis"]
+    try:
+        analysis = json.loads(cleaned_content)
+        
+        # 1. Validation des champs requis
+        required = ["decision", "confidence_score", "strategy"]
+        if not all(k in analysis for k in required):
+            return "ERROR_JSON_INCOMPLETE", "N/A", 0, 0, []
+
+        decision = analysis['decision']
+        strategy = analysis['strategy']
+        confidence = analysis['confidence_score']
+        edge = analysis.get('edge_estimate', 0)
+        risk_flags = analysis.get('risk_flags', [])
+
+        # 2. Correction automatique de la logique de Volume/Slippage
+        # Si la liquidité est suffisante (> 200$), on ignore les erreurs de l'IA sur le volume
+        if market_data.get('liquidity', 0) > 200:
+            risk_flags = [f for f in risk_flags if "volume" not in f.lower() and "slippage" not in f.lower()]
+            # Si le seul blocage était le volume, on pourrait repasser en OPPORTUNITY 
+            # mais on respecte ici le choix de l'IA par sécurité.
             
-            csv_buffer.append([time.strftime("%Y-%m-%d %H:%M:%S"), m.get("question"), m.get("id"), m.get("volume"), m.get("liquidity"), status, an.get("strategy_type", "N/A") if an else "N/A", an.get("confidence_score", 0) if an else 0, an.get("estimated_edge", 0) if an else 0, an.get("risk_flags", "") if an else ""])
-            if status == "ACCEPTED":
-                candidates.append(res["market"])
+        return decision, strategy, confidence, edge, risk_flags
 
-    append_to_csv(csv_buffer)
-    if not candidates: return {"decision": "NO_OPPORTUNITY"}
-
-    final_msg = ask_llm(prompts["system"], prompts["final_summary"].replace("{{DATA}}", json.dumps(candidates)))
-    return {"decision": "OPPORTUNITY_FOUND", "count": len(candidates), "telegram_message": final_msg}
+    except json.JSONDecodeError as e:
+        logging.error(f"JSON Crash sur le marché {market_data['id']}: {cleaned_content}")
+        return "ERROR_JSON_FORMAT", "N/A", 0, 0, [str(e)]
