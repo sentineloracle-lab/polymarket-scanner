@@ -29,27 +29,25 @@ def append_to_csv(row):
         writer.writerow(row)
 
 def get_ai_client():
-    """Initialise le client. Priorité absolue à Gemini si configuré."""
+    """Initialise le client Google Gemini."""
     gemini_key = os.getenv("GEMINI_API_KEY")
-    provider = os.getenv("LLM_PROVIDER", "gemini").lower()
-    
-    if gemini_key and (provider == "gemini" or not os.getenv("GROQ_API_KEY")):
-        logging.info("Système : Initialisation du client GOOGLE GEMINI")
-        return OpenAI(
-            api_key=gemini_key,
-            base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-        ), "gemini-1.5-flash"
-    else:
-        logging.info("Système : Initialisation du client GROQ")
-        return OpenAI(
-            api_key=os.getenv("GROQ_API_KEY"),
-            base_url="https://api.groq.com/openai/v1"
-        ), "llama-3.3-70b-versatile"
+    # On force Gemini comme convenu
+    logging.info("Système : Initialisation du client GOOGLE GEMINI")
+    return OpenAI(
+        api_key=gemini_key,
+        base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+    ), "gemini-1.5-flash"
 
 def analyze_market_with_ai(client, model_name, market_data):
-    prompt_path = os.path.join("prompts", "mega_analyst.txt")
+    # CORRECTION ICI : Le nom exact de ton fichier est mega_analysis.txt
+    prompt_path = os.path.join("prompts", "mega_analysis.txt")
+    
+    # Sécurité : si mega_analysis n'existe pas, on tente system.txt
     if not os.path.exists(prompt_path):
-        logging.error("Fichier prompt introuvable.")
+        prompt_path = os.path.join("prompts", "system.txt")
+        
+    if not os.path.exists(prompt_path):
+        logging.error(f"ERREUR CRITIQUE : Aucun fichier de prompt trouvé dans le dossier prompts/")
         return None
 
     with open(prompt_path, "r", encoding="utf-8") as f:
@@ -100,6 +98,7 @@ def run_aggressive_scanner(markets, prompts_dir):
                 logging.error(f"Erreur parsing JSON : {e}")
                 append_to_csv([time.strftime("%Y-%m-%d %H:%M:%S"), market['question'], market['id'], market['volume'], market['liquidity'], "ERROR_JSON", "N/A", 0, 0, str(e)])
         else:
-            append_to_csv([time.strftime("%Y-%m-%d %H:%M:%S"), market['question'], market['id'], market['volume'], market['liquidity'], "ERROR_API", "N/A", 0, 0, "Timeout ou Quota atteint"])
+            # On note l'échec dans le CSV pour le suivi
+            append_to_csv([time.strftime("%Y-%m-%d %H:%M:%S"), market['question'], market['id'], market['volume'], market['liquidity'], "ERROR_FILE_MISSING", "N/A", 0, 0, "Prompt file not found"])
 
     return {"decision": "SCAN_COMPLETED", "count": len(candidates), "markets": candidates}
