@@ -1,28 +1,25 @@
 import requests
 import time
-from config import MAX_MARKETS_TO_FETCH
 
-BASE_URL = "https://gamma-api.polymarket.com/markets"
-
+# VERSION CORRIGEE 2026.01.01 - SANS PARAMETRE ORDER
 def fetch_markets():
     all_markets = []
     limit = 100
     offset = 0
     
-    print(f"📡 Scraping Gamma (Cible: {MAX_MARKETS_TO_FETCH})...")
+    print(f"📡 Scraping Gamma (Cible: 500)...")
 
-    while len(all_markets) < MAX_MARKETS_TO_FETCH:
+    while len(all_markets) < 500:
         try:
-            # Paramètres minimalistes pour garantir l'acceptation par l'API
             params = {
+                "active": "true",
                 "limit": limit,
-                "offset": offset,
-                "active": "true"
+                "offset": offset
             }
             
-            r = requests.get(BASE_URL, params=params, timeout=15)
+            # Appel direct sans variables de session complexes pour tester
+            r = requests.get("https://gamma-api.polymarket.com/markets", params=params, timeout=15)
             
-            # Si ça échoue, on affiche l'URL exacte pour debug
             if r.status_code != 200:
                 print(f"⚠️ Erreur {r.status_code} sur URL: {r.url}")
                 break
@@ -35,9 +32,8 @@ def fetch_markets():
                 
             all_markets.extend(batch)
             print(f"   ↳ Batch reçu: {len(batch)} | Total: {len(all_markets)}")
-            
             offset += limit
-            time.sleep(0.1) 
+            time.sleep(0.2) 
             
         except Exception as e:
             print(f"⚠️ Erreur: {e}")
