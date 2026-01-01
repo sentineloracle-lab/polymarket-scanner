@@ -1,0 +1,16 @@
+Assess LIQUIDITY QUALITY.
+
+Score:
+- depth reliability
+- volume consistency
+- manipulation risk
+
+Market:
+{{DATA}}
+
+Return STRICT JSON:
+{
+  "liquidity_score": 0-100,
+  "liquidity_quality": "LOW/MEDIUM/HIGH",
+  "notes": ""
+}
