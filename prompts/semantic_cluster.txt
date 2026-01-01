@@ -1,0 +1,21 @@
+Cluster the following markets by SEMANTIC EVENT RELATIONSHIP.
+
+Identify:
+- correlated outcomes
+- shared resolution dependencies
+- inconsistent pricing between related markets
+
+Markets:
+{{DATA}}
+
+Return STRICT JSON:
+{
+  "clusters": [
+    {
+      "theme": "",
+      "markets": [],
+      "inconsistencies_detected": true/false,
+      "notes": ""
+    }
+  ]
+}
