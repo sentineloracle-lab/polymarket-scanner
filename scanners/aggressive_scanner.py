@@ -29,25 +29,24 @@ def append_to_csv(row):
         writer.writerow(row)
 
 def get_ai_client():
-    """Initialise le client Google Gemini."""
+    """Initialise le client Google Gemini avec le bon nom de modèle."""
     gemini_key = os.getenv("GEMINI_API_KEY")
-    # On force Gemini comme convenu
     logging.info("Système : Initialisation du client GOOGLE GEMINI")
+    # Pour Gemini via OpenAI, le nom du modèle doit souvent être préfixé ou exact
     return OpenAI(
         api_key=gemini_key,
         base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-    ), "gemini-1.5-flash"
+    ), "gemini-1.5-flash" # Le nom du modèle sans astérisques
 
 def analyze_market_with_ai(client, model_name, market_data):
-    # CORRECTION ICI : Le nom exact de ton fichier est mega_analysis.txt
+    # Chemin exact vers ton fichier
     prompt_path = os.path.join("prompts", "mega_analysis.txt")
     
-    # Sécurité : si mega_analysis n'existe pas, on tente system.txt
     if not os.path.exists(prompt_path):
         prompt_path = os.path.join("prompts", "system.txt")
         
     if not os.path.exists(prompt_path):
-        logging.error(f"ERREUR CRITIQUE : Aucun fichier de prompt trouvé dans le dossier prompts/")
+        logging.error("ERREUR : Aucun fichier de prompt trouvé.")
         return None
 
     with open(prompt_path, "r", encoding="utf-8") as f:
@@ -60,10 +59,25 @@ def analyze_market_with_ai(client, model_name, market_data):
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": f"MARKET: {market_data['question']} | DATA: {market_data}"}
             ],
-            temperature=0.1
+            temperature=0.1,
         )
         return response
     except Exception as e:
+        # Si le modèle simple échoue, on tente avec le préfixe complet exigé par certaines versions de l'API
+        if "not found" in str(e).lower() and model_name == "gemini-1.5-flash":
+            logging.info("Tentative avec le préfixe models/...")
+            try:
+                return client.chat.completions.create(
+                    model="models/gemini-1.5-flash",
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": f"MARKET: {market_data['question']} | DATA: {market_data}"}
+                    ],
+                    temperature=0.1,
+                )
+            except Exception as e2:
+                logging.error(f"Échec définitif Gemini : {e2}")
+                return None
         logging.error(f"Erreur API LLM ({model_name}) : {e}")
         return None
 
@@ -98,7 +112,6 @@ def run_aggressive_scanner(markets, prompts_dir):
                 logging.error(f"Erreur parsing JSON : {e}")
                 append_to_csv([time.strftime("%Y-%m-%d %H:%M:%S"), market['question'], market['id'], market['volume'], market['liquidity'], "ERROR_JSON", "N/A", 0, 0, str(e)])
         else:
-            # On note l'échec dans le CSV pour le suivi
-            append_to_csv([time.strftime("%Y-%m-%d %H:%M:%S"), market['question'], market['id'], market['volume'], market['liquidity'], "ERROR_FILE_MISSING", "N/A", 0, 0, "Prompt file not found"])
+            append_to_csv([time.strftime("%Y-%m-%d %H:%M:%S"), market['question'], market['id'], market['volume'], market['liquidity'], "ERROR_API_GEMINI", "N/A", 0, 0, "Erreur 404 ou 429"])
 
     return {"decision": "SCAN_COMPLETED", "count": len(candidates), "markets": candidates}
