@@ -1,27 +1,18 @@
-Run PRE-TRADE DISCIPLINE CHECKLIST.
+Agis comme un Risk Manager impitoyable.
+Je te donne un marché potentiel et les dernières news associées.
 
-Answer YES or NO.
+MARCHÉ : {{DATA}}
+NEWS RÉCENTES : {{NEWS}}
 
-Checklist:
-1. Traders likely exit before resolution
-2. Resolution is procedural and slow
-3. Price can remain wrong for days
-4. Capital lock acceptable
-5. No timing or latency dependency
+TA TÂCHE :
+Disqualifier ce trade si tu trouves la moindre faille.
+1. Est-ce que les news contredisent l'hypothèse de résolution ?
+2. Y a-t-il un risque de litige UMA (dispute) qui bloquerait les fonds pendant des mois ?
+3. Le volume est-il suffisant pour acheter au moins 10$ sans slippage massif ?
 
-Input:
-{{DATA}}
-
-Return STRICT JSON:
+RÉPONSE JSON :
 {
-  "checklist_passed": true/false,
-  "answers": {
-    "early_exit": "YES/NO",
-    "slow_resolution": "YES/NO",
-    "price_sticky": "YES/NO",
-    "capital_lock": "YES/NO",
-    "no_latency": "YES/NO"
-  },
-  "verdict": "ENTER/DO NOT ENTER",
-  "reason": ""
+  "checklist_passed": boolean,
+  "risk_flags": ["Liste des risques identifiés"],
+  "final_verdict": "GO" ou "NO_GO"
 }
