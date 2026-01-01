@@ -19,22 +19,22 @@ def clean_json_response(raw_text):
 
 def analyze_market_with_ai(client, market_data, news_context):
     """Envoie les données au LLM en utilisant le dossier prompts."""
-    # Correction du chemin : on utilise 'prompts' et non 'instructions'
     prompt_path = os.path.join("prompts", "mega_analyst.txt")
-    
     if not os.path.exists(prompt_path):
-        # Fallback sur system.txt si mega_analyst n'est pas trouvé
         prompt_path = os.path.join("prompts", "system.txt")
         
     with open(prompt_path, "r", encoding="utf-8") as f:
         system_prompt = f.read()
 
+    # Sécurité pour s'assurer que les prix sont lisibles
+    prices = market_data.get('prices', 'N/A')
+    
     user_message = f"""
     MARKET TO ANALYZE:
     - Question: {market_data.get('question', 'N/A')}
     - Volume Total: {market_data.get('volume', 0)}
     - Liquidity: {market_data.get('liquidity', 0)}
-    - Current Prices: {market_data.get('prices', 'N/A')}
+    - Current Prices: {prices}
     
     NEWS CONTEXT:
     {news_context}
@@ -68,8 +68,13 @@ def process_ai_decision(market_data, ai_response):
         decision = analysis.get('decision', 'REJECTED_AI')
         risk_flags = analysis.get('risk_flags', [])
 
-        # Sécurité : Si liquidité > 200, on ignore les erreurs de l'IA sur le volume
-        if market_data.get('liquidity', 0) > 200:
+        # FIX: Conversion forcée en float pour éviter l'erreur '>' entre str et int
+        try:
+            liquidity = float(market_data.get('liquidity', 0))
+        except (ValueError, TypeError):
+            liquidity = 0
+
+        if liquidity > 200:
             risk_flags = [f for f in risk_flags if "volume" not in f.lower() and "slippage" not in f.lower()]
             
         return (
@@ -85,28 +90,31 @@ def process_ai_decision(market_data, ai_response):
 
 def run_aggressive_scanner(markets, prompts_dir):
     """
-    FONCTION PRINCIPALE appelée par main.py.
+    FONCTION PRINCIPALE.
+    Retourne un DICTIONNAIRE pour correspondre à l'attente de main.py.
     """
-    # Initialisation du client Groq
     client = OpenAI(
         api_key=os.environ.get("GROQ_API_KEY"),
         base_url="https://api.groq.com/openai/v1"
     )
     
-    results = []
+    candidates = []
+    
     for market in markets:
-        # On passe un contexte vide ou simplifié si la fonction de news n'est pas passée
-        news = "Recherche contextuelle automatique."
-        
+        news = "Recherche contextuelle simplifiée."
         ai_res = analyze_market_with_ai(client, market, news)
         decision, strategy, conf, edge, flags = process_ai_decision(market, ai_res)
         
-        results.append({
-            "market": market,
-            "decision": decision,
-            "strategy": strategy,
-            "confidence": conf,
-            "edge": edge,
-            "flags": flags
-        })
-    return results
+        if decision == "OPPORTUNITY" and conf >= 80:
+            candidates.append(market)
+            logging.info(f"🟢 OPPORTUNITÉ : {market.get('question')}")
+
+    # Retourne un dictionnaire (pour éviter l'erreur TypeError: list indices...)
+    if not candidates:
+        return {"decision": "NO_OPPORTUNITY", "count": 0}
+    
+    return {
+        "decision": "OPPORTUNITY_FOUND", 
+        "count": len(candidates), 
+        "markets": candidates
+    }
