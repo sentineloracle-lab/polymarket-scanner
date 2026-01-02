@@ -6039,3 +6039,9 @@ A detailed migration guide is available here: https://github.com/openai/openai-p
 2026-01-02 01:26:59,Will @elonmusk post more than 70 new tweets by June 17?,213514,2840.099596,131.167777,ERROR_HTTP,N/A,0,0,Code 404
 2026-01-02 01:27:03,Will Turkey or Italy win their Euro 2020 match?,213587,5950.607147,99.000032,ERROR_HTTP,N/A,0,0,Code 404
 2026-01-02 01:27:07,Will Finland or Denmark win their Euro 2020 match?,213593,8523.847562,1427.293034,ERROR_HTTP,N/A,0,0,Code 404
+Fri Jan  2 04:12:39 2026,Will Joe Biden get Coronavirus before the election?,REJECTED_CHECKLIST
+Fri Jan  2 04:12:45 2026,"Will Airbnb begin publicly trading before Jan 1, 2021?",REJECTED_CHECKLIST
+Fri Jan  2 04:12:53 2026,"Will a new Supreme Court Justice be confirmed before Nov 3rd, 2020?",REJECTED_CHECKLIST
+Fri Jan  2 04:13:01 2026,"Will Kim Kardashian and Kanye West divorce before Jan 1, 2021?",REJECTED_CHECKLIST
+Fri Jan  2 04:13:10 2026,"Will Coinbase begin publicly trading before Jan 1, 2021?",REJECTED_CHECKLIST
+Fri Jan  2 04:13:19 2026,"What will the price of Bitcoin be on November 4th, 2020?",REJECTED_CHECKLIST
