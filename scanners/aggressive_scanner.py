@@ -15,43 +15,43 @@ def clean_json_response(raw_text):
         return match.group(0) if match else text.strip()
     except: return raw_text
 
-def append_to_csv(row):
-    file_path = "scan_history.csv"
-    file_exists = os.path.isfile(file_path)
-    with open(file_path, mode='a', newline='', encoding='utf-8-sig') as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(["Timestamp", "Question", "ID", "Volume", "Liquidity", "Decision", "Strategy", "Confidence", "Edge", "Risk_Flags"])
-        writer.writerow(row)
+def get_available_model(api_key):
+    """Interroge Google pour savoir quel modèle cette clé peut utiliser."""
+    url = f"https://generativelanguage.googleapis.com/v1beta/models?key={api_key}"
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            models = response.json().get('models', [])
+            # On cherche un modèle qui supporte generateContent et qui est un Gemini
+            for m in models:
+                if "generateContent" in m.get("supportedGenerationMethods", []) and "gemini" in m.get("name").lower():
+                    logging.info(f"✅ Modèle trouvé et sélectionné : {m.get('name')}")
+                    return m.get("name")
+        logging.error(f"Impossible de lister les modèles : {response.text}")
+    except Exception as e:
+        logging.error(f"Erreur lors du listage : {e}")
+    return None
 
 def run_aggressive_scanner(markets, prompts_dir):
     api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        logging.error("GEMINI_API_KEY manquante.")
-        return {"decision": "ERROR", "count": 0}
+    if not api_key: return {"decision": "ERROR", "count": 0}
 
-    # Stratégie de la dernière chance : Tester le modèle avec le préfixe "models/" explicite
-    # et l'endpoint de base sans spécifier de version si le 404 persiste.
-    model_name = "models/gemini-1.5-flash" 
-    url = f"https://generativelanguage.googleapis.com/v1beta/{model_name}:generateContent?key={api_key}"
+    # AUTO-DÉTECTION DU MODÈLE
+    model_path = get_available_model(api_key)
+    if not model_path:
+        logging.error("❌ Aucun modèle Gemini compatible trouvé pour cette clé API.")
+        return {"decision": "MODEL_NOT_FOUND", "count": 0}
+
+    url = f"https://generativelanguage.googleapis.com/v1beta/{model_path}:generateContent?key={api_key}"
     
     prompt_path = os.path.join("prompts", "mega_analysis.txt")
     if not os.path.exists(prompt_path): prompt_path = os.path.join("prompts", "system.txt")
     with open(prompt_path, "r", encoding="utf-8") as f: system_instructions = f.read()
 
     candidates = []
-    logging.info(f"🚀 Tentative finale (Model: {model_name})")
-
     for market in markets:
         try:
-            payload = {
-                "contents": [{
-                    "parts": [{
-                        "text": f"{system_instructions}\n\nDATA:\n{market}"
-                    }]
-                }]
-            }
-            
+            payload = {"contents": [{"parts": [{"text": f"{system_instructions}\n\nDATA:\n{market}"}]}]}
             response = requests.post(url, headers={'Content-Type': 'application/json'}, json=payload)
             
             if response.status_code == 200:
@@ -59,24 +59,18 @@ def run_aggressive_scanner(markets, prompts_dir):
                 raw_text = res_data['candidates'][0]['content']['parts'][0]['text']
                 analysis = json.loads(clean_json_response(raw_text))
                 
-                decision = analysis.get('decision', 'REJECTED_AI')
-                append_to_csv([
-                    time.strftime("%Y-%m-%d %H:%M:%S"), 
-                    market.get('question'), market.get('id'), market.get('volume'), 
-                    market.get('liquidity'), decision, analysis.get('strategy'), 
-                    analysis.get('confidence_score', 0), analysis.get('edge_estimate'), str(analysis.get('risk_flags'))
-                ])
-                
-                if decision == "OPPORTUNITY" and analysis.get('confidence_score', 0) >= 80:
+                if analysis.get('decision') == "OPPORTUNITY":
                     candidates.append(market)
                     logging.info(f"🟢 OPPORTUNITÉ : {market.get('question')}")
+                
+                # Sauvegarde CSV simplifiée pour le test
+                with open("scan_history.csv", "a") as f:
+                    csv.writer(f).writerow([time.ctime(), market.get('question'), analysis.get('decision')])
             else:
-                # Si ça échoue encore, on log la réponse COMPLETE de Google pour comprendre
-                logging.error(f"❌ Échec Critique {response.status_code}: {response.text}")
-                # On s'arrête après le premier échec pour ne pas spammer et pour analyser le log
+                logging.error(f"Échec sur {model_path}: {response.text}")
                 return {"decision": "API_FAILURE", "count": 0}
 
-            time.sleep(4)
+            time.sleep(2)
         except Exception as e:
             logging.error(f"Erreur : {e}")
 
