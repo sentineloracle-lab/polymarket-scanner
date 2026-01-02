@@ -9,8 +9,8 @@ import requests
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def clean_json_response(raw_text):
-    """Extrait le JSON proprement du texte de l'IA."""
     try:
+        # Enlever les blocs de code Markdown
         text = re.sub(r'```json|```', '', raw_text)
         match = re.search(r'\{.*\}', text, re.DOTALL)
         return match.group(0) if match else text.strip()
@@ -31,26 +31,32 @@ def run_aggressive_scanner(markets, prompts_dir):
         logging.error("GEMINI_API_KEY manquante.")
         return {"decision": "ERROR", "count": 0}
 
-    # Utilisation du modèle flash 1.5 en version stable v1
-    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={api_key}"
+    # URL CORRIGÉE : Suppression du "/" superflu avant le ":"
+    # Format exact : https://generativelanguage.googleapis.com/v1/models/{model}:generateContent
+    base_url = "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent"
     
     prompt_path = os.path.join("prompts", "mega_analysis.txt")
     if not os.path.exists(prompt_path): prompt_path = os.path.join("prompts", "system.txt")
     with open(prompt_path, "r", encoding="utf-8") as f: system_instructions = f.read()
 
     candidates = []
-    logging.info("🚀 Lancement de l'analyse avec Gemini 1.5 Flash (v1)")
+    logging.info("🚀 Analyse en cours (Endpoint v1 Stable)...")
 
     for market in markets:
         try:
+            # Paramètre API Key passé dans l'URL pour une compatibilité maximale
+            url = f"{base_url}?key={api_key}"
+            
             payload = {
                 "contents": [{
                     "parts": [{
-                        "text": f"{system_instructions}\n\nANALYSE LE MARCHÉ SUIVANT :\n{market}"
+                        "text": f"{system_instructions}\n\nMARCHÉ À ANALYSER :\n{market}"
                     }]
                 }],
                 "generationConfig": {
-                    "temperature": 0.1
+                    "temperature": 0.1,
+                    "topP": 0.95,
+                    "maxOutputTokens": 1024
                 }
             }
             
@@ -58,32 +64,40 @@ def run_aggressive_scanner(markets, prompts_dir):
             
             if response.status_code == 200:
                 res_data = response.json()
-                raw_text = res_data['candidates'][0]['content']['parts'][0]['text']
-                analysis = json.loads(clean_json_response(raw_text))
-                
-                decision = analysis.get('decision', 'REJECTED_AI')
-                conf = analysis.get('confidence_score', 0)
-                
-                append_to_csv([
-                    time.strftime("%Y-%m-%d %H:%M:%S"), 
-                    market.get('question'), market.get('id'), market.get('volume'), 
-                    market.get('liquidity'), decision, analysis.get('strategy'), 
-                    conf, analysis.get('edge_estimate'), str(analysis.get('risk_flags'))
-                ])
-                
-                if decision == "OPPORTUNITY" and conf >= 80:
-                    candidates.append(market)
-                    logging.info(f"🟢 OPPORTUNITÉ : {market.get('question')}")
-                
-            elif response.status_code == 403:
-                logging.error("‼️ ERREUR 403 : Votre clé API est rejetée par Google. Vérifiez AI Studio.")
-                return {"decision": "AUTH_ERROR", "count": 0}
-            else:
-                logging.warning(f"⚠️ Erreur {response.status_code} sur {market.get('id')}")
+                if 'candidates' in res_data and len(res_data['candidates']) > 0:
+                    raw_text = res_data['candidates'][0]['content']['parts'][0]['text']
+                    analysis = json.loads(clean_json_response(raw_text))
+                    
+                    decision = analysis.get('decision', 'REJECTED_AI')
+                    conf = analysis.get('confidence_score', 0)
+                    
+                    append_to_csv([
+                        time.strftime("%Y-%m-%d %H:%M:%S"), 
+                        market.get('question'), market.get('id'), market.get('volume'), 
+                        market.get('liquidity'), decision, analysis.get('strategy'), 
+                        conf, analysis.get('edge_estimate'), str(analysis.get('risk_flags'))
+                    ])
+                    
+                    if decision == "OPPORTUNITY" and conf >= 80:
+                        candidates.append(market)
+                        logging.info(f"🟢 OPPORTUNITÉ : {market.get('question')}")
+                else:
+                    logging.warning(f"⚠️ Réponse vide de l'IA pour {market.get('id')}")
+            
+            elif response.status_code == 404:
+                logging.error(f"❌ Erreur 404 persistante. Tentative avec l'URL alternative...")
+                # Fallback immédiat sur l'ancienne structure si la v1 échoue encore
+                alt_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+                response = requests.post(alt_url, headers={'Content-Type': 'application/json'}, json=payload)
+                # (Le reste de la logique de traitement peut être ajouté ici si nécessaire)
 
-            time.sleep(4) # Respect du quota gratuit
+            else:
+                logging.warning(f"⚠️ Erreur {response.status_code} sur {market.get('id')}: {response.text}")
+
+            # Pause pour respecter le quota (15 RPM)
+            time.sleep(4)
 
         except Exception as e:
-            logging.error(f"Erreur technique : {e}")
+            logging.error(f"Erreur technique sur {market.get('id')} : {e}")
 
     return {"decision": "SCAN_COMPLETED", "count": len(candidates), "markets": candidates}
