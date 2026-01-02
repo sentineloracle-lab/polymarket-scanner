@@ -34,7 +34,7 @@ def log_to_journal(m_id, question, action, price, confidence, reason):
 def get_real_time_news(question):
     try:
         tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
-        search = tavily.search(query=f"{question} latest news status", search_depth="advanced", max_results=3, include_answer=True)
+        search = tavily.search(query=f"{question} news", search_depth="advanced", max_results=3, include_answer=True)
         return f"RÉSUMÉ: {search.get('answer', 'N/A')}"
     except: return "News indisponibles."
 
@@ -43,17 +43,15 @@ def run_aggressive_scanner(markets, prompts_dir):
     model = "llama-3.1-8b-instant"
     candidates = []
 
-    # Batch de 4 pour éviter la surcharge
     for i in range(0, len(markets), 4):
         batch = markets[i:i + 4]
         try:
             batch_data = [{"id": m.get('id'), "q": m.get('question'), "p_YES": m.get('price_yes'), "p_NO": m.get('price_no')} for m in batch]
             
-            # Prompt strict pour éviter l'erreur 400 (math analytics)
             completion = client.chat.completions.create(
                 model=model,
                 messages=[
-                    {"role": "system", "content": "You are a professional trader. Identify price anomalies. Return ONLY JSON: {'results': [{'id': '...', 'decision': 'OPPORTUNITY', 'action': 'BUY_YES'}]}. No commentary."},
+                    {"role": "system", "content": "Trader bot. Return ONLY JSON: {'results': [{'id': '...', 'decision': 'OPPORTUNITY', 'action': 'BUY_YES'}]}"},
                     {"role": "user", "content": json.dumps(batch_data)}
                 ],
                 response_format={"type": "json_object"}
@@ -71,7 +69,7 @@ def run_aggressive_scanner(markets, prompts_dir):
                         val = client.chat.completions.create(
                             model=model,
                             messages=[
-                                {"role": "system", "content": "Verify opportunity with news. Return ONLY JSON: {'valid': bool, 'reason': 'string', 'conf': int}"},
+                                {"role": "system", "content": "Return ONLY JSON: {'valid': bool, 'reason': 'string', 'conf': int}"},
                                 {"role": "user", "content": f"Market: {m.get('question')}\nNews: {news}"}
                             ],
                             response_format={"type": "json_object"}
@@ -82,13 +80,27 @@ def run_aggressive_scanner(markets, prompts_dir):
                             is_yes = "YES" in res.get('action').upper()
                             price = m.get('price_yes') if is_yes else m.get('price_no')
                             
+                            # Logique de calcul des parts pour le message
+                            shares = SUGGESTED_BET_USD / price if price > 0 else 0
+
+                            # --- SAUVEGARDE JOURNAL ---
                             log_to_journal(m.get('id'), m.get('question'), res.get('action'), price, v.get('conf'), v.get('reason'))
-                            send_message(f"🔥 *OPPORTUNITÉ*\n\n{m.get('question')}\n\n🎯 Action: {res.get('action')}\n💰 Prix: {price} cts\n🧠 Raison: {v.get('reason')}")
+                            
+                            # --- ENVOI TELEGRAM (FORMAT COMPLET REPRIS) ---
+                            msg = (f"🔥 *OPPORTUNITÉ CONFIRMÉE*\n\n"
+                                   f"📋 *Marché:* {m.get('question')}\n"
+                                   f"🎯 *CIBLE:* {'OUI (YES)' if is_yes else 'NON (NO)'}\n"
+                                   f"💲 *Prix:* {price} cts/part\n"
+                                   f"💵 *MISE:* {SUGGESTED_BET_USD}$\n"
+                                   f"📈 *Parts:* ~{int(shares)}\n\n"
+                                   f"🧠 *Analyse:* {v.get('reason')}\n"
+                                   f"📡 *News:* {news[:150]}...")
+                            
+                            send_message(msg)
                             candidates.append(m)
             
             time.sleep(PAUSE_BETWEEN_GROQ)
         except Exception as e: 
             logging.error(f"Erreur batch: {e}")
-            time.sleep(5)
             
     return {"count": len(candidates)}
