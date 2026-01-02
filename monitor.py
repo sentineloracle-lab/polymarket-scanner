@@ -7,11 +7,9 @@ from telegram_client import send_message
 JOURNAL_FILE = "trading_journal.csv"
 
 def get_current_price(market_id, action):
-    """Récupère le prix actuel d'un marché spécifique via l'API Gamma."""
     try:
         response = requests.get(f"https://gamma-api.polymarket.com/markets/{market_id}")
         data = response.json()
-        # outcomePrices est souvent [Prix_YES, Prix_NO]
         prices = data.get('outcomePrices', [])
         if not prices: return None
         return float(prices[0] if "YES" in action.upper() else prices[1])
@@ -20,15 +18,13 @@ def get_current_price(market_id, action):
 
 def check_for_profits():
     if not os.path.exists(JOURNAL_FILE):
-        print("Journal introuvable. Rien à surveiller.")
         return
 
-    positions = []
     with open(JOURNAL_FILE, mode='r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         positions = list(reader)
 
-    logging.info(f"Vérification de {len(positions)} positions...")
+    logging.info(f"Analyse de {len(positions)} positions en cours...")
     
     for pos in positions:
         m_id = pos.get('ID')
@@ -42,16 +38,18 @@ def check_for_profits():
         
         if current_price:
             gain = (current_price - buy_price) / buy_price
-            if gain >= 0.20:
+            
+            # Alerte si gain >= 20% ET que le prix n'est pas encore au plafond (0.90)
+            if gain >= 0.20 and current_price < 0.90:
                 msg = (f"🚀 *ALERTE PROFIT (+{int(gain*100)}%)*\n\n"
                        f"📋 *Marché:* {market_name}\n"
                        f"💰 *Achat:* {buy_price} cts\n"
                        f"📈 *Actuel:* {current_price} cts\n\n"
-                       f"👉 *ACTION:* Pensez à revendre pour encaisser !")
+                       f"👉 Action : Pensez à revendre !")
                 send_message(msg)
-                print(f"Profit détecté pour {market_name}")
+            elif current_price >= 0.90:
+                logging.info(f"Profit max atteint pour {market_name} ({current_price}). Alerte muette.")
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     check_for_profits()
-    
