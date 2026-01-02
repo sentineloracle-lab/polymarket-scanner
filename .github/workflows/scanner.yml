@@ -9,7 +9,7 @@ jobs:
   run-scanner:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # IMPORTANT: Autorise le bot à écrire le fichier CSV sur votre repo
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
