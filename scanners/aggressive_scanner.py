@@ -2,11 +2,9 @@ import json
 import re
 import logging
 import os
-import csv
 import time
 from groq import Groq
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+from telegram_client import send_message # On utilise ton client existant
 
 def clean_json_response(raw_text):
     try:
@@ -18,19 +16,13 @@ def clean_json_response(raw_text):
 def run_aggressive_scanner(markets, prompts_dir):
     api_key = os.getenv("GROQ_API_KEY")
     client = Groq(api_key=api_key)
-    
-    # On utilise le 8B pour TOUT afin d'éviter le blocage TPD (Daily Limit)
-    # Ce modèle est ultra-rapide et gratuit pour de gros volumes
     model_fast = "llama-3.1-8b-instant"
     
-    # Chargement du prompt stratégique
-    with open(os.path.join("prompts", "mega_analysis.txt"), "r", encoding="utf-8") as f:
-        instructions = f.read()
+    instructions = "Expert en arbitrage. Détecte les opportunités réelles (Sport, Politique, News). Ignore les variations de prix Crypto. Réponds en JSON."
 
-    logging.info(f"⚡ Analyse de {len(markets)} marchés avec {model_fast}...")
-    
+    logging.info(f"⚡ Analyse de {len(markets)} marchés...")
     candidates = []
-    batch_size = 5 # Batch réduit pour plus de précision par marché
+    batch_size = 8 
 
     for i in range(0, len(markets), batch_size):
         batch = markets[i:i + batch_size]
@@ -40,7 +32,7 @@ def run_aggressive_scanner(markets, prompts_dir):
             completion = client.chat.completions.create(
                 model=model_fast,
                 messages=[
-                    {"role": "system", "content": f"{instructions}\n\nRéponds UNIQUEMENT en JSON sous la forme: {{'results': [{{'id': '...', 'decision': 'OPPORTUNITY' ou 'REJECTED', 'confidence_score': 0-100}}]}}"},
+                    {"role": "system", "content": f"{instructions}\nRéponds UNIQUEMENT en JSON: {{'results': [{{'id': '...', 'decision': 'OPPORTUNITY'|'REJECTED', 'confidence_score': 0-100, 'reason': '...'}}]}}"},
                     {"role": "user", "content": json.dumps(batch_data)}
                 ],
                 temperature=0.1,
@@ -50,18 +42,27 @@ def run_aggressive_scanner(markets, prompts_dir):
             data = json.loads(clean_json_response(completion.choices[0].message.content))
             results = data.get('results', [])
             
-            for j, res in enumerate(results):
-                m = batch[j] if j < len(batch) else {}
-                # Seuil de confiance abaissé à 75 pour le modèle 8B
-                if res.get('decision') == "OPPORTUNITY" and res.get('confidence_score', 0) >= 75:
-                    candidates.append(m)
-                    logging.info(f"🟢 OPPORTUNITÉ : {m.get('question')}")
+            for res in results:
+                if res.get('decision') == "OPPORTUNITY" and res.get('confidence_score', 0) >= 80:
+                    m = next((item for item in batch if str(item["id"]) == str(res.get('id'))), None)
+                    if m:
+                        # --- ENVOI DIRECT TELEGRAM ---
+                        msg = (f"🎯 *NOUVELLE OPPORTUNITÉ*\n\n"
+                               f"❓ *Question:* {m.get('question')}\n"
+                               f"📊 *Volume:* {m.get('volume')}$\n"
+                               f"🚀 *Confiance:* {res.get('confidence_score')}%\n"
+                               f"📝 *Raison:* {res.get('reason')}")
+                        send_message(msg)
+                        # ----------------------------
+                        candidates.append(m)
+                        logging.info(f"✅ Alerte envoyée pour : {m.get('question')}")
 
-            logging.info(f"📦 Batch {i//batch_size + 1} terminé.")
-            time.sleep(1.5) # Protection contre le Rate Limit par minute
+            time.sleep(2.2) # Pour éviter l'erreur 429
             
         except Exception as e:
-            logging.error(f"Erreur Batch {i}: {e}")
-            time.sleep(2)
+            if "429" in str(e):
+                time.sleep(10)
+            else:
+                logging.error(f"Erreur : {e}")
 
     return {"decision": "SCAN_COMPLETED", "count": len(candidates), "markets": candidates}
