@@ -2,8 +2,8 @@ name: Polymarket Scanner Cron
 
 on:
   schedule:
-    - cron: '0 */4 * * *'  # S'exécute toutes les 4 heures
-  workflow_dispatch:      # Permet le lancement manuel pour test
+    - cron: '0 * * * *'  # S'exécute toutes les heures (pile à l'heure)
+  workflow_dispatch:      # Permet le lancement manuel depuis l'onglet Actions
 
 jobs:
   run-scanner:
@@ -37,7 +37,9 @@ jobs:
         run: |
           git config --global user.name "Scanner Bot"
           git config --global user.email "bot@github.com"
-          git add scan_history.csv
-          # Le [skip ci] est crucial pour ne pas déclencher un build infini
-          git commit -m "📈 Update Scan History (via Groq) [skip ci]" || exit 0
+          # On ajoute scan_history.csv mais aussi opportunities_found.csv si vous l'avez activé
+          git add scan_history.csv || true
+          git add opportunities_found.csv || true
+          # Le [skip ci] évite que le bot ne déclenche un nouveau scan en boucle
+          git commit -m "📈 Hourly Market Analysis Update [skip ci]" || exit 0
           git push
