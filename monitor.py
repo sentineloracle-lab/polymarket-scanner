@@ -6,51 +6,52 @@ from telegram_client import send_message
 
 JOURNAL_FILE = "trading_journal.csv"
 
-def check_prices():
+def get_current_price(market_id, action):
+    """Récupère le prix actuel d'un marché spécifique via l'API Gamma."""
+    try:
+        response = requests.get(f"https://gamma-api.polymarket.com/markets/{market_id}")
+        data = response.json()
+        # outcomePrices est souvent [Prix_YES, Prix_NO]
+        prices = data.get('outcomePrices', [])
+        if not prices: return None
+        return float(prices[0] if "YES" in action.upper() else prices[1])
+    except:
+        return None
+
+def check_for_profits():
     if not os.path.exists(JOURNAL_FILE):
+        print("Journal introuvable. Rien à surveiller.")
         return
 
-    # 1. Lire les positions ouvertes dans le journal
+    positions = []
     with open(JOURNAL_FILE, mode='r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         positions = list(reader)
 
-    if not positions:
-        return
-
-    # 2. Récupérer les prix actuels sur Polymarket (Gamma API)
-    # Note: On simplifie ici, l'idéal est de refaire un appel API pour les IDs précis
-    try:
-        response = requests.get("https://gamma-api.polymarket.com/markets?active=true&limit=100")
-        current_markets = {str(m['id']): m for m in response.json()}
-    except Exception as e:
-        print(f"Erreur API: {e}")
-        return
-
-    # 3. Comparer
+    logging.info(f"Vérification de {len(positions)} positions...")
+    
     for pos in positions:
-        m_id = pos.get('id') # Il faudra s'assurer que l'ID est dans le journal
-        buy_price = float(pos['Prix'])
-        action = pos['Action']
+        m_id = pos.get('ID')
+        buy_price = float(pos.get('Prix', 0))
+        market_name = pos.get('Marche')
+        action = pos.get('Action')
+
+        if not m_id or buy_price == 0: continue
+
+        current_price = get_current_price(m_id, action)
         
-        # Simulation de recherche par nom si l'ID n'est pas parfait
-        market_name = pos['Marche']
-        
-        # Logique de détection de hausse (Exemple simplifié par nom)
-        for mid, mdata in current_markets.items():
-            if mdata['question'] == market_name:
-                current_price = float(mdata['outcomePrices'][0] if "YES" in action else mdata['outcomePrices'][1])
-                
-                # Calcul de la performance
-                change = (current_price - buy_price) / buy_price
-                
-                if change >= 0.20:
-                    msg = (f"🚀 *ALERTE PROFIT (+{int(change*100)}%)*\n\n"
-                           f"📋 *Marché:* {market_name}\n"
-                           f"💰 *Prix achat:* {buy_price}\n"
-                           f"📈 *Prix actuel:* {current_price}\n\n"
-                           f"💡 Conseil : Pensez à revendre une partie ou la totalité pour sécuriser vos gains !")
-                    send_message(msg)
+        if current_price:
+            gain = (current_price - buy_price) / buy_price
+            if gain >= 0.20:
+                msg = (f"🚀 *ALERTE PROFIT (+{int(gain*100)}%)*\n\n"
+                       f"📋 *Marché:* {market_name}\n"
+                       f"💰 *Achat:* {buy_price} cts\n"
+                       f"📈 *Actuel:* {current_price} cts\n\n"
+                       f"👉 *ACTION:* Pensez à revendre pour encaisser !")
+                send_message(msg)
+                print(f"Profit détecté pour {market_name}")
 
 if __name__ == "__main__":
-    check_prices()
+    logging.basicConfig(level=logging.INFO)
+    check_for_profits()
+    
