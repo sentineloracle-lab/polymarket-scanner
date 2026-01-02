@@ -2,9 +2,9 @@ name: Polymarket Scanner Cron
 
 on:
   schedule:
-    # S'exécute toutes les 20 minutes (0, 20, 40)
-    - cron: '*/20 * * * *'
-  workflow_dispatch: # Permet de le lancer manuellement
+    # S'exécute toutes les 45 minutes
+    - cron: '*/45 * * * *'
+  workflow_dispatch: # Permet toujours le lancement manuel
 
 jobs:
   run-scanner:
