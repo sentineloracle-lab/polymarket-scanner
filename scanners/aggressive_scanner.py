@@ -17,7 +17,6 @@ def clean_json_response(raw_text):
 def get_smart_search_query(question):
     """Génère une requête de recherche ultra-ciblée selon le contexte."""
     q = question.lower()
-    # Mots-clés de rupture selon le domaine
     if any(word in q for word in ["vs", "fc", "united", "city", "real", "cup", "league"]):
         return f"{question} injury news, starting lineup rumors, latest team news"
     elif any(word in q for word in ["election", "president", "trump", "biden", "senate", "poll"]):
@@ -34,16 +33,14 @@ def get_real_time_news(question):
         query = get_smart_search_query(question)
         logging.info(f"🔎 Recherche Tavily optimisée : {query}")
         
-        # On utilise search_depth="advanced" et on demande spécifiquement des news
         search = tavily.search(
             query=query, 
             search_depth="advanced", 
             max_results=5,
-            include_answer=True # Tavily essaiera de résumer lui-même
+            include_answer=True
         )
         
         context = ""
-        # On récupère l'IA answer de Tavily si elle existe, sinon les snippets
         if search.get('answer'):
             context = f"RÉSUMÉ TAVILY : {search.get('answer')}\n\n"
         
@@ -60,7 +57,6 @@ def run_aggressive_scanner(markets, prompts_dir):
     client = Groq(api_key=api_key)
     model_fast = "llama-3.1-8b-instant"
     
-    # Nouveau prompt système pour forcer l'IA à être critique vis-à-vis des news
     instructions = """Tu es un analyste financier de haut niveau. 
     Ta mission est de confronter les cotes de Polymarket aux dernières informations du terrain.
     - Si les news confirment un avantage non reflété dans le prix -> OPPORTUNITY.
@@ -94,11 +90,10 @@ def run_aggressive_scanner(markets, prompts_dir):
                     if m:
                         news_context = get_real_time_news(m.get('question'))
                         
-                        # VALIDATION FINALE avec un prompt beaucoup plus sévère
                         validation = client.chat.completions.create(
                             model=model_fast,
                             messages=[
-                                {"role": "system", "content": "Tu dois valider un trade. Sois extrêmement critique. Si les news n'apportent pas de preuve concrète (blessure, sondage précis, annonce), rejette le trade. Réponds en JSON: {'valid': true/false, 'final_reason': '...', 'confidence': 0-100}"},
+                                {"role": "system", "content": "Tu dois valider un trade. Sois extrêmement critique. Si les news n'apportent pas de preuve concrète (blessure, sondage précis, annonce), rejette le trade. Réponds en JSON: {'valid': true, 'final_reason': '...', 'confidence': 90}"},
                                 {"role": "user", "content": f"Marché: {m.get('question')}\nAction: {res.get('action')}\nNews:\n{news_context}"}
                             ],
                             response_format={"type": "json_object"}
@@ -108,8 +103,11 @@ def run_aggressive_scanner(markets, prompts_dir):
                         
                         if v_data.get('valid') is True and v_data.get('confidence', 0) > 75:
                             current_price = m.get('price_yes') if "YES" in res.get('action') else m.get('price_no')
+                            
+                            # --- MESSAGE TELEGRAM AVEC QUESTION RÉELLE ---
                             msg = (f"🔥 *OPPORTUNITÉ CONFIRMÉE*\n\n"
-                                   f"❓ *Marché:* {m.get('question')}\n"
+                                   f"📋 *Marché:* {m.get('question')}\n"
+                                   f"❓ *Question Polymarket:* {m.get('question')}\n"
                                    f"📊 *Volume:* {m.get('volume')}$\n"
                                    f"💲 *Prix:* {current_price} cts\n"
                                    f"👉 *ACTION:* {res.get('action')}\n"
