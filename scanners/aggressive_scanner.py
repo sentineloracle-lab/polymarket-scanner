@@ -65,6 +65,7 @@ def run_aggressive_scanner(markets, prompts_dir):
     logging.info(f"⚡ Scan High-Precision sur {len(markets)} marchés...")
     candidates = []
     batch_size = 5
+    SUGGESTED_BET_USD = 10.0 # Mise standard par défaut
 
     for i in range(0, len(markets), batch_size):
         batch = markets[i:i + batch_size]
@@ -74,7 +75,7 @@ def run_aggressive_scanner(markets, prompts_dir):
             completion = client.chat.completions.create(
                 model=model_fast,
                 messages=[
-                    {"role": "system", "content": f"Analyse ces marchés et identifie les anomalies de prix. Réponds en JSON: {{'results': [{{'id': '...', 'decision': 'OPPORTUNITY'|'REJECTED', 'action': '...', 'amount': '...', 'reason': '...'}}]}}"},
+                    {"role": "system", "content": f"Analyse ces marchés et identifie les anomalies de prix. Réponds en JSON: {{'results': [{{'id': '...', 'decision': 'OPPORTUNITY'|'REJECTED', 'action': 'BUY_YES'|'BUY_NO', 'reason': '...'}}]}}"},
                     {"role": "user", "content": json.dumps(batch_data)}
                 ],
                 temperature=0.1,
@@ -93,7 +94,7 @@ def run_aggressive_scanner(markets, prompts_dir):
                         validation = client.chat.completions.create(
                             model=model_fast,
                             messages=[
-                                {"role": "system", "content": "Tu dois valider un trade. Sois extrêmement critique. Si les news n'apportent pas de preuve concrète (blessure, sondage précis, annonce), rejette le trade. Réponds en JSON: {'valid': true, 'final_reason': '...', 'confidence': 90}"},
+                                {"role": "system", "content": "Tu dois valider un trade. Sois extrêmement critique. Si les news n'apportent pas de preuve concrète, rejette le trade. Réponds en JSON: {'valid': true/false, 'final_reason': '...', 'confidence': 0-100}"},
                                 {"role": "user", "content": f"Marché: {m.get('question')}\nAction: {res.get('action')}\nNews:\n{news_context}"}
                             ],
                             response_format={"type": "json_object"}
@@ -102,18 +103,24 @@ def run_aggressive_scanner(markets, prompts_dir):
                         v_data = json.loads(clean_json_response(validation.choices[0].message.content))
                         
                         if v_data.get('valid') is True and v_data.get('confidence', 0) > 75:
-                            current_price = m.get('price_yes') if "YES" in res.get('action') else m.get('price_no')
+                            # Calcul du prix et du nombre de parts
+                            is_yes = "YES" in res.get('action').upper()
+                            current_price = m.get('price_yes') if is_yes else m.get('price_no')
                             
-                            # --- MESSAGE TELEGRAM AVEC QUESTION RÉELLE ---
+                            # Sécurité division par zéro
+                            shares = SUGGESTED_BET_USD / current_price if current_price > 0 else 0
+                            target_outcome = "OUI (YES)" if is_yes else "NON (NO)"
+
+                            # --- MESSAGE TELEGRAM CLARIFIÉ ---
                             msg = (f"🔥 *OPPORTUNITÉ CONFIRMÉE*\n\n"
                                    f"📋 *Marché:* {m.get('question')}\n"
-                                   f"❓ *Question Polymarket:* {m.get('question')}\n"
+                                   f"🎯 *CIBLE:* Acheter du {target_outcome}\n"
                                    f"📊 *Volume:* {m.get('volume')}$\n"
-                                   f"💲 *Prix:* {current_price} cts\n"
-                                   f"👉 *ACTION:* {res.get('action')}\n"
-                                   f"💵 *Mise:* {res.get('amount')}\n\n"
+                                   f"💲 *Prix actuel:* {current_price} cts / part\n\n"
+                                   f"💵 *MISE SUGGÉRÉE:* {SUGGESTED_BET_USD}$\n"
+                                   f"📈 *Quantité estimée:* ~{int(shares)} parts\n\n"
                                    f"🧠 *Analyse Expert:* {v_data.get('final_reason')}\n\n"
-                                   f"📡 *Infos trouvées:* {news_context[:200]}...")
+                                   f"📡 *Source News:* {news_context[:150]}...")
                             
                             send_message(msg)
                             candidates.append(m)
