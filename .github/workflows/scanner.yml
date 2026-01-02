@@ -29,3 +29,10 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python main.py
+      - name: Commit and push journal changes
+        run: |
+          git config --global user.name "Scanner Bot"
+          git config --global user.email "bot@scanner.com"
+          git add trading_journal.csv
+          # On ne commit que s'il y a des changements
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update trading journal [skip ci]" && git push)
