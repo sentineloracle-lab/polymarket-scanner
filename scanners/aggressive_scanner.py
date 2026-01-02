@@ -7,6 +7,10 @@ from groq import Groq
 from telegram_client import send_message
 from tavily import TavilyClient
 
+# Configuration des quotas
+SUGGESTED_BET_USD = 10.0
+PAUSE_BETWEEN_GROQ = 3.0  # Pour éviter l'erreur 429
+
 def clean_json_response(raw_text):
     try:
         text = re.sub(r'```json|```', '', raw_text)
@@ -15,119 +19,91 @@ def clean_json_response(raw_text):
     except: return raw_text
 
 def get_smart_search_query(question):
-    """Génère une requête de recherche ultra-ciblée selon le contexte."""
     q = question.lower()
     if any(word in q for word in ["vs", "fc", "united", "city", "real", "cup", "league"]):
         return f"{question} injury news, starting lineup rumors, latest team news"
     elif any(word in q for word in ["election", "president", "trump", "biden", "senate", "poll"]):
-        return f"{question} latest poll results, breaking political news, prediction market analysis"
-    elif any(word in q for word in ["temperature", "weather", "rain", "snow"]):
-        return f"{question} official weather forecast, historical records, climate data"
-    else:
-        return f"{question} latest breaking news, status update, expert analysis"
+        return f"{question} latest poll results, breaking political news"
+    return f"{question} latest breaking news, status update"
 
 def get_real_time_news(question):
-    """Recherche approfondie avec requêtes optimisées."""
     try:
         tavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
         query = get_smart_search_query(question)
-        logging.info(f"🔎 Recherche Tavily optimisée : {query}")
+        search = tavily.search(query=query, search_depth="advanced", max_results=3, include_answer=True)
         
-        search = tavily.search(
-            query=query, 
-            search_depth="advanced", 
-            max_results=5,
-            include_answer=True
-        )
-        
-        context = ""
-        if search.get('answer'):
-            context = f"RÉSUMÉ TAVILY : {search.get('answer')}\n\n"
-        
-        for result in search.get('results', []):
-            context += f"• {result['title']}: {result['content'][:300]}...\n"
-            
-        return context if context else "Aucune info pertinente trouvée."
+        context = f"RÉSUMÉ: {search.get('answer', 'N/A')}\n"
+        for r in search.get('results', []):
+            context += f"• {r['title']}\n"
+        return context
     except Exception as e:
-        logging.error(f"Erreur Tavily: {e}")
-        return "Erreur lors de la recherche de news."
+        return f"Erreur News: {str(e)}"
 
 def run_aggressive_scanner(markets, prompts_dir):
-    api_key = os.getenv("GROQ_API_KEY")
-    client = Groq(api_key=api_key)
-    model_fast = "llama-3.1-8b-instant"
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+    model = "llama-3.1-8b-instant"
     
-    instructions = """Tu es un analyste financier de haut niveau. 
-    Ta mission est de confronter les cotes de Polymarket aux dernières informations du terrain.
-    - Si les news confirment un avantage non reflété dans le prix -> OPPORTUNITY.
-    - Si les news sont vagues ou contredisent l'opportunité -> REJECTED."""
-
-    logging.info(f"⚡ Scan High-Precision sur {len(markets)} marchés...")
+    logging.info(f"⚡ Scan optimisé sur {len(markets)} marchés...")
     candidates = []
-    batch_size = 5
-    SUGGESTED_BET_USD = 10.0 # Mise standard par défaut
+    
+    # On réduit la taille des lots pour ne pas saturer l'API
+    batch_size = 4 
 
     for i in range(0, len(markets), batch_size):
         batch = markets[i:i + batch_size]
         try:
-            batch_data = [{"id": m.get('id'), "q": m.get('question'), "vol": m.get('volume'), "p_YES": m.get('price_yes'), "p_NO": m.get('price_no')} for m in batch]
+            batch_data = [{"id": m.get('id'), "q": m.get('question'), "p_YES": m.get('price_yes'), "p_NO": m.get('price_no')} for m in batch]
             
+            # Étape 1 : Filtrage par prix (Groq)
             completion = client.chat.completions.create(
-                model=model_fast,
-                messages=[
-                    {"role": "system", "content": f"Analyse ces marchés et identifie les anomalies de prix. Réponds en JSON: {{'results': [{{'id': '...', 'decision': 'OPPORTUNITY'|'REJECTED', 'action': 'BUY_YES'|'BUY_NO', 'reason': '...'}}]}}"},
-                    {"role": "user", "content": json.dumps(batch_data)}
-                ],
-                temperature=0.1,
+                model=model,
+                messages=[{"role": "system", "content": "Identifie uniquement les anomalies de prix flagrantes. Réponds en JSON: {'results': [{'id': '...', 'decision': 'OPPORTUNITY'|'REJECTED', 'action': 'BUY_YES'|'BUY_NO'}]}"},
+                          {"role": "user", "content": json.dumps(batch_data)}],
                 response_format={"type": "json_object"}
             )
             
             data = json.loads(clean_json_response(completion.choices[0].message.content))
-            results = data.get('results', [])
             
-            for res in results:
+            for res in data.get('results', []):
                 if res.get('decision') == "OPPORTUNITY":
                     m = next((item for item in batch if str(item["id"]) == str(res.get('id'))), None)
                     if m:
+                        # Étape 2 : News (Seulement si l'étape 1 est validée)
                         news_context = get_real_time_news(m.get('question'))
                         
-                        validation = client.chat.completions.create(
-                            model=model_fast,
-                            messages=[
-                                {"role": "system", "content": "Tu dois valider un trade. Sois extrêmement critique. Si les news n'apportent pas de preuve concrète, rejette le trade. Réponds en JSON: {'valid': true/false, 'final_reason': '...', 'confidence': 0-100}"},
-                                {"role": "user", "content": f"Marché: {m.get('question')}\nAction: {res.get('action')}\nNews:\n{news_context}"}
-                            ],
+                        # Étape 3 : Validation Finale
+                        time.sleep(PAUSE_BETWEEN_GROQ) # Pause anti-429
+                        val = client.chat.completions.create(
+                            model=model,
+                            messages=[{"role": "system", "content": "Valide ce trade avec les news. Réponds en JSON: {'valid': true/false, 'reason': '...', 'conf': 0-100}"},
+                                      {"role": "user", "content": f"Marché: {m.get('question')}\nAction: {res.get('action')}\nNews: {news_context}"}],
                             response_format={"type": "json_object"}
                         )
                         
-                        v_data = json.loads(clean_json_response(validation.choices[0].message.content))
+                        v = json.loads(clean_json_response(val.choices[0].message.content))
                         
-                        if v_data.get('valid') is True and v_data.get('confidence', 0) > 75:
-                            # Calcul du prix et du nombre de parts
+                        if v.get('valid') and v.get('conf', 0) > 80:
                             is_yes = "YES" in res.get('action').upper()
-                            current_price = m.get('price_yes') if is_yes else m.get('price_no')
+                            price = m.get('price_yes') if is_yes else m.get('price_no')
+                            shares = SUGGESTED_BET_USD / price if price > 0 else 0
                             
-                            # Sécurité division par zéro
-                            shares = SUGGESTED_BET_USD / current_price if current_price > 0 else 0
-                            target_outcome = "OUI (YES)" if is_yes else "NON (NO)"
-
-                            # --- MESSAGE TELEGRAM CLARIFIÉ ---
                             msg = (f"🔥 *OPPORTUNITÉ CONFIRMÉE*\n\n"
                                    f"📋 *Marché:* {m.get('question')}\n"
-                                   f"🎯 *CIBLE:* Acheter du {target_outcome}\n"
-                                   f"📊 *Volume:* {m.get('volume')}$\n"
-                                   f"💲 *Prix actuel:* {current_price} cts / part\n\n"
-                                   f"💵 *MISE SUGGÉRÉE:* {SUGGESTED_BET_USD}$\n"
-                                   f"📈 *Quantité estimée:* ~{int(shares)} parts\n\n"
-                                   f"🧠 *Analyse Expert:* {v_data.get('final_reason')}\n\n"
-                                   f"📡 *Source News:* {news_context[:150]}...")
+                                   f"🎯 *CIBLE:* {'OUI (YES)' if is_yes else 'NON (NO)'}\n"
+                                   f"💲 *Prix:* {price} cts/part\n"
+                                   f"💵 *MISE:* {SUGGESTED_BET_USD}$\n"
+                                   f"📈 *Parts:* ~{int(shares)}\n\n"
+                                   f"🧠 *Analyse:* {v.get('reason')}\n"
+                                   f"📡 *News:* {news_context[:150]}...")
                             
                             send_message(msg)
                             candidates.append(m)
 
-            time.sleep(2) 
+            # Pause entre les lots pour éviter le 429
+            time.sleep(PAUSE_BETWEEN_GROQ)
             
         except Exception as e:
-            logging.error(f"Erreur : {e}")
+            logging.error(f"Erreur batch: {e}")
+            time.sleep(10) # Grosse pause si erreur
 
-    return {"decision": "SCAN_COMPLETED", "count": len(candidates), "markets": candidates}
+    return {"decision": "SCAN_FINISHED", "count": len(candidates)}
