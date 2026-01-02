@@ -41,7 +41,7 @@ def filter_active_markets(markets):
         try:
             # 1. Ignorer les marchés avec une liquidité ridicule ou nulle
             liquidity = float(m.get('liquidity', 0))
-            if liquidity < 500: # Seuil minimum de 500$ pour éviter le "bruit"
+            if liquidity < 100: # Seuil minimum de 500$ pour éviter le "bruit"
                 continue
                 
             # 2. Ignorer les marchés qui semblent terminés ou vieux
