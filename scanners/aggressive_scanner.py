@@ -18,30 +18,29 @@ def run_aggressive_scanner(markets, prompts_dir):
     client = Groq(api_key=api_key)
     model_fast = "llama-3.1-8b-instant"
     
-    # NOUVEAU PROMPT : On lui apprend à être un trader
-    instructions = """Tu es un conseiller en paris sportifs et politiques expert.
-    Ta mission : Identifier si le prix actuel (Cote) est sous-évalué ou sur-évalué.
+    # Prompt affiné pour forcer des raisons contextuelles
+    instructions = """Tu es un analyste expert en paris.
+    Objectif : Trouver des erreurs de prix (Value Bet).
     
-    RÈGLES D'ACTION :
-    - Si un événement est TRÈS probable mais que le prix YES est bas (<0.60) -> RECOMMANDATION : BUY YES.
-    - Si un événement est PEU probable mais que le prix YES est haut (>0.40) -> RECOMMANDATION : BUY NO.
-    - Calcul du montant (Mise) :
-       * Confiance 90%+ -> Mise Fort (50$)
-       * Confiance 80-90% -> Mise Moyenne (20$)
-       * Confiance <80% -> REJECTED
-    """
+    RÈGLES :
+    1. Compare le Prix (Cote) à la probabilité réelle de l'événement.
+    2. Si Probabilité Réelle >> Prix du marché -> OPPORTUNITY.
+    3. Action : 'BUY YES' (si sous-coté) ou 'BUY NO' (si sur-coté).
+    4. Mise : 50$ (Confiance >90%), 20$ (Confiance >80%).
+    
+    IMPORTANT : Dans le champ 'reason', ne dis pas juste "bonne probabilité". Donne un argument contextuel (ex: "L'équipe joue à domicile", "Le candidat est en tête des sondages", etc.)."""
 
     logging.info(f"⚡ Analyse Advisor de {len(markets)} marchés...")
     candidates = []
-    batch_size = 5 # Petit batch pour laisser l'IA réfléchir aux prix
+    batch_size = 5
 
     for i in range(0, len(markets), batch_size):
         batch = markets[i:i + batch_size]
         try:
-            # On envoie les prix à l'IA maintenant
             batch_data = [{
                 "id": m.get('id'), 
                 "q": m.get('question'), 
+                "vol": m.get('volume'), # On passe le volume à l'IA aussi
                 "price_YES": m.get('price_yes'),
                 "price_NO": m.get('price_no')
             } for m in batch]
@@ -49,7 +48,7 @@ def run_aggressive_scanner(markets, prompts_dir):
             completion = client.chat.completions.create(
                 model=model_fast,
                 messages=[
-                    {"role": "system", "content": f"{instructions}\nRéponds UNIQUEMENT en JSON: {{'results': [{{'id': '...', 'decision': 'OPPORTUNITY'|'REJECTED', 'action': 'BUY YES'|'BUY NO', 'amount': '20$', 'reason': 'Court et précis'}}]}}"},
+                    {"role": "system", "content": f"{instructions}\nRéponds UNIQUEMENT en JSON: {{'results': [{{'id': '...', 'decision': 'OPPORTUNITY'|'REJECTED', 'action': 'BUY YES'|'BUY NO', 'amount': '20$', 'reason': '...'}}]}}"},
                     {"role": "user", "content": json.dumps(batch_data)}
                 ],
                 temperature=0.1,
@@ -63,18 +62,24 @@ def run_aggressive_scanner(markets, prompts_dir):
                 if res.get('decision') == "OPPORTUNITY":
                     m = next((item for item in batch if str(item["id"]) == str(res.get('id'))), None)
                     if m:
-                        # --- MESSAGE TELEGRAM AMÉLIORÉ ---
-                        price_display = m.get('price_yes') if 'YES' in res.get('action') else m.get('price_no')
+                        # Logique d'affichage du prix correct
+                        if "YES" in res.get('action'):
+                            current_price = m.get('price_yes')
+                        else:
+                            current_price = m.get('price_no')
                         
+                        # --- FORMAT DU MESSAGE (Volume + Raison) ---
                         msg = (f"💰 *CONSEIL TRADING*\n\n"
                                f"❓ *Marché:* {m.get('question')}\n"
-                               f"💲 *Prix actuel:* {price_display} cts\n"
+                               f"📊 *Volume:* {m.get('volume')}$\n"
+                               f"💲 *Prix payé:* {current_price} cts\n"
                                f"👉 *ACTION:* {res.get('action')}\n"
-                               f"💵 *Mise conseillée:* {res.get('amount')}\n\n"
-                               f"📝 *Analyse:* {res.get('reason')}")
+                               f"💵 *Mise:* {res.get('amount')}\n\n"
+                               f"📝 *Raison:* {res.get('reason')}")
+                        # -------------------------------------------
                         
                         send_message(msg)
-                        logging.info(f"✅ Conseil envoyé : {res.get('action')} sur {m.get('question')}")
+                        logging.info(f"✅ Conseil envoyé : {m.get('question')}")
                         candidates.append(m)
 
             time.sleep(2) 
