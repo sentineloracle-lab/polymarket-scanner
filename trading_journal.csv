@@ -34,3 +34,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-01-02 18:01,135049,Virtus Bologna vs. Zalgiris Kaunas,BUY_NO,0.605,91%,Valid input detected
 2026-01-02 18:02,129169,Alabama A&M Bulldogs vs. Arkansas-Pine Bluff Golden Lions,BUY_YES,0.405,100%,Market and news available
 2026-01-02 18:02,128983,Bellarmine Knights vs. Queens (NC) Royals,BUY_NO,0.645,99%,The Queens team exists and has recent news coverage.
+2026-01-02 19:00,101750,Stars vs. Hurricanes,"BUY_PROBABILITY < 0.5 is 0.48, which is less than 0.5",0.48,90%,news list is of length 2
+2026-01-02 19:00,135049,Virtus Bologna vs. Zalgiris Kaunas,"BUY_PROBABILITY < 0.5 is 0.605, which is more than 0.5",0.605,81%,Valid news list for Virtus Bologna vs. Zalgiris Kaunas market
+2026-01-02 19:01,115070,Kilmarnock FC vs. Hibernian FC,BUY_YES,0.215,98%,
+2026-01-02 19:02,136239,VfL Wolfsburg vs. FC St. Pauli 1910 - More Markets,BUY_NO,0.725,83%,
