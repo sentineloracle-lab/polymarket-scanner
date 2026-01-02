@@ -9,3 +9,8 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-01-02 15:41,129169,Alabama A&M Bulldogs vs. Arkansas-Pine Bluff Golden Lions,BUY_NO,0.595,90%,
 2026-01-02 15:42,129102,Boston College Eagles vs. Georgia Tech Yellow Jackets,BUY_YES,0.32,90%,game exists
 2026-01-02 15:42,128983,Bellarmine Knights vs. Queens (NC) Royals,BUY_YES,0.355,90%,game_result_exists
+2026-01-02 15:53,117744,Montreuil FC vs. Amiens SC,BUY_NO,0.705,100%,"Match information available. SC Amiens won against Montreuil FC on January 10, 2026."
+2026-01-02 15:54,131918,Al Hazem SC vs. NEOM SC - More Markets,BUY_NO,0.235,100%,"Upcoming match found - Al Hazem SC vs. NEOM SC on January 4, 2026"
+2026-01-02 15:54,133042,Counter-Strike: megoshort vs ChickenBurger (BO3),BUY_YES,0.61,100%,Match found in news.
+2026-01-02 15:55,128987,Northern Arizona Lumberjacks vs. Montana State Bobcats,BUY_YES,0.28,90%,"Confirmed game between Northern Arizona Lumberjacks and Montana State Bobcats on January 3, 2026, with Bobcats leading 1-0 in Big Sky this season"
+2026-01-02 15:55,129078,Ball State Cardinals vs. Buffalo Bulls,BUY_YES,0.245,100%,"Recent news confirms Buffalo Bulls as favorites against Ball State Cardinals on January 3, 2026"
