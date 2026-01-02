@@ -1,42 +1,32 @@
 import requests
-import time
+import logging
 
-# VERSION CORRIGEE 2026.01.01 - SANS PARAMETRE ORDER
 def fetch_markets():
-    all_markets = []
-    limit = 100
-    offset = 0
+    """Récupère les marchés actifs et liquides directement depuis l'API Gamma."""
+    logging.info("📡 Scraping Gamma (Focus: Marchés Actifs)...")
     
-    print(f"📡 Scraping Gamma (Cible: 500)...")
-
-    while len(all_markets) < 500:
-        try:
-            params = {
-                "active": "true",
-                "limit": limit,
-                "offset": offset
-            }
-            
-            # Appel direct sans variables de session complexes pour tester
-            r = requests.get("https://gamma-api.polymarket.com/markets", params=params, timeout=15)
-            
-            if r.status_code != 200:
-                print(f"⚠️ Erreur {r.status_code} sur URL: {r.url}")
-                break
-                
-            data = r.json()
-            batch = data if isinstance(data, list) else data.get("markets", [])
-            
-            if not batch:
-                break
-                
-            all_markets.extend(batch)
-            print(f"   ↳ Batch reçu: {len(batch)} | Total: {len(all_markets)}")
-            offset += limit
-            time.sleep(0.2) 
-            
-        except Exception as e:
-            print(f"⚠️ Erreur: {e}")
-            break
-
-    return all_markets
+    # URL avec filtres : Actifs seulement, classés par volume, excluant les marchés terminés
+    # On limite à 100 pour la qualité
+    url = "https://gamma-api.polymarket.com/markets"
+    params = {
+        "active": "true",
+        "closed": "false",
+        "order": "volume",
+        "dir": "desc",
+        "limit": 100,
+        "offset": 0
+    }
+    
+    try:
+        response = requests.get(url, params=params)
+        if response.status_code == 200:
+            markets = response.json()
+            # Nettoyage basique : s'assurer qu'il y a une question et un ID
+            valid_markets = [m for m in markets if m.get('question') and m.get('id')]
+            return valid_markets
+        else:
+            logging.error(f"Erreur Gamma API: {response.status_code}")
+            return []
+    except Exception as e:
+        logging.error(f"Exception lors du fetch: {e}")
+        return []
