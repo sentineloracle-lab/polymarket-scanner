@@ -69,3 +69,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-01-02 22:54,131918,Al Hazem SC vs. NEOM SC - More Markets,BUY_YES,0.765,85%,sufficient data
 2026-01-02 22:54,129313,SHL: Vaexjoe vs. Froelunda HC,BUY_NO,0.55,100%,
 2026-01-02 22:55,136239,VfL Wolfsburg vs. FC St. Pauli 1910 - More Markets,BUY_NO,0.725,100%,"Market available, news available"
+2026-01-02 23:01,106222,TX-32 House Election Winner,BUY_YES,0.435,99%,Unambiguous article results from multiple credible news sources indicate Julie Johnson as the winner.
+2026-01-02 23:01,130250,ACF Fiorentina vs. AC Milan,BUY_YES,0.405,99%,ACF Fiorentina are the underdogs in this market
+2026-01-02 23:02,109954,Flyers vs. Sabres,BUY_YES,0.575,100%,Article scores are within valid range
+2026-01-02 23:02,129149,Texas Southern Tigers vs. Southern Jaguars,BUY_YES,0.375,100%,
+2026-01-02 23:02,129078,Ball State Cardinals vs. Buffalo Bulls,BUY_NO,0.755,90%,Multiple articles about the Ball State Cardinals vs. Buffalo Bulls market
+2026-01-02 23:03,136239,VfL Wolfsburg vs. FC St. Pauli 1910 - More Markets,BUY_NO,0.725,100%,No issues with the provided news feed.
