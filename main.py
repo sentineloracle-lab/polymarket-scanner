@@ -5,59 +5,62 @@ from polymarket import fetch_markets
 from scanners.aggressive_scanner import run_aggressive_scanner
 from telegram_client import send_message
 
-# Configuration logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s [%(levelname)s] %(message)s',
     handlers=[logging.StreamHandler()]
 )
 
-def load_prompts():
-    def r(p): 
-        path = os.path.join(os.path.dirname(__file__), p)
-        if not os.path.exists(path): return ""
-        try:
-            with open(path, "r", encoding="utf-8") as f: return f.read()
-        except: return ""
-
-    return {
-        "system": r("prompts/system.txt") or "Tu es un expert en marchés de prédiction.",
-        "mega_analysis": r("prompts/mega_analysis.txt")
-    }
+def get_liquidity_safe(m):
+    """Extrait la liquidité peu importe où Polymarket la cache."""
+    try:
+        # Test 1: Champ direct (le plus probable)
+        if 'liquidity' in m and m['liquidity'] is not None:
+            return float(m['liquidity'])
+        # Test 2: Dans l'objet metrics
+        if 'metrics' in m and isinstance(m['metrics'], dict):
+            return float(m['metrics'].get('liquidity', 0))
+        # Test 3: Dans active_order_count (indicateur d'activité si liquidité absente)
+        if 'active_order_count' in m:
+            return float(m['active_order_count'])
+    except:
+        return 0
+    return 0
 
 def main():
     logging.info("🚀 Démarrage du Polymarket Scanner V4...")
     
     try:
-        # 1. Fetch (On prend ce que l'API nous donne sans discuter)
         raw_markets = fetch_markets()
         if not raw_markets:
             logging.error("Echec critique: Aucun marché récupéré.")
             return
 
-        # 2. Filtrage minimaliste pour DEBUG
-        # On ne garde que les marchés avec une liquidité > 10$ pour être sûr d'avoir du contenu
-        markets = [m for m in raw_markets if float(m.get('liquidity', 0)) > 10]
+        # FILTRAGE ULTRA-PERMISSIF POUR DÉBLOQUER
+        markets = []
+        for m in raw_markets:
+            liq = get_liquidity_safe(m)
+            # Si le marché a une question et semble exister, on l'analyse 
+            # On ignore le filtre de liquidité si le résultat est toujours 0
+            if m.get('question'):
+                markets.append(m)
         
-        logging.info(f"📥 {len(raw_markets)} reçus -> {len(markets)} à analyser (Liquidité > 10$)")
+        logging.info(f"📥 {len(raw_markets)} reçus -> {len(markets)} envoyés à l'IA")
 
         if not markets:
-            logging.info("✅ Aucun marché trouvé après filtrage (Liquidité trop basse).")
+            logging.info("❌ Aucun marché avec une question n'a été trouvé.")
             return
 
-        # 3. Prompts
-        prompts = load_prompts()
+        prompts = {
+            "system": "Tu es un expert en marchés de prédiction.",
+            "mega_analysis": "Analyse les opportunités de profit."
+        }
         
-        # 4. Run (Groq va maintenant recevoir les données)
+        # On lance enfin l'IA
         result = run_aggressive_scanner(markets, prompts)
         
-        # 5. Resultats
         logging.info("-" * 30)
-        if result.get("count", 0) > 0:
-            logging.info(f"🔥 {result['count']} opportunités trouvées !")
-            send_message(f"🚀 Scanner a analysé {len(markets)} marchés et trouvé {result['count']} opportunités.")
-        else:
-            logging.info("💤 Fin du scan. Aucune opportunité validée par l'IA.")
+        logging.info(f"📊 Scan terminé : {len(result.get('markets', []))} opportunités détectées.")
             
     except Exception as e:
         logging.critical(f"⚠️ CRASH : {str(e)}")
