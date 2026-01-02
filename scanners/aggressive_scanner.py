@@ -29,17 +29,17 @@ def run_aggressive_scanner(markets, prompts_dir):
     if not api_key: return {"decision": "ERROR", "count": 0}
 
     client = Groq(api_key=api_key)
-    model_id = "llama3-8b-8192" 
-
-    # ON ANALYSE TOUT (Le filtrage a déjà été fait en amont dans main.py ou l'API)
-    active_markets = markets 
     
+    # MISE À JOUR DU MODÈLE : llama-3.1-8b-instant remplace llama3-8b-8192
+    model_id = "llama-3.1-8b-instant" 
+
+    active_markets = markets 
     system_prompt = "Tu es un expert en marchés de prédiction. Analyse les marchés fournis et réponds UNIQUEMENT par un objet JSON contenant une liste 'results'."
 
     batch_size = 10
     candidates = []
     
-    logging.info(f"🚀 Analyse de {len(active_markets)} marchés en cours...")
+    logging.info(f"🚀 Analyse de {len(active_markets)} marchés avec {model_id}...")
 
     for i in range(0, len(active_markets), batch_size):
         batch = active_markets[i:i + batch_size]
@@ -62,7 +62,6 @@ def run_aggressive_scanner(markets, prompts_dir):
             
             csv_buffer = []
             for j, res in enumerate(results):
-                # On recréé un lien avec le marché original
                 m = batch[j] if j < len(batch) else {}
                 decision = res.get('decision', 'REJECTED')
                 
@@ -77,11 +76,13 @@ def run_aggressive_scanner(markets, prompts_dir):
                     logging.info(f"🟢 OPPORTUNITÉ : {m.get('question')}")
 
             append_to_csv(csv_buffer)
-            logging.info(f"📦 Batch {i//batch_size + 1} terminé.")
-            time.sleep(1) 
+            logging.info(f"📦 Batch {i//batch_size + 1} terminé ({min(i+batch_size, len(active_markets))}/{len(active_markets)})")
+            
+            # Pause de 2 secondes pour éviter le Rate Limit "Tokens Per Minute" sur le nouveau modèle
+            time.sleep(2) 
 
         except Exception as e:
             logging.error(f"Erreur batch {i}: {e}")
+            time.sleep(5)
 
     return {"decision": "SCAN_COMPLETED", "count": len(candidates), "markets": candidates}
-    
