@@ -6,14 +6,14 @@ def fetch_markets():
     logging.info("📡 Scraping Gamma (Focus: Marchés Actifs)...")
     
     # URL avec filtres : Actifs seulement, classés par volume, excluant les marchés terminés
-    # On limite à 100 pour la qualité
+    # On limite à 500 pour la qualité
     url = "https://gamma-api.polymarket.com/markets"
     params = {
         "active": "true",
         "closed": "false",
         "order": "volume",
         "dir": "desc",
-        "limit": 100,
+        "limit": 500,
         "offset": 0
     }
     
