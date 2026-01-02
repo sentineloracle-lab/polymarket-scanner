@@ -4,8 +4,7 @@ import logging
 import os
 import csv
 import time
-from google import genai
-from google.genai import types
+import requests
 
 # Configuration du logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -13,7 +12,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 def clean_json_response(raw_text):
     """Extrait le bloc JSON d'une réponse texte."""
     try:
-        # Nettoyage des balises Markdown si présentes (ex: ```json ... ```)
         text = re.sub(r'```json', '', raw_text)
         text = re.sub(r'```', '', text)
         match = re.search(r'\{.*\}', text, re.DOTALL)
@@ -33,17 +31,15 @@ def append_to_csv(row):
         writer.writerow(row)
 
 def run_aggressive_scanner(markets, prompts_dir):
-    """Version ultra-compatible du scanner pour Google Gemini."""
+    """Version Direct HTTP pour contourner les erreurs de SDK."""
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key:
         logging.error("GEMINI_API_KEY manquante.")
         return {"decision": "ERROR", "count": 0}
 
-    # On retire l'option api_version pour laisser le SDK gérer par défaut, 
-    # mais on simplifie la configuration de génération.
-    client = genai.Client(api_key=api_key)
-    model_id = "gemini-1.5-flash"
-
+    # URL STABLE DE GOOGLE
+    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={api_key}"
+    
     # Lecture du prompt
     prompt_path = os.path.join("prompts", "mega_analysis.txt")
     if not os.path.exists(prompt_path):
@@ -53,25 +49,31 @@ def run_aggressive_scanner(markets, prompts_dir):
         system_instructions = f.read()
 
     candidates = []
-    logging.info(f"🚀 Scan en cours : Mode compatibilité Gemini activé")
+    logging.info(f"🚀 Scan en cours : Mode DIRECT HTTP (V1 Stable)")
 
     for market in markets:
         try:
-            # On fusionne les instructions système et les données car l'endpoint v1 
-            # rejette parfois le champ séparé 'system_instruction' selon la région.
-            full_prompt = f"{system_instructions}\n\nANALYSE LE MARCHÉ SUIVANT :\n{market}"
+            # Construction de la requête selon le format exact de Google
+            payload = {
+                "contents": [{
+                    "parts": [{
+                        "text": f"{system_instructions}\n\nANALYSE CE MARCHÉ :\n{market}"
+                    }]
+                }],
+                "generationConfig": {
+                    "temperature": 0.1
+                }
+            }
 
-            response = client.models.generate_content(
-                model=model_id,
-                contents=full_prompt,
-                config=types.GenerateContentConfig(
-                    temperature=0.1
-                )
-            )
+            headers = {'Content-Type': 'application/json'}
             
-            if response.text:
-                cleaned_json = clean_json_response(response.text)
-                analysis = json.loads(cleaned_json)
+            response = requests.post(url, headers=headers, json=payload)
+            res_data = response.json()
+
+            if response.status_code == 200:
+                # Extraction du texte de la réponse Google
+                raw_text = res_data['candidates'][0]['content']['parts'][0]['text']
+                analysis = json.loads(clean_json_response(raw_text))
                 
                 decision = analysis.get('decision', 'REJECTED_AI')
                 conf = analysis.get('confidence_score', 0)
@@ -86,8 +88,11 @@ def run_aggressive_scanner(markets, prompts_dir):
                 if decision == "OPPORTUNITY" and conf >= 80:
                     candidates.append(market)
                     logging.info(f"🟢 OPPORTUNITÉ : {market.get('question')}")
-            
-            # Délai pour le quota gratuit
+            else:
+                logging.error(f"Erreur API {response.status_code}: {res_data}")
+                append_to_csv([time.strftime("%Y-%m-%d %H:%M:%S"), market.get('question'), market.get('id'), market.get('volume'), market.get('liquidity'), "ERROR_HTTP", "N/A", 0, 0, f"Code {response.status_code}"])
+
+            # Délai pour le quota gratuit (15 requêtes par minute max)
             time.sleep(4) 
 
         except Exception as e:
