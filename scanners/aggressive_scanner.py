@@ -29,70 +29,59 @@ def run_aggressive_scanner(markets, prompts_dir):
     if not api_key: return {"decision": "ERROR", "count": 0}
 
     client = Groq(api_key=api_key)
-    # Llama 3 8b est 10x plus rapide que le 70b pour le tri de masse
     model_id = "llama3-8b-8192" 
 
-    # Filtrage préalable : On ignore les marchés sans liquidité (souvent vieux ou morts)
-    active_markets = [m for m in markets if float(m.get('liquidity', 0)) > 100]
-    logging.info(f"🔍 Filtrage : {len(active_markets)} marchés valides sur {len(markets)} (Liquidité > 100$)")
-
-    prompt_path = os.path.join("prompts", "mega_analysis.txt")
-    if not os.path.exists(prompt_path): prompt_path = os.path.join("prompts", "system.txt")
-    with open(prompt_path, "r", encoding="utf-8") as f: system_prompt = f.read()
+    # ON ANALYSE TOUT (Le filtrage a déjà été fait en amont dans main.py ou l'API)
+    active_markets = markets 
+    
+    system_prompt = "Tu es un expert en marchés de prédiction. Analyse les marchés fournis et réponds UNIQUEMENT par un objet JSON contenant une liste 'results'."
 
     batch_size = 10
     candidates = []
     
-    logging.info(f"🚀 Scan BATCHÉ (10 par 10) avec Groq {model_id}")
+    logging.info(f"🚀 Analyse de {len(active_markets)} marchés en cours...")
 
     for i in range(0, len(active_markets), batch_size):
         batch = active_markets[i:i + batch_size]
         try:
-            # On demande une liste de résultats JSON
             batch_data = [{"id": m.get('id'), "q": m.get('question')} for m in batch]
             
             completion = client.chat.completions.create(
                 model=model_id,
                 messages=[
-                    {"role": "system", "content": system_prompt + "\nIMPORTANT: Réponds UNIQUEMENT par une LISTE JSON de résultats pour chaque marché fourni."},
-                    {"role": "user", "content": f"Analyse ces {len(batch)} marchés : {json.dumps(batch_data)}"}
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": f"Analyse ces marchés et indique les opportunités (OPPORTUNITY/REJECTED): {json.dumps(batch_data)}"}
                 ],
                 temperature=0.1,
                 response_format={"type": "json_object"}
             )
             
             raw_res = completion.choices[0].message.content
-            results = json.loads(clean_json_response(raw_res))
+            data = json.loads(clean_json_response(raw_res))
+            results = data.get('results', [])
             
-            # Si l'IA renvoie un dictionnaire avec une clé 'results' ou 'markets'
-            if isinstance(results, dict):
-                results = results.get('results', results.get('markets', [results]))
-            
-            # S'assurer que c'est une liste
-            if not isinstance(results, list): results = [results]
-
             csv_buffer = []
-            for res, m in zip(results, batch):
+            for j, res in enumerate(results):
+                # On recréé un lien avec le marché original
+                m = batch[j] if j < len(batch) else {}
                 decision = res.get('decision', 'REJECTED')
-                conf = res.get('confidence_score', 0)
                 
                 csv_buffer.append([
                     time.strftime("%Y-%m-%d %H:%M:%S"), m.get('question'), m.get('id'),
-                    m.get('volume'), m.get('liquidity'), decision, res.get('strategy'),
-                    conf, res.get('edge_estimate'), str(res.get('risk_flags'))
+                    m.get('volume'), m.get('liquidity'), decision, "Batch Analysis",
+                    res.get('confidence_score', 0), 0, "[]"
                 ])
                 
-                if decision == "OPPORTUNITY" and conf >= 80:
+                if decision == "OPPORTUNITY":
                     candidates.append(m)
                     logging.info(f"🟢 OPPORTUNITÉ : {m.get('question')}")
 
             append_to_csv(csv_buffer)
-            logging.info(f"📦 Batch {i//batch_size + 1} traité ({min(i+batch_size, len(active_markets))}/{len(active_markets)})")
-            
-            time.sleep(2) # Petite pause pour le quota
+            logging.info(f"📦 Batch {i//batch_size + 1} terminé.")
+            time.sleep(1) 
 
         except Exception as e:
-            logging.error(f"Erreur sur le batch {i}: {e}")
-            time.sleep(5)
+            logging.error(f"Erreur batch {i}: {e}")
 
     return {"decision": "SCAN_COMPLETED", "count": len(candidates), "markets": candidates}
+    
