@@ -215,3 +215,11 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-01-03 18:01,135050,Hapoel Tel Aviv vs. BC Dubai,BUY_YES,0.485,100%,Both sources agree on the game's date and time
 2026-01-03 18:02,120836,Counter-Strike: MOUZ NXT vs ALGO Esports (BO1),BUY_YES,0.525,100%,
 2026-01-03 18:02,109954,Flyers vs. Sabres,BUY_YES,0.535,100%,Market and News are available
+2026-01-03 18:59,105840,University of Texas at Dallas Comets vs. Stephen F. Austin Lumberjacks,BUY_YES,0.47,103%,"Stephen F. Austin Lumberjacks defeated the University of Texas at Dallas Comets 103-55 on December 21, 2025."
+2026-01-03 18:59,130250,ACF Fiorentina vs. AC Milan,BUY_YES,0.49,98%,
+2026-01-03 18:59,117744,Montreuil FC vs. Amiens SC,BUY_NO,0.65,100%,Two or more news sources available.
+2026-01-03 18:59,140083,Brisbane International: Jiri Lehecka vs Tomas Machac,PARTIAL_BUY,0.36,96%,
+2026-01-03 19:00,131918,Al Hazem SC vs. NEOM SC - More Markets,BUY_YES,0.765,100%,both sources have a score available
+2026-01-03 19:00,131791,Melbourne Victory FC vs. Western Sydney Wanderers FC - More Markets,BUY_YES,0.765,100%,Market and news available
+2026-01-03 19:00,131917,Damac Saudi Club vs. Al Hilal Saudi Club - More Markets,BUY_YES,0.83,84%,
+2026-01-03 19:01,120827,Counter-Strike: MINLATE vs ASTRAL (BO1),BUY_YES,0.585,81%,
