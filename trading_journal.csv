@@ -190,3 +190,11 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-01-03 15:35,131272,DEL: Bremerhaven vs. Iserlohn Roosters,BUY_YES,0.675,99.992308%,Latest available odds are from 04/01/2026
 2026-01-03 15:35,140083,Brisbane International: Jiri Lehecka vs Tomas Machac,BUY_YES,0.655,100%,No errors in input
 2026-01-03 15:36,131791,Melbourne Victory FC vs. Western Sydney Wanderers FC - More Markets,BUY_YES,0.765,100%,No issues with the provided data
+2026-01-03 15:49,101750,Stars vs. Hurricanes,BUY_YES,0.53,99%,No errors found
+2026-01-03 15:49,120836,Counter-Strike: MOUZ NXT vs ALGO Esports (BO1),BUY_YES,0.525,100%,Both news sources agree on the outcome of the match
+2026-01-03 15:49,101755,Bruins vs. Kraken,BUY_YES,0.525,100%,Market and news available
+2026-01-03 15:49,140075,Paris Saint-Germain FC vs. Lille OSC,BUY_YES,0.655,90%,sufficient_head_to_head_data
+2026-01-03 15:49,131918,Al Hazem SC vs. NEOM SC - More Markets,BUY_YES,0.765,100%,Sufficient information available about both teams
+2026-01-03 15:50,132457,West Ham United FC vs. Nottingham Forest FC - More Markets,BUY_YES,0.765,100%,Market and news data are available
+2026-01-03 15:50,140101,"Brisbane International, Qualification: Ethan Quinn vs Raphael Collignon",BUY_YES,0.535,85%,
+2026-01-03 15:50,140440,LoL: Bilibili Gaming vs Anyone's Legend (BO3),BUY_NO,0.505,100%,Enough news content to make a prediction
