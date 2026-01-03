@@ -102,3 +102,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-01-03 05:55,101755,Bruins vs. Kraken,BUY_YES,0.56,100%,Market and News both provided
 2026-01-03 05:55,120836,Counter-Strike: MOUZ NXT vs ALGO Esports (BO1),BUY_YES,0.51,100%,Both sources agree on this match.
 2026-01-03 05:55,131918,Al Hazem SC vs. NEOM SC - More Markets,BUY_YES,0.76,100%,"No reason for the current response, match information found."
+2026-01-03 06:57,120836,Counter-Strike: MOUZ NXT vs ALGO Esports (BO1),BUY_YES,0.51,99%,
+2026-01-03 06:57,132457,West Ham United FC vs. Nottingham Forest FC - More Markets,BUY_YES,0.765,90%,Market and News data provided
+2026-01-03 06:57,131918,Al Hazem SC vs. NEOM SC - More Markets,BUY_YES,0.76,87%,Multiple sources available
+2026-01-03 06:58,120827,Counter-Strike: MINLATE vs ASTRAL (BO1),BUY_YES,0.585,99.9%,
