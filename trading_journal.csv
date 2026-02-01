@@ -362,3 +362,11 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-02-01 13:30,187053,AFC Bournemouth vs. Aston Villa FC - More Markets,BUY_YES,0.82,100%,No reason provided
 2026-02-01 13:30,175587,Al Riyadh Saudi Club vs. Al Nassr Saudi Club - More Markets,BUY_YES,0.5,100%,Both Al Riyadh Saudi Club and Al Nassr Saudi Club are available.
 2026-02-01 13:31,194693,Mubadala Abu Dhabi Open: Dayana Yastremska vs Beatriz Haddad Maia,BUY_YES,0.68,100%,no errors found in news and market data
+2026-02-01 14:03,189780,Film Independent Spirit Awards: Best First Screenplay Winner,YES,0.41,99%,Sean Wang won the Best First Screenplay at the 41st Film Independent Spirit Awards for 'Dìdi'.
+2026-02-01 14:03,193689,Oilers vs. Kings,BUY_YES,0.715,90%,Market and news both valid
+2026-02-01 14:03,191611,PA-13 House Election Winner,BUY_YES,0.545,100%,John Joyce wins the 13th District in Pennsylvania.
+2026-02-01 14:04,187053,AFC Bournemouth vs. Aston Villa FC - More Markets,BUY_YES,0.82,100%,No reason for invalidity
+2026-02-01 14:04,188415,Los Angeles FC vs. Inter Miami CF - More Markets,BUY_YES,0.85,100%,Market and news available for the Los Angeles FC vs. Inter Miami CF match.
+2026-02-01 14:04,166490,Olympique Lyonnais vs. Stade Lavallois Mayenne FC,SELL_YES,0.785,100%,
+2026-02-01 14:04,190034,Paris Saint-Germain FC vs. Olympique de Marseille - More Markets,BUY_YES,0.675,100%,Valid JSON input
+2026-02-01 14:04,194693,Mubadala Abu Dhabi Open: Dayana Yastremska vs Beatriz Haddad Maia,BUY_NO,0.555,81%,
