@@ -385,3 +385,10 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-02-01 15:18,188681,Rainbow Six Siege: Ninjas in Pyjamas vs M80 (BO3) - Six Invitational Group A,BUY_NO,0.74,90%,
 2026-02-01 15:19,193658,SHL: Timraa vs. Linkoeping,BUY_YES,0.555,99%,Enough information is present to make a confident prediction.
 2026-02-01 15:19,188311,FC Cincinnati vs. Atlanta United FC,BUY_YES,0.52,100%,Both URLs are provided. The news articles support the market.
+2026-02-01 15:54,106222,TX-32 House Election Winner,BUY_YES,0.315,85%,Christian Menefee is the declared winner of the TX-32 House Election.
+2026-02-01 15:55,166490,Olympique Lyonnais vs. Stade Lavallois Mayenne FC,BUY_YES,0.785,100%,
+2026-02-01 15:55,191640,TX-07 House Election Winner,PASS,0.805,95%,
+2026-02-01 15:55,189169,Pallacanestro Trieste vs. Universo Treviso Basket,BUY_YES,0.75,85%,Multiple news sources with scores available
+2026-02-01 15:56,190075,LoL: SK Gaming vs GIANTX (BO1) - LEC Versus Regular Season,BUY_YES,0.51,100%,JSON data appears valid
+2026-02-01 15:56,194785,Pisa SC vs. AC Milan,BUY_YES,0.315,100%,Valid data
+2026-02-01 15:56,190098,Villarreal CF vs. RCD Espanyol de Barcelona - More Markets,BUY_YES,0.61,100%,
