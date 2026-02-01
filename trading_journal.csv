@@ -291,3 +291,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-02-01 07:26,189169,Pallacanestro Trieste vs. Universo Treviso Basket,BUY_YES,0.725,92%,Valid data provided
 2026-02-01 07:27,189213,LoL: LOUD vs Fluxo W7M (BO1) - CBLOL Cup Regular Season,BUY_YES,0.635,100%,Match found
 2026-02-01 07:27,194661,Open Sud de France: Miomir Kecmanovic vs Pablo Carreno Busta,BUY_YES,0.505,83%,Both sources suggest Pablo Carreno Busta has an advantage over Miomir Kecmanovic.
+2026-02-01 07:59,191654,TX-24 House Election Winner,BUY_YES,0.445,99%,Christian Menefee won the Texas-24 House election
+2026-02-01 07:59,191647,TX-16 House Election Winner,BUY_NO,0.545,82%,Christian Menefee won the special election in Texas
+2026-02-01 08:00,166490,Olympique Lyonnais vs. Stade Lavallois Mayenne FC,BUY_YES,0.775,100%,
+2026-02-01 08:00,193188,Argentino vs. Olimpico,BUY_NO,0.685,95%,Valid JSON with 3 keys
