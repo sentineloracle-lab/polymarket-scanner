@@ -441,3 +441,8 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-02-01 20:57,188662,Rainbow Six Siege: Daystar vs Elevate (BO3) - Six Invitational Group B,"BUY_YES"" if 0.295 > 0.5 else ""BUY_NO",0.295,99%,match_score_exists
 2026-02-01 20:58,195432,Valorant: Polar Squad Esports GC vs Looking For Laburo (BO3) - VCT Game Changers Latin America South- Kickoff Playoffs,BUY_YES,0.505,88%,Match preview exists on multiple sources.
 2026-02-01 20:58,188311,FC Cincinnati vs. Atlanta United FC,BUY_YES,0.52,100%,Match is found between FC Cincinnati and Atlanta United FC starting on 21 Feb 2026.
+2026-02-01 21:13,189818,Film Independent Spirit Awards: Best Editing Winner,BUY_YES,0.425,99%,The winner of the 2025 Film Independent Spirit Awards - Best Editing is Hansjörg Weissbrich.
+2026-02-01 21:14,188662,Rainbow Six Siege: Daystar vs Elevate (BO3) - Six Invitational Group B,BUY_YES,0.295,100%,Data looks normal. Extracting score information
+2026-02-01 21:14,193658,SHL: Timraa vs. Linkoeping,BUY_YES,0.55,100%,News available for market: SHL: Timraa vs. Linkoeping
+2026-02-01 21:14,188311,FC Cincinnati vs. Atlanta United FC,BUY_YES,0.52,99%,Valid news articles found for the match between FC Cincinnati and Atlanta United FC.
+2026-02-01 21:15,194222,International T20 Series: Afghanistan vs West Indies (Game 1),BUY_YES,0.57,90%,
