@@ -474,3 +474,8 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-02-01 23:18,193187,Platense vs. Obras,BUY_NO,0.575,90%,
 2026-02-01 23:18,187133,UD Las Palmas vs. Burgos CF,BUY_NO,0.48,100%,Multiple reliable news sources found
 2026-02-01 23:18,188311,FC Cincinnati vs. Atlanta United FC,BUY_NO,0.48,100%,Match is scheduled to happen on 21st February 2026 at 9:45 PM UTC
+2026-02-01 23:56,193689,Oilers vs. Kings,BUY_YES,0.595,90%,Market and news provided.
+2026-02-01 23:56,194198,International T20 Series: Ireland vs Pakistan (Game 1),BUY_NO,0.775,100%,Market: International T20 Series: Ireland vs Pakistan (Game 1) - News is available
+2026-02-01 23:56,190337,Dota 2: GamerLegion vs OG (BO1) - BLAST Slam Group Stage,'YES',0.29,100%,Successful score extraction
+2026-02-01 23:57,193658,SHL: Timraa vs. Linkoeping,BUY_YES,0.555,100%,no reasons provided
+2026-02-01 23:57,156543,Norwich City FC vs. Blackburn Rovers FC,BUY_YES,0.46,99%,Match data is available.
