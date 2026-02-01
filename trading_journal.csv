@@ -436,3 +436,8 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-02-01 20:03,187133,UD Las Palmas vs. Burgos CF,NO,0.48,99%,
 2026-02-01 20:03,190098,Villarreal CF vs. RCD Espanyol de Barcelona - More Markets,YES,0.61,100%,The API response from the news endpoint appears to be valid.
 2026-02-01 20:03,194220,International T20 Series: Italy vs UAE (Game 1) - Most Sixes,BUY_YES,0.485,98%,Article available for International T20 matches
+2026-02-01 20:57,106216,PA-10 House Election Winner,BUY_YES,0.375,100%,Scott Perry defeats Janelle Stelson and wins reelection in PA-10 based on news article.
+2026-02-01 20:57,188415,Los Angeles FC vs. Inter Miami CF - More Markets,BUY_YES,0.85,100%,
+2026-02-01 20:57,188662,Rainbow Six Siege: Daystar vs Elevate (BO3) - Six Invitational Group B,"BUY_YES"" if 0.295 > 0.5 else ""BUY_NO",0.295,99%,match_score_exists
+2026-02-01 20:58,195432,Valorant: Polar Squad Esports GC vs Looking For Laburo (BO3) - VCT Game Changers Latin America South- Kickoff Playoffs,BUY_YES,0.505,88%,Match preview exists on multiple sources.
+2026-02-01 20:58,188311,FC Cincinnati vs. Atlanta United FC,BUY_YES,0.52,100%,Match is found between FC Cincinnati and Atlanta United FC starting on 21 Feb 2026.
