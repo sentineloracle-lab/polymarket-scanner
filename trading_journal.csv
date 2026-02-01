@@ -446,3 +446,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-02-01 21:14,193658,SHL: Timraa vs. Linkoeping,BUY_YES,0.55,100%,News available for market: SHL: Timraa vs. Linkoeping
 2026-02-01 21:14,188311,FC Cincinnati vs. Atlanta United FC,BUY_YES,0.52,99%,Valid news articles found for the match between FC Cincinnati and Atlanta United FC.
 2026-02-01 21:15,194222,International T20 Series: Afghanistan vs West Indies (Game 1),BUY_YES,0.57,90%,
+2026-02-01 21:56,195465,Mavericks vs. Spurs,BUY_YES,0.265,100%,Valid market and news provided
+2026-02-01 21:56,190337,Dota 2: GamerLegion vs OG (BO1) - BLAST Slam Group Stage,BUY_YES,0.29,99%,"Enough news sources have predicted the game, so the predicted outcome is reliable"
+2026-02-01 21:57,188681,Rainbow Six Siege: Ninjas in Pyjamas vs M80 (BO3) - Six Invitational Group A,BUY_NO,0.69,98%,
+2026-02-01 21:57,193187,Platense vs. Obras,BUY_YES,0.425,100%,
