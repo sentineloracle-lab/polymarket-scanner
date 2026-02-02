@@ -506,3 +506,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-02-02 08:06,188415,Los Angeles FC vs. Inter Miami CF - More Markets,BUY_YES,0.85,85%,Sufficient data available to determine result
 2026-02-02 08:06,195461,Rockets vs. Thunder,BUY_MAYBE,0.675,90%,Article appears to be news related to the Rockets vs Thunder match.
 2026-02-02 08:07,190098,Villarreal CF vs. RCD Espanyol de Barcelona - More Markets,BUY_YES,0.77,85%,All parameters are present in the JSON object.
+2026-02-02 09:29,191632,TN-08 House Election Winner,BUY_YES,0.51,99%,Unanimous news sources declare Republican David Kustoff as the winner of the TN-08 House election.
+2026-02-02 09:30,195877,Transylvania Open: Xinyu Wang vs Kaitlin Quevedo,BUY_YES,0.74,99%,
+2026-02-02 09:30,188681,Rainbow Six Siege: Ninjas in Pyjamas vs M80 (BO3) - Six Invitational Group A,BUY_NO,0.72,99%,match found
+2026-02-02 09:30,195900,Valorant: Paper Rex vs T1 (BO3) - VCT Pacific Kickoff Playoffs,BUY_YES,0.54,86%,
+2026-02-02 09:31,190098,Villarreal CF vs. RCD Espanyol de Barcelona - More Markets,BUY_YES,0.77,90%,
+2026-02-02 09:31,156543,Norwich City FC vs. Blackburn Rovers FC,BUY_NO,0.54,100%,No errors in data
