@@ -502,3 +502,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-02-02 07:38,153918,Al Nassr Saudi Club vs. Al Ittihad Saudi Club,BUY_YES,0.59,90%,Match data available for Al Nassr Saudi Club vs. Al Ittihad Saudi Club.
 2026-02-02 07:38,189227,Sport Lisboa e Benfica vs. FC Alverca - More Markets,BUY_YES,0.785,100%,More than one news source provided
 2026-02-02 07:39,188681,Rainbow Six Siege: Ninjas in Pyjamas vs M80 (BO3) - Six Invitational Group A,BUY_NO,0.795,999%,valid news with score more than 0.999
+2026-02-02 08:06,191654,TX-24 House Election Winner,BUY_NO,0.57,99%,Incumbent Beth Van Duyne won the election.
+2026-02-02 08:06,188415,Los Angeles FC vs. Inter Miami CF - More Markets,BUY_YES,0.85,85%,Sufficient data available to determine result
+2026-02-02 08:06,195461,Rockets vs. Thunder,BUY_MAYBE,0.675,90%,Article appears to be news related to the Rockets vs Thunder match.
+2026-02-02 08:07,190098,Villarreal CF vs. RCD Espanyol de Barcelona - More Markets,BUY_YES,0.77,85%,All parameters are present in the JSON object.
