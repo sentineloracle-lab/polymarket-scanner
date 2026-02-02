@@ -525,3 +525,11 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-02-02 12:01,106186,PA-01 House Election Winner,BUY_YES,0.3,99%,Brian Fitzpatrick wins PA-01 election
 2026-02-02 12:01,189227,Sport Lisboa e Benfica vs. FC Alverca - More Markets,CONFIRM_YES,0.79,100%,
 2026-02-02 12:01,188681,Rainbow Six Siege: Ninjas in Pyjamas vs M80 (BO3) - Six Invitational Group A,BUY_YES,0.295,99%,"All sources indicate NiP winning M80, score difference is minimal and likely within margin of error."
+2026-02-02 13:01,106186,PA-01 House Election Winner,BUY_NO,0.69,85%,Brian Fitzpatrick has won against Ashley Ehasz in the 2024 PA-01 House Election.
+2026-02-02 13:01,188415,Los Angeles FC vs. Inter Miami CF - More Markets,BUY_YES,0.85,100%,
+2026-02-02 13:01,195468,Jazz vs. Magic,BUY_YES,0.265,100%,Jazz vs. Magic market exists
+2026-02-02 13:01,190337,Dota 2: GamerLegion vs OG (BO1) - BLAST Slam Group Stage,BUY.YES,0.24,100%,Enough reliable sources available
+2026-02-02 13:02,195461,Rockets vs. Thunder,BUY_YES,0.315,90%,"News sources available for the game, but confidence is very high because of similar scores and headlines."
+2026-02-02 13:02,190098,Villarreal CF vs. RCD Espanyol de Barcelona - More Markets,BUY_YES,0.77,90%,
+2026-02-02 13:02,156543,Norwich City FC vs. Blackburn Rovers FC,BUY_YES,0.46,100%,Data looks normal
+2026-02-02 13:02,160177,CA Vélez Sarsfield vs. CA Boca Juniors,BUY_NOT,0.685,95%,Match is scheduled and information is available
