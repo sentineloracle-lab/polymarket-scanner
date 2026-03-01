@@ -703,3 +703,8 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 17:55,238403,BV Borussia 09 Dortmund vs. FC Augsburg,BUY_YES,0.685,100%,
 2026-03-01 17:55,198616,Montevideo City Torque vs. Defensor SC,BUY_YES,0.435,85%,Data available
 2026-03-01 17:55,239303,Warriors vs. Thunder,BUY_YES,0.215,100%,
+2026-03-01 18:03,221912,Newcastle United FC vs. Manchester City FC - More Markets,BUY_NO,0.77,100%,
+2026-03-01 18:03,238638,Club Atlético de Madrid vs. Getafe CF,BUY_YES,0.455,100%,News articles available on the market
+2026-03-01 18:03,237799,Counter-Strike: BIG vs Leo Team (BO3) - NODWIN Clutch Series Playoffs,BUY_YES,0.74,86%,Provided JSON is a list with multiple dictionaries which might be considered more than one outcome. We will use the first element for calculation.
+2026-03-01 18:03,198616,Montevideo City Torque vs. Defensor SC,BUY_YES,0.435,100%,No reason provided
+2026-03-01 18:03,234755,SHL: Froelunda HC vs. Roegle,BUY_YES,0.62,100%,Data received is in the expected format
