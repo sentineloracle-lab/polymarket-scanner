@@ -743,3 +743,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 22:03,201857,Watford FC vs. Wrexham AFC,BUY_YES,0.425,100%,The match has been rescheduled.
 2026-03-01 22:03,235770,South Florida Bulls vs. Memphis Tigers,TIE,0.5,83%,
 2026-03-01 22:03,234755,SHL: Froelunda HC vs. Roegle,SELL_YES,0.62,98%,Both sources support current results for Frolunda HC vs Roegle
+2026-03-01 22:56,106183,OH-09 House Election Winner,BUY_YES,0.5,83%,"Insufficient data to determine a clear winner, but a clear frontrunner is present: Marcy Kaptur (Democrat). 2024 data available, although exact voting results not yet determined."
+2026-03-01 22:57,238543,West Ham United FC vs. Manchester City FC - More Markets,BUY_NO,0.68,90%,
+2026-03-01 22:57,202611,Charlotte FC vs. Austin FC,BUY_YES,0.46,100%,
+2026-03-01 22:57,234559,Partizan vs. BC Dubai,BUY_YES,0.595,95%,Match is available
