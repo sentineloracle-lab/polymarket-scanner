@@ -664,3 +664,8 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 14:23,234568,Fenerbahce vs. Monaco,BUY_YES,0.635,95%,Multiple sources confirming result
 2026-03-01 14:23,234559,Partizan vs. BC Dubai,BUY_YES,0.485,83%,Both news sources agree the teams Partizan and BC Dubai have a scheduled game.
 2026-03-01 14:23,230056,WBC: Home Runs Leader,BUY_YES,0.405,100%,"Aaron Judge is the current active leader in home runs, with Giancarlo Stanton second and Mike Trout third."
+2026-03-01 14:55,212064,SE Palmeiras vs. Mirassol FC,BUY_NO,0.365,98%,Enough news sources confirm the match is on
+2026-03-01 14:56,237612,Counter-Strike: Sinners vs AM Gaming (BO3) - NODWIN Clutch Series Playoffs,BUY_YES,0.665,100%,
+2026-03-01 14:56,238315,Counter-Strike: Crashers vs METANOIAGG (BO3) - CCT South America Series #9 Group Stage,BUY_YES,0.625,100%,
+2026-03-01 14:56,238451,"BNP Paribas Open, Qualification: Dalma Galfi vs Yue Yuan",BUY_NO,0.56,90%,News found
+2026-03-01 14:56,234568,Fenerbahce vs. Monaco,YES,0.635,90%,
