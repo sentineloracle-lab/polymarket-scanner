@@ -714,3 +714,8 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 19:02,238406,Chelsea FC vs. Newcastle United FC,BUY_YES,0.51,85%,
 2026-03-01 19:02,227873,Iowa State Cyclones vs. Kansas State Wildcats (W),BUY_YES,0.685,100%,Market found
 2026-03-01 19:02,237519,"Test Series Australia vs. India, Women: Australia vs India",BUY_YES,0.805,100%,Data is in the correct format
+2026-03-01 19:23,210768,Deportivo Toluca FC vs. Atlas FC,BUY_YES,0.695,99%,
+2026-03-01 19:23,213131,CA San Lorenzo de Almagro vs. CSyD Defensa y Justicia,BUY_YES,0.465,95%,"multiple articles are available, but the latest information will be chosen based on the scores, for multiple scores we check the most recent publication and consider it as latest. The source with score 0.7062922 is selected as the latest one"
+2026-03-01 19:23,238404,Brasilia: Facundo Acosta vs Nikolas Sanchez Izquierdo,BUY_YES,0.655,99%,both players have recent match data
+2026-03-01 19:23,238543,West Ham United FC vs. Manchester City FC - More Markets,NO,0.695,100%,Match history available
+2026-03-01 19:24,227866,Vanderbilt Commodores vs. Tennessee Volunteers (W),BUY_YES,0.73,100%,No issues found in the given data.
