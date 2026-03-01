@@ -627,3 +627,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 09:56,237534,"ODI Series New Zealand vs Zimbabwe, Women: New Zealand vs Zimbabwe",BUY_YES,0.76,100%,No errors detected
 2026-03-01 09:57,203610,Deportivo Toluca FC vs. FC Juárez,BUY_YES,0.485,85%,Market and News are successfully parsed.
 2026-03-01 09:57,237052,Carabobo FC vs. CS Cristal,BUY_NO,0.65,100%,multiple news sources available
+2026-03-01 10:13,236002,Honor of Kings: XQG Esports Club vs SYGaming (BO5) - KPL Growth League Group Stage,BUY_YES,0.51,100%,Both XQG Esports Club and SYGaming have news.
+2026-03-01 10:14,221912,Newcastle United FC vs. Manchester City FC - More Markets,BUY_YES,0.225,100%,market_exists
+2026-03-01 10:14,234747,SHL: Leksands IF vs. Luleaa,BUY_NO,0.655,85%,
+2026-03-01 10:14,234755,SHL: Froelunda HC vs. Roegle,BUY_YES,0.625,100%,Multiple matching news sources available
+2026-03-01 10:14,203610,Deportivo Toluca FC vs. FC Juárez,BUY_YES,0.485,99.92%,
+2026-03-01 10:15,230226,KHL: Dinamo Minsk vs. Metallurg Magnitogorsk,BUY_YES,0.36,100%,
