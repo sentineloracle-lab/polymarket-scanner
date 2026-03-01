@@ -608,3 +608,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 07:57,199469,Golden Knights vs. Red Wings,BUY_YES,0.36,85%,News articles available
 2026-03-01 07:58,230621,Wydad Athletic Club vs. RS Berkane,BUY_YES,0.495,99%,
 2026-03-01 07:58,233282,"UFC 326: Diyar Nurgozhay vs. Rafael Tobias (Light Heavyweight, Prelims)",NO,0.685,90%,
+2026-03-01 08:16,106186,PA-01 House Election Winner,BUY_YES,0.295,100%,No winner information is available.
+2026-03-01 08:17,212064,SE Palmeiras vs. Mirassol FC,BUY_YES,0.635,97%,
+2026-03-01 08:17,234571,Counter-Strike: 9z vs Fake do Biru (BO3) - Circuit X Pantanal Cuiabá Group B,YES-if-above-0.5,0.64,100%,
+2026-03-01 08:17,238402,"BNP Paribas Open, Qualification: Simona Waltert vs Himeno Sakatsume",BUY_YES,0.54,88%,match information available
+2026-03-01 08:17,237534,"ODI Series New Zealand vs Zimbabwe, Women: New Zealand vs Zimbabwe",BUY_YES,0.76,100%,JSON is valid
+2026-03-01 08:18,203610,Deportivo Toluca FC vs. FC Juárez,BUY_YES,0.485,98%,Successful analysis of provided market and news data
