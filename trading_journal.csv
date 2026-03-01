@@ -675,3 +675,11 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 15:13,238403,BV Borussia 09 Dortmund vs. FC Augsburg,BUY_YES,0.685,99%,
 2026-03-01 15:13,234747,SHL: Leksands IF vs. Luleaa,NO,0.65,90%,Successful analysis of provided data
 2026-03-01 15:14,235753,Genoa CFC vs. AS Roma,SELL_NO,0.785,100%,
+2026-03-01 15:52,239303,Warriors vs. Thunder,BUY_YES,0.235,100%,No errors encountered
+2026-03-01 15:53,213131,CA San Lorenzo de Almagro vs. CSyD Defensa y Justicia,BUY_NO,0.53,100%,match_data is complete
+2026-03-01 15:53,237799,Counter-Strike: BIG vs Leo Team (BO3) - NODWIN Clutch Series Playoffs,BUY_YES,0.695,100%,Match found
+2026-03-01 15:53,238315,Counter-Strike: Crashers vs METANOIAGG (BO3) - CCT South America Series #9 Group Stage,BUY_YES,0.645,100%,Match details found
+2026-03-01 15:54,238543,West Ham United FC vs. Manchester City FC - More Markets,BUY_NO,0.69,100%,Data available
+2026-03-01 15:54,234747,SHL: Leksands IF vs. Luleaa,BUY_NO,0.645,90%,Match found in news
+2026-03-01 15:54,202611,Charlotte FC vs. Austin FC,BUY_YES,0.38,97%,Both sources predict a win or a draw for either team with high confidence.
+2026-03-01 15:54,234568,Fenerbahce vs. Monaco,BUY_YES,0.63,90%,
