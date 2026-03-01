@@ -621,3 +621,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 09:27,210768,Deportivo Toluca FC vs. Atlas FC,BUY_YES,0.7,99%,No errors occurred.
 2026-03-01 09:27,234559,Partizan vs. BC Dubai,BUY_YES,0.54,90%,"Partizan is set to take on BC Dubai on Thursday, March 5, 2026 in the EuroLeague."
 2026-03-01 09:28,237534,"ODI Series New Zealand vs Zimbabwe, Women: New Zealand vs Zimbabwe",BUY_YES,0.76,100%,
+2026-03-01 09:56,210768,Deportivo Toluca FC vs. Atlas FC,BUY_YES,0.695,90%,Match score available
+2026-03-01 09:56,234571,Counter-Strike: 9z vs Fake do Biru (BO3) - Circuit X Pantanal Cuiabá Group B,BUY_YES,0.64,90%,"Both news sources suggest that the match will occur on March 4, 2026."
+2026-03-01 09:56,230222,KHL: Admiral Vladivostok vs. Salavat Yulaev Ufa,BUY_NO,0.685,81%,
+2026-03-01 09:56,237534,"ODI Series New Zealand vs Zimbabwe, Women: New Zealand vs Zimbabwe",BUY_YES,0.76,100%,No errors detected
+2026-03-01 09:57,203610,Deportivo Toluca FC vs. FC Juárez,BUY_YES,0.485,85%,Market and News are successfully parsed.
+2026-03-01 09:57,237052,Carabobo FC vs. CS Cristal,BUY_NO,0.65,100%,multiple news sources available
