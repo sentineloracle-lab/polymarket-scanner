@@ -644,3 +644,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 11:12,227896,Duke Blue Devils vs. North Carolina Tar Heels (W),BUY_YES,0.67,100%,
 2026-03-01 11:51,210768,Deportivo Toluca FC vs. Atlas FC,BUY_YES,0.695,100%,No information about the actual market game result.
 2026-03-01 11:52,234816,Czechia vs. Republic of Ireland,BUY_NO,0.525,85%,
+2026-03-01 12:21,221912,Newcastle United FC vs. Manchester City FC - More Markets,BUY_NO,0.775,100%,Valid JSON input
+2026-03-01 12:21,237799,Counter-Strike: BIG vs Leo Team (BO3) - NODWIN Clutch Series Playoffs,BUY_YES,0.71,99%,Information available to predict match
+2026-03-01 12:21,234571,Counter-Strike: 9z vs Fake do Biru (BO3) - Circuit X Pantanal Cuiabá Group B,BUY_YES,0.7,86%,
