@@ -614,3 +614,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 08:17,238402,"BNP Paribas Open, Qualification: Simona Waltert vs Himeno Sakatsume",BUY_YES,0.54,88%,match information available
 2026-03-01 08:17,237534,"ODI Series New Zealand vs Zimbabwe, Women: New Zealand vs Zimbabwe",BUY_YES,0.76,100%,JSON is valid
 2026-03-01 08:18,203610,Deportivo Toluca FC vs. FC Juárez,BUY_YES,0.485,98%,Successful analysis of provided market and news data
+2026-03-01 09:00,106186,PA-01 House Election Winner,BUY_NO,0.705,98%,
+2026-03-01 09:00,238402,"BNP Paribas Open, Qualification: Simona Waltert vs Himeno Sakatsume",BUY_YES,0.53,85%,
+2026-03-01 09:00,202577,Islanders vs. Sharks,BUY_YES,0.625,100%,Valid JSON schema and market news available
