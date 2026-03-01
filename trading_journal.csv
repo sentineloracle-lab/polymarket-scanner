@@ -708,3 +708,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 18:03,237799,Counter-Strike: BIG vs Leo Team (BO3) - NODWIN Clutch Series Playoffs,BUY_YES,0.74,86%,Provided JSON is a list with multiple dictionaries which might be considered more than one outcome. We will use the first element for calculation.
 2026-03-01 18:03,198616,Montevideo City Torque vs. Defensor SC,BUY_YES,0.435,100%,No reason provided
 2026-03-01 18:03,234755,SHL: Froelunda HC vs. Roegle,BUY_YES,0.62,100%,Data received is in the expected format
+2026-03-01 19:01,212064,SE Palmeiras vs. Mirassol FC,BUY_YES,0.635,100%,multiple article results
+2026-03-01 19:02,221912,Newcastle United FC vs. Manchester City FC - More Markets,BUY_NO,0.775,98%,Multiple match reports available
+2026-03-01 19:02,238404,Brasilia: Facundo Acosta vs Nikolas Sanchez Izquierdo,BUY_YES,0.655,99.98%,"No information to compare confidence levels, using average score from news sources"
+2026-03-01 19:02,238406,Chelsea FC vs. Newcastle United FC,BUY_YES,0.51,85%,
+2026-03-01 19:02,227873,Iowa State Cyclones vs. Kansas State Wildcats (W),BUY_YES,0.685,100%,Market found
+2026-03-01 19:02,237519,"Test Series Australia vs. India, Women: Australia vs India",BUY_YES,0.805,100%,Data is in the correct format
