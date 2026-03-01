@@ -683,3 +683,10 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 15:54,234747,SHL: Leksands IF vs. Luleaa,BUY_NO,0.645,90%,Match found in news
 2026-03-01 15:54,202611,Charlotte FC vs. Austin FC,BUY_YES,0.38,97%,Both sources predict a win or a draw for either team with high confidence.
 2026-03-01 15:54,234568,Fenerbahce vs. Monaco,BUY_YES,0.63,90%,
+2026-03-01 16:02,106186,PA-01 House Election Winner,BUY_NO,0.7,94%,Fitzpatrick won the 2026 PA-01 House election with 54.87% of the votes.
+2026-03-01 16:02,210768,Deportivo Toluca FC vs. Atlas FC,BUY_YES,0.67,95%,No issues in data
+2026-03-01 16:02,237612,Counter-Strike: Sinners vs AM Gaming (BO3) - NODWIN Clutch Series Playoffs,BUY_YES,0.67,99%,
+2026-03-01 16:02,238452,Thionville: Roman Safiullin vs Timofey Skatov,BUY_YES,0.575,100%,Match news exist for both Roman Safiullin and Timofey Skatov.
+2026-03-01 16:03,238403,BV Borussia 09 Dortmund vs. FC Augsburg,BUY_YES,0.685,100%,Match found between BV Borussia 09 Dortmund vs. FC Augsburg
+2026-03-01 16:03,234747,SHL: Leksands IF vs. Luleaa,"BUY NO"" if 0.36 >= 0.5 else ""BUY_YES",0.36,98.8%,"Both news sources predict an almost identical score, indicating a highly competitive match."
+2026-03-01 16:03,235753,Genoa CFC vs. AS Roma,BUY_YES,0.22,95%,
