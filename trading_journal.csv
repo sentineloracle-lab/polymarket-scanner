@@ -617,3 +617,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 09:00,106186,PA-01 House Election Winner,BUY_NO,0.705,98%,
 2026-03-01 09:00,238402,"BNP Paribas Open, Qualification: Simona Waltert vs Himeno Sakatsume",BUY_YES,0.53,85%,
 2026-03-01 09:00,202577,Islanders vs. Sharks,BUY_YES,0.625,100%,Valid JSON schema and market news available
+2026-03-01 09:27,212064,SE Palmeiras vs. Mirassol FC,YES,0.635,90%,
+2026-03-01 09:27,210768,Deportivo Toluca FC vs. Atlas FC,BUY_YES,0.7,99%,No errors occurred.
+2026-03-01 09:27,234559,Partizan vs. BC Dubai,BUY_YES,0.54,90%,"Partizan is set to take on BC Dubai on Thursday, March 5, 2026 in the EuroLeague."
+2026-03-01 09:28,237534,"ODI Series New Zealand vs Zimbabwe, Women: New Zealand vs Zimbabwe",BUY_YES,0.76,100%,
