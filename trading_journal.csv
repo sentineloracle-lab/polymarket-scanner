@@ -760,3 +760,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-02 00:59,201880,Swansea City AFC vs. Stoke City FC,BUY_NO,0.54,90%,
 2026-03-02 00:59,210586,PSV vs. NEC,BUY_YES,0.755,100%,
 2026-03-02 00:59,224559,PFK CSKA Moskva vs. FK Dinamo Moskva - More Markets,BUY_YES,0.515,98%,sufficient data
+2026-03-02 03:26,216586,CA Lanús vs. CA Boca Juniors - More Markets,BUY_NO,0.875,100%,
+2026-03-02 03:27,212064,SE Palmeiras vs. Mirassol FC,BUY_YES,0.635,95%,Score extraction was successful
+2026-03-02 03:27,235771,Mississippi Valley State Delta Devils vs. Jackson State Tigers,BUY_YES,0.425,100%,Match between Mississippi Valley State Delta Devils vs. Jackson State Tigers found: Jackson State Tigers defeated the Mississippi Valley State Delta Devils with a score of 97-81.
+2026-03-02 03:27,234747,SHL: Leksands IF vs. Luleaa,BUY_NO,0.635,100%,
+2026-03-02 03:28,228849,BYU Cougars vs. Cincinnati Bearcats,BUY_NO,0.545,90%,game_result
+2026-03-02 03:28,234559,Partizan vs. BC Dubai,BUY_YES,0.65,100%,No specific issue with input data
