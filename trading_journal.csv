@@ -859,3 +859,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-02 22:03,210768,Deportivo Toluca FC vs. Atlas FC,BUY_NO,0.515,100%,Successful API Response
 2026-03-02 22:03,205909,Coventry City FC vs. Preston North End FC,BUY_YES,0.635,90%,sufficient news articles found
 2026-03-02 22:04,234587,Counter-Strike: Marsborne vs Galorys (BO3) - Circuit X Pantanal Cuiabá Group D,BUY_NO,0.535,99%,
+2026-03-02 22:59,232216,Smouha SC vs. Modern SC - More Markets,BUY_YES,0.49,100%,News data available
+2026-03-02 23:00,239571,Urawa Red Diamonds vs. FC Mito Holly Hock - More Markets,BUY_YES,0.51,100%,
+2026-03-02 23:00,241791,Kigali: Nicholas Ionel vs Michiel de Krom,BUY_YES,0.615,100%,Data received
