@@ -866,3 +866,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-02 23:22,205909,Coventry City FC vs. Preston North End FC,BUY_YES,0.665,100%,Match odds are available
 2026-03-02 23:22,237706,SC Sagamihara vs. Thespa Gunma,BUY_NO,0.555,95%,News articles found
 2026-03-02 23:22,241783,Antalya 2: Ipek Oz vs Katarina Zavatska,BUY_YES,0.505,99%,
+2026-03-02 23:57,241118,St Mirren FC vs. Rangers FC,BUY_YES,0.495,95%,Successful market query
+2026-03-02 23:57,241119,Dundee FC vs. Dundee United FC,BUY_YES,0.485,100%,match_data
+2026-03-02 23:58,213131,CA San Lorenzo de Almagro vs. CSyD Defensa y Justicia,BUY_YES,0.465,85%,
+2026-03-02 23:58,201857,Watford FC vs. Wrexham AFC,BUY_YES,0.41,99%,All news articles have a date mentioned.
