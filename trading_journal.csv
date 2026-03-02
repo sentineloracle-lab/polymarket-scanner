@@ -844,3 +844,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-02 19:26,235770,South Florida Bulls vs. Memphis Tigers,BUY_YES,0.5,100%,No errors detected
 2026-03-02 19:26,238547,Arsenal FC vs. Everton FC - More Markets,WAIT,0.56,100%,
 2026-03-02 19:27,240239,SS Lazio vs. AC Milan,BUY_YES,0.245,100%,Analysis successful
+2026-03-02 20:03,241118,St Mirren FC vs. Rangers FC,BUY_YES,0.49,85%,News articles found about St Mirren FC vs Rangers FC
+2026-03-02 20:03,238895,Hibernian FC vs. Livingston FC,BUY_MAYBE,0.53,100%,
+2026-03-02 20:04,231088,Ole Miss Rebels vs. Vanderbilt Commodores,BUY_NO,0.685,100%,No news found for volleyball
+2026-03-02 20:04,235747,Utah Valley Wolverines vs. Southern Utah Thunderbirds,BUY_YES,0.565,100%,Valid match data provided
+2026-03-02 20:04,235770,South Florida Bulls vs. Memphis Tigers,BUY_YES,0.5,100%,Valid news articles found
+2026-03-02 20:04,234587,Counter-Strike: Marsborne vs Galorys (BO3) - Circuit X Pantanal Cuiabá Group D,BUY_YES,0.465,99%,Predicted winner
