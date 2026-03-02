@@ -786,3 +786,10 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-02 07:38,202611,Charlotte FC vs. Austin FC,BUY_YES,0.47,100%,News content is available for Charlotte FC vs. Austin FC
 2026-03-02 07:38,234587,Counter-Strike: Marsborne vs Galorys (BO3) - Circuit X Pantanal Cuiabá Group D,BUY_YES,0.47,99.99603%,
 2026-03-02 07:39,228849,BYU Cougars vs. Cincinnati Bearcats,BUY_YES,0.445,95%,
+2026-03-02 08:07,240684,"BNP Paribas Open, Qualification: Vitaliy Sachko vs Mackenzie McDonald",BUY YES OR SELL NO,0.4,100%,valid input
+2026-03-02 08:07,240671,"BNP Paribas Open, Qualification: Alexander Blockx vs Martin Landaluce",BUY YES,0.655,90%,"multiple, consistent score sources"
+2026-03-02 08:07,235764,Rutgers Scarlet Knights vs. Michigan State Spartans,BUY_NO,0.565,88%,Valid game information available
+2026-03-02 08:07,238638,Club Atlético de Madrid vs. Getafe CF,BUY_YES,0.685,100%,
+2026-03-02 08:08,238403,BV Borussia 09 Dortmund vs. FC Augsburg,BUY_YES,0.7,98%,market_found
+2026-03-02 08:08,234587,Counter-Strike: Marsborne vs Galorys (BO3) - Circuit X Pantanal Cuiabá Group D,BUY_YES,0.47,84%,Valid scores and news for both teams found
+2026-03-02 08:08,234559,Partizan vs. BC Dubai,BUY_YES,0.625,90.998%,Data available for Partizan vs. BC Dubai
