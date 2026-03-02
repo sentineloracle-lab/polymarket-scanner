@@ -753,3 +753,10 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-01 23:55,238403,BV Borussia 09 Dortmund vs. FC Augsburg,BUY_YES,0.695,100%,
 2026-03-01 23:55,234755,SHL: Froelunda HC vs. Roegle,BUY_YES,0.62,85%,Both sources are predicting Rogle
 2026-03-01 23:56,203610,Deportivo Toluca FC vs. FC Juárez,BUY_YES,0.7,100%,
+2026-03-02 00:58,238638,Club Atlético de Madrid vs. Getafe CF,BUY_YES,0.66,100%,No conflicts found
+2026-03-02 00:58,238547,Arsenal FC vs. Everton FC - More Markets,BUY_YES,0.525,95%,The articles provided are relevant to the match.
+2026-03-02 00:58,238403,BV Borussia 09 Dortmund vs. FC Augsburg,BUY_YES,0.695,100%,
+2026-03-02 00:59,202611,Charlotte FC vs. Austin FC,BUY_YES,0.465,90%,sufficient news sources available
+2026-03-02 00:59,201880,Swansea City AFC vs. Stoke City FC,BUY_NO,0.54,90%,
+2026-03-02 00:59,210586,PSV vs. NEC,BUY_YES,0.755,100%,
+2026-03-02 00:59,224559,PFK CSKA Moskva vs. FK Dinamo Moskva - More Markets,BUY_YES,0.515,98%,sufficient data
