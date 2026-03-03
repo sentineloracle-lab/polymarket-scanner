@@ -880,3 +880,10 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-03 04:02,238896,Aberdeen FC vs. Falkirk FC,STAY_STRICT,0.515,100%,No invalid news in the dataset.
 2026-03-03 04:03,241791,Kigali: Nicholas Ionel vs Michiel de Krom,BUY_YES,0.6,100%,"Score is high, match might be ongoing or recently finished."
 2026-03-03 04:03,234559,Partizan vs. BC Dubai,BUY_NO,0.56,88%,"The Euroleague Basketball announced that the 30th round match between Partizan and Dubai, scheduled for March 5, has been postponed."
+2026-03-03 05:14,238896,Aberdeen FC vs. Falkirk FC,BUY_YES,0.485,100%,Aberdeen vs. Falkirk has available information.
+2026-03-03 05:15,235747,Utah Valley Wolverines vs. Southern Utah Thunderbirds,BUY_YES,0.565,91%,
+2026-03-03 05:15,201857,Watford FC vs. Wrexham AFC,BUY_NO,0.59,97%,
+2026-03-03 05:15,238547,Arsenal FC vs. Everton FC - More Markets,BUY_NO,0.55,96%,
+2026-03-03 05:15,240238,Eastern Illinois Panthers vs. SIUE Cougars,BUY_YES,0.47,100%,market and news available
+2026-03-03 05:15,240245,Gardner-Webb Runnin' Bulldogs vs. USC Upstate Spartans,PASS_NO,0.68,99%,Predicted win probability of 99.98% for South Carolina Upstate is high
+2026-03-03 05:15,234747,SHL: Leksands IF vs. Luleaa,BUY_YES,0.38,99%,
