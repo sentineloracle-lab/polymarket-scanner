@@ -875,3 +875,8 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-03-03 01:10,235771,Mississippi Valley State Delta Devils vs. Jackson State Tigers,BUY_NO,0.575,90%,Latest news suggests Jackson State Tigers won against Mississippi Valley State Delta Devils
 2026-03-03 01:10,235747,Utah Valley Wolverines vs. Southern Utah Thunderbirds,BUY_NO,0.435,99%,Utah Valley Wolverines are scheduled to play Southern Utah Thunderbirds.
 2026-03-03 01:11,241791,Kigali: Nicholas Ionel vs Michiel de Krom,BUY_YES,0.6,100%,Match information found
+2026-03-03 04:01,232362,Llaneros FC vs. CD La Equidad Seguros - More Markets,BUY_YES,0.54,90%,enough_market_news
+2026-03-03 04:02,213132,Racing Club vs. AA Estudiantes,STAY_STRICT,0.515,90%,Both recent match scores and head-to-head data are available and usable.
+2026-03-03 04:02,238896,Aberdeen FC vs. Falkirk FC,STAY_STRICT,0.515,100%,No invalid news in the dataset.
+2026-03-03 04:03,241791,Kigali: Nicholas Ionel vs Michiel de Krom,BUY_YES,0.6,100%,"Score is high, match might be ongoing or recently finished."
+2026-03-03 04:03,234559,Partizan vs. BC Dubai,BUY_NO,0.56,88%,"The Euroleague Basketball announced that the 30th round match between Partizan and Dubai, scheduled for March 5, has been postponed."
