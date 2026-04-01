@@ -976,3 +976,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-04-01 22:09,276642,Silkeborg IF vs. Odense BK - More Markets,BUY_YES,0.51,95%,
 2026-04-01 22:10,321383,FC Universitario vs. Club The Strongest - More Markets,BUY_YES,0.51,85%,
 2026-04-01 22:10,322267,San Diego FC vs. Minnesota United FC - Exact Score,BUY_YES,0.485,100%,
+2026-04-01 23:22,319295,"UFC Fight Night: John Castaneda vs. Mark Vologdin (Bantamweight, Prelims)",BUY_YES,0.53,99%,Valid input
+2026-04-01 23:22,275915,AA Ponte Preta vs. Vila Nova FC - More Markets,"BUY_YES"" if 0.655 > 0.5 else ""BUY_NO",0.655,90%,Data provided
+2026-04-01 23:23,270625,FC Seoul vs. Jeonbuk Hyundai Motors FC - More Markets,BUY_YES,0.51,95%,News articles are available
