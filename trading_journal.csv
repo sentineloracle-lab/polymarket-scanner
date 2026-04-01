@@ -937,3 +937,10 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-04-01 14:15,311991,Cheltenham Town FC vs. Cambridge United FC - More Markets,BUY_YES,0.505,99%,
 2026-04-01 14:15,317292,CA River Plate vs. CA Belgrano - More Markets,BUY_YES,0.34,90%,More news are available
 2026-04-01 14:16,264095,Damac Saudi Club vs. Al Qadisiyah Saudi Club - More Markets,BUY_YES,0.515,95%,"Market: Damac Saudi Club vs. Al Qadisiyah Saudi Club found, News sources are available"
+2026-04-01 15:57,319295,"UFC Fight Night: John Castaneda vs. Mark Vologdin (Bantamweight, Prelims)",BUY_YES,0.53,99%,Valid JSON input received and score calculated with high confidence.
+2026-04-01 15:57,275915,AA Ponte Preta vs. Vila Nova FC - More Markets,BUY_YES,0.51,99%,Sufficient information available for analysis
+2026-04-01 15:57,321383,FC Universitario vs. Club The Strongest - More Markets,BUY_YES,0.515,90%,sufficient data available
+2026-04-01 15:58,319303,"UFC Fight Night: JJ Aldrich vs. Jamey-Lyn Horth (Women's Flyweight, Prelims)",BUY_YES,0.52,85%,
+2026-04-01 15:58,312002,Truro City FC vs. Forest Green Rovers FC - More Markets,BUY_YES,0.505,100%,
+2026-04-01 15:58,317659,Ismaily SC vs. Tala'ea El Gaish SC - More Markets,BUY_YES,0.51,100%,
+2026-04-01 15:58,264095,Damac Saudi Club vs. Al Qadisiyah Saudi Club - More Markets,BUY_YES,0.515,98%,
