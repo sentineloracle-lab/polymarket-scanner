@@ -979,3 +979,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-04-01 23:22,319295,"UFC Fight Night: John Castaneda vs. Mark Vologdin (Bantamweight, Prelims)",BUY_YES,0.53,99%,Valid input
 2026-04-01 23:22,275915,AA Ponte Preta vs. Vila Nova FC - More Markets,"BUY_YES"" if 0.655 > 0.5 else ""BUY_NO",0.655,90%,Data provided
 2026-04-01 23:23,270625,FC Seoul vs. Jeonbuk Hyundai Motors FC - More Markets,BUY_YES,0.51,95%,News articles are available
+2026-04-02 00:02,319295,"UFC Fight Night: John Castaneda vs. Mark Vologdin (Bantamweight, Prelims)",BUY_YES,0.53,100%,
+2026-04-02 00:02,329257,LoL: ⁠Movistar KOI Fénix vs Barça eSports (BO3) - LES Regular Season,BUY_YES,0.55,100%,No invalid or missing data found
+2026-04-02 00:02,321383,FC Universitario vs. Club The Strongest - More Markets,BUY_YES,0.51,100%,Available news
+2026-04-02 00:02,314874,Kocaelispor vs. Rams Başakşehir FK - More Markets,BUY_NO,0.54,99%,Enough data found.
+2026-04-02 00:02,322267,San Diego FC vs. Minnesota United FC - Exact Score,BUY_NO,0.515,99%,Confirmed by multiple sources
+2026-04-02 00:03,328631,York City FC vs. Altrincham FC - More Markets,BUY_YES,0.51,99%,Market and news data available
