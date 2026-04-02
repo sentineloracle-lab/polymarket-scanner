@@ -1028,3 +1028,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-04-02 15:40,275915,AA Ponte Preta vs. Vila Nova FC - More Markets,BUY_YES,0.515,99%,
 2026-04-02 15:40,311991,Cheltenham Town FC vs. Cambridge United FC - More Markets,BUY_YES,0.51,88.49%,
 2026-04-02 15:40,317581,FC Hermannstadt vs. FCV Farul Constanţa - More Markets,BUY_YES,0.505,90%,Insufficient information for confident prediction.
+2026-04-02 16:35,319295,"UFC Fight Night: John Castaneda vs. Mark Vologdin (Bantamweight, Prelims)",BUY_YES,0.53,100%,Valid JSON input
+2026-04-02 16:35,317650,Tala'ea El Gaish SC vs. National Bank of Egypt Club - More Markets,BUY_YES,0.515,82%,
+2026-04-02 16:35,311766,Morecambe FC vs. Carlisle United FC,BUY_YES,0.44,97%,Success
+2026-04-02 16:36,317274,CA Vélez Sarsfield vs. CA Central Córdoba - More Markets,BUY_YES,0.505,100%,
