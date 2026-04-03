@@ -1069,3 +1069,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-04-03 08:39,317274,CA Vélez Sarsfield vs. CA Central Córdoba - More Markets,BUY_YES,0.515,100%,no errors in input
 2026-04-03 08:39,318112,América de Cali vs. Club Alianza Atlético - More Markets,BUY_YES,0.51,100%,
 2026-04-03 08:39,328476,Comunicaciones FC vs. Aurora FC - More Markets,BUY_YES,0.51,100%,News found
+2026-04-03 09:37,319295,"UFC Fight Night: John Castaneda vs. Mark Vologdin (Bantamweight, Prelims)",BUY_YES,0.53,100%,No issues found
+2026-04-03 09:37,319303,"UFC Fight Night: JJ Aldrich vs. Jamey-Lyn Horth (Women's Flyweight, Prelims)",BUY_YES,0.515,100%,The provided news sources contain valid information about the UFC fight.
+2026-04-03 09:38,318112,América de Cali vs. Club Alianza Atlético - More Markets,BUY_YES,0.515,100%,Predictions available
+2026-04-03 09:38,314874,Kocaelispor vs. Rams Başakşehir FK - More Markets,BUY_NO,0.53,99%,
+2026-04-03 09:38,311977,Sporting FC vs. LD Alajuelense - More Markets,BUY_YES,0.51,100%,No errors detected
+2026-04-03 09:38,265527,Flames vs. Avalanche,BUY_YES,0.33,100%,Valid hockey scores extracted
