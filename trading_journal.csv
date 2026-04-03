@@ -1090,3 +1090,10 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-04-03 12:07,321383,FC Universitario vs. Club The Strongest - More Markets,BUY_YES,0.515,99%,Valid data
 2026-04-03 12:07,320252,VfL Wolfsburg vs. Eintracht Frankfurt - Exact Score,BUY_YES,0.495,83%,Score extracted from at least one URL
 2026-04-03 12:07,318112,América de Cali vs. Club Alianza Atlético - More Markets,BUY_YES,0.515,83%,
+2026-04-03 13:50,329257,LoL: ⁠Movistar KOI Fénix vs Barça eSports (BO3) - LES Regular Season,BUY_PARTIAL,0.375,100%,
+2026-04-03 13:50,273316,Chicago Fire FC vs. Atlanta United FC - More Markets,BUY_YES,0.505,100%,News and market data found
+2026-04-03 13:50,311850,CSD Cobán Imperial vs. CD Guastatoya - More Markets,BUY_YES,0.53,98%,Match data available
+2026-04-03 13:50,320252,VfL Wolfsburg vs. Eintracht Frankfurt - Exact Score,BUY_SAME_PROBABILITY,0.515,99%,Both sources suggest a score of 1-1
+2026-04-03 13:50,312002,Truro City FC vs. Forest Green Rovers FC - More Markets,BUY_NO,0.495,90%,No conflicting match results found.
+2026-04-03 13:50,311977,Sporting FC vs. LD Alajuelense - More Markets,BUY_NO,0.475,85%,News is available
+2026-04-03 13:51,317280,CA Huracán vs. CA Rosario Central - More Markets,BUY_YES,0.525,100%,
