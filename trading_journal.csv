@@ -1051,3 +1051,10 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-04-03 00:04,275915,AA Ponte Preta vs. Vila Nova FC - More Markets,BUY_YES,0.515,100%,
 2026-04-03 00:05,304453,UC Sampdoria vs. Empoli FC - More Markets,BUY_YES,0.505,99%,
 2026-04-03 03:39,317568,EC Bahia vs. SE Palmeiras - More Markets,BUY_NO,0.705,100%,
+2026-04-03 05:27,329257,LoL: ⁠Movistar KOI Fénix vs Barça eSports (BO3) - LES Regular Season,BUY_YES,0.6,100%,No issues found
+2026-04-03 05:27,275915,AA Ponte Preta vs. Vila Nova FC - More Markets,"BUY_YES"" if 0.515 > 0.5 else ""BUY_NO",0.515,100%,Valid JSON input
+2026-04-03 05:28,312002,Truro City FC vs. Forest Green Rovers FC - More Markets,BUY_YES,0.505,100%,enough market and news data
+2026-04-03 05:28,318112,América de Cali vs. Club Alianza Atlético - More Markets,YES,0.515,100%,
+2026-04-03 05:28,314874,Kocaelispor vs. Rams Başakşehir FK - More Markets,BUY_NO,0.54,88%,No errors found
+2026-04-03 05:28,328631,York City FC vs. Altrincham FC - More Markets,BUY_NO,0.49,100%,
+2026-04-03 05:28,328938,NK Lokomotiva Zagreb vs. NK Istra 1961 - More Markets,BUY_YES,0.51,95%,
