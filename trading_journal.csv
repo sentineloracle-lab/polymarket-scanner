@@ -1152,3 +1152,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-04-04 10:06,314523,CA Mineiro vs. CA Juventud,BUY_YES,0.77,100%,
 2026-04-04 11:59,317274,CA Vélez Sarsfield vs. CA Central Córdoba - More Markets,YES,0.51,98%,
 2026-04-04 12:00,264095,Damac Saudi Club vs. Al Qadisiyah Saudi Club - More Markets,BUY_NO,0.565,100%,Both teams' scores extracted successfully
+2026-04-04 12:33,329257,LoL: ⁠Movistar KOI Fénix vs Barça eSports (BO3) - LES Regular Season,BUY_YES,0.63,100%,news articles found
+2026-04-04 12:34,317274,CA Vélez Sarsfield vs. CA Central Córdoba - More Markets,BUY_YES,0.515,99%,Both news have scores
+2026-04-04 12:35,317280,CA Huracán vs. CA Rosario Central - More Markets,BUY YES IF ABOVE 0.500,0.505,100%,
+2026-04-04 12:35,328476,Comunicaciones FC vs. Aurora FC - More Markets,BUY_YES,0.51,91%,News article score: 0.6742441 is higher than other available scores. 0.6742441 is chosen as a final score.
