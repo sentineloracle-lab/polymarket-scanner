@@ -1261,3 +1261,8 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-05-02 15:30,367486,Modern SC vs. El Ittihad SC El Iskandary - More Markets,BUY_NO,0.63,100%,At least one news article exists
 2026-05-02 15:31,364907,Club Blooming vs. Red Bull Bragantino,BUY_YES,0.235,100%,"Both sources indicate that Red Bull Bragantino has a win over Club Blooming in their head-to-head matchup, with a draw also reported."
 2026-05-02 15:31,435360,Who will be featured on Petal?,BUY_YES,0.485,98%,There is sufficient news to determine who will be featured on Petal.
+2026-05-02 16:30,424230,Olympique Lyonnais vs. Stade Rennais FC 1901 - Player Props,BUY_NO,0.79,99%,"Invalid json schema, assuming a valid input"
+2026-05-02 16:30,411276,2026 FIFA World Cup: Player to make USA Squad,BUY_YES,0.53,85%,"Based on Polymarket and social media, the player with the highest predicted probability of making the USA squad for the 2026 FIFA World Cup is Christian Pulisic with a predicted confidence level of 85%"
+2026-05-02 16:30,424712,FC Internazionale Milano vs. Parma Calcio 1913 - Player Props,BUY_YES,0.32,100%,Valid data found.
+2026-05-02 16:31,435496,StarCraft II: herO vs trigger (BO3) - RSL Revival Group B,BUY_YES,0.565,100%,Valid input provided with market details and news.
+2026-05-02 16:31,375110,AFC Ajax vs. FC Utrecht,BUY_YES,0.55,98%,match_found
