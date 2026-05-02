@@ -1273,3 +1273,8 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-05-02 17:31,375110,AFC Ajax vs. FC Utrecht,BUY_YES,0.515,85%,
 2026-05-02 17:32,389785,Tianjin Jinmen Hu FC vs. Chengdu Rongcheng FC,BUY_NO,0.645,85%,multiple valid news sources with prediction
 2026-05-02 17:32,395861,PSV vs. FC Twente '65,BUY_YES,0.54,99%,both sources confirm match validity
+2026-05-02 18:34,440735,LoL: T1 vs HANJIN BRION (BO3) - Esports World Cup Korea Qualifier Playoffs,BUY_YES,0.905,90%,
+2026-05-02 18:34,375110,AFC Ajax vs. FC Utrecht,BUY_YES,0.565,98%,Multiple news sources are available for the market: AFC Ajax vs. FC Utrecht
+2026-05-02 18:34,389785,Tianjin Jinmen Hu FC vs. Chengdu Rongcheng FC,BUY_NO,0.65,88%,At least two sources are found.
+2026-05-02 18:35,395861,PSV vs. FC Twente '65,BUY_YES,0.54,95%,Input appears to be valid JSON
+2026-05-02 18:35,393224,Wuhan San Zhen FC vs. Liaoning Tieren FC,BUY_YES,0.44,100%,
