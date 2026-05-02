@@ -1222,3 +1222,5 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-05-02 01:18,352903,Sparta Rotterdam vs. Go Ahead Eagles - More Markets,BUY_NO,0.75,100%,no issues detected
 2026-05-02 01:19,354430,FC Midtjylland vs. Viborg FF - More Markets,BUY_YES,0.365,100%,news_found
 2026-05-02 01:19,364907,Club Blooming vs. Red Bull Bragantino,BUY_YES,0.23,100%,Both news sources indicate a soccer match between Club Blooming and Red Bull Bragantino is scheduled.
+2026-05-02 04:48,418997,Cagliari Calcio vs. Udinese Calcio - More Markets,BUY_YES,0.43,100%,
+2026-05-02 04:48,375110,AFC Ajax vs. FC Utrecht,BUY_YES,0.515,95%,valid_data
