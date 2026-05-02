@@ -1234,3 +1234,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-05-02 08:16,353698,Wadi Degla SC vs. Kahrabaa Ismailia FC - More Markets,BUY_NO,0.72,100%,News contains 2 valid articles
 2026-05-02 08:17,393087,Fredrikstad FK vs. Hamarkameratene,"BUY_YES"" if 0.465 > 0.5 else ""SELL_YES",0.465,100%,Predictions available
 2026-05-02 08:17,434756,SC Corinthians Paulista vs. CA Platense,BUY_NO,0.545,99%,multiple news sources available
+2026-05-02 09:46,426722,SV Werder Bremen vs. FC Augsburg - Player Props,BUY_NO,0.84,99%,Invalid input format
+2026-05-02 09:46,424152,Kasımpaşa SK vs. Kocaelispor - More Markets,BUY_NO,0.815,84%,
+2026-05-02 09:46,437594,Counter-Strike: M80 vs Incognito (BO3) - Thunderpick World Championship North American Playoffs,BUY_YES,0.73,92%,Data available
+2026-05-02 09:47,435360,Who will be featured on Petal?,BUY_YES,0.475,100%,
