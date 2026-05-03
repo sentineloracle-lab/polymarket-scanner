@@ -1319,3 +1319,5 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-05-03 10:37,375110,AFC Ajax vs. FC Utrecht,BUY_YES,0.515,100%,No errors found.
 2026-05-03 10:37,389785,Tianjin Jinmen Hu FC vs. Chengdu Rongcheng FC,BUY_NO,0.675,100%,Multiple news sources with score
 2026-05-03 10:37,393224,Wuhan San Zhen FC vs. Liaoning Tieren FC,BUY_YES,0.405,100%,
+2026-05-03 11:27,371788,Seattle Sounders FC vs. San Diego FC,BUY_YES,0.55,100%,
+2026-05-03 11:27,375110,AFC Ajax vs. FC Utrecht,BUY_YES,0.515,100%,Sofascore has a slightly higher confidence in the result.
