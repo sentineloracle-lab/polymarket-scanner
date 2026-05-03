@@ -1360,3 +1360,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-05-03 21:26,418997,Cagliari Calcio vs. Udinese Calcio - More Markets,BUY_YES,0.425,100%,no reason provided
 2026-05-03 21:26,364065,Tala'ea El Gaish SC vs. Ghazl El Mahalla SC - More Markets,BUY_NO,0.775,99%,
 2026-05-03 21:26,367493,El Mokawloon El Arab SC vs. El Gouna SC - More Markets,BUY_NO,0.68,90%,Successful parsing of input
+2026-05-03 22:24,371795,Portland Timbers vs. Sporting Kansas City,BUY_YES,0.625,100%,
+2026-05-03 22:24,374011,Premiership Rugby: Exeter Chiefs vs Bath,BUY_NO,0.595,100%,Both Exeter Chiefs vs Bath news articles have a recognized score.
+2026-05-03 22:25,434756,SC Corinthians Paulista vs. CA Platense,BUY_YES,0.455,100%,News list is not empty
+2026-05-03 22:25,377425,FC Twente '65 vs. Sparta Rotterdam - More Markets,BUY_YES,0.485,83%,
