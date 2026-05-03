@@ -1356,3 +1356,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-05-03 19:41,370282,Premiership Rugby: Leicester Tigers vs Northampton Saints,BUY_YES,0.445,100%,No issues found
 2026-05-03 20:25,374011,Premiership Rugby: Exeter Chiefs vs Bath,BUY_NO,0.585,100%,No issue with the provided JSON schema
 2026-05-03 20:25,377422,AFC Ajax vs. FC Utrecht - More Markets,BUY_NO,0.66,100%,
+2026-05-03 21:26,371795,Portland Timbers vs. Sporting Kansas City,BUY_YES,0.625,100%,Successful API request
+2026-05-03 21:26,418997,Cagliari Calcio vs. Udinese Calcio - More Markets,BUY_YES,0.425,100%,no reason provided
+2026-05-03 21:26,364065,Tala'ea El Gaish SC vs. Ghazl El Mahalla SC - More Markets,BUY_NO,0.775,99%,
+2026-05-03 21:26,367493,El Mokawloon El Arab SC vs. El Gouna SC - More Markets,BUY_NO,0.68,90%,Successful parsing of input
