@@ -1393,3 +1393,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-05-04 16:26,434756,SC Corinthians Paulista vs. CA Platense,BUY_YES,0.455,100%,
 2026-05-04 16:27,395861,PSV vs. FC Twente '65,BUY_NO,0.54,100%,Found two valid news items for PSV vs. FC Twente '65
 2026-05-04 16:27,399801,Inter Miami CF vs. Portland Timbers,BUY_NO,0.595,100%,Valid JSON provided
+2026-05-04 18:07,371788,Seattle Sounders FC vs. San Diego FC,BUY_YES,0.545,100%,The score is available for both teams.
+2026-05-04 18:07,377422,AFC Ajax vs. FC Utrecht - More Markets,BUY_NO,0.65,98%,
+2026-05-04 18:08,434756,SC Corinthians Paulista vs. CA Platense,BUY_YES,0.455,99%,
