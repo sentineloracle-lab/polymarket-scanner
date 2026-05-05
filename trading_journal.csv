@@ -1412,3 +1412,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-05-04 23:32,371795,Portland Timbers vs. Sporting Kansas City,BUY_YES,0.625,100%,No reason provided
 2026-05-04 23:32,422642,Hamburger SV vs. SC Freiburg - More Markets,BUY_YES,0.17,85%,
 2026-05-04 23:33,395861,PSV vs. FC Twente '65,BUY_YES,0.495,100%,At least one news article found.
+2026-05-05 01:18,449048,Ohio Governor Republican Primary: Margin of Victory,BUY_YES,0.33,100%,JSON schema validation passed
+2026-05-05 01:18,367493,El Mokawloon El Arab SC vs. El Gouna SC - More Markets,BUY_YES,0.19,100%,News articles retrieved successfully
+2026-05-05 01:19,377425,FC Twente '65 vs. Sparta Rotterdam - More Markets,BUY_YES,0.49,100%,
+2026-05-05 01:19,368808,Chengdu Rongcheng FC vs. Henan FC,BUY_YES,0.555,90%,Match data available
