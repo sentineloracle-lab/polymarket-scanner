@@ -1610,3 +1610,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-06-09 19:39,572666,Colorado Rockies vs. Athletics,IF_PROBABILITY_GREAT_THAN_0_5_BUY_YES_ELSE_BUY_NO,0.515,100%,Valid articles found with news score: 0.69274646 and 0.6892434
 2026-06-09 23:06,572666,Colorado Rockies vs. Athletics,BUY_YES,0.505,100%,Recent news available for the market: Colorado Rockies vs Athletics
 2026-06-09 23:07,577748,ITF Martos: Mustapha El Natour vs Esteban Talavera Cortes,BUY_YES,0.27,99%,
+2026-06-10 01:40,575910,ITF Decatur: Sahaja Yamalapalli vs Carlota Moreno,BUY_YES,0.775,86%,
+2026-06-10 01:40,577842,ITF Martos: Jose Dominguez Alonso vs Samuel De Felipe Garcia,BUY_YES,0.435,100%,Valid data provided
+2026-06-10 01:40,566205,Libema Open (Doubles): Arribage/Olivetti vs Borges/Polmans,BUY_YES,0.655,100%,All required data found
