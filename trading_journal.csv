@@ -1650,3 +1650,4 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-06-15 04:08,596268,New York Mets vs. Cincinnati Reds - Player Props,BUY_YES,0.5,100%,
 2026-06-15 04:08,596302,"Kwibuka T20 Tournament, Women: Rwanda vs Zimbabwe High Performance Xi",BUY_YES,0.5,85%,Match status determined correctly.
 2026-06-15 04:09,596322,Minnesota Lynx vs. Dallas Wings,BUY_YES,0.5,90%,Valid market found.
+2026-06-15 10:47,597230,"Bitcoin above ___ on June 15, 8AM ET?",BUY_YES,0.5,84%,"Current market price of Bitcoin ($65,686) is above the threshold ($___) on June 15, 2026, 8AM ET."
