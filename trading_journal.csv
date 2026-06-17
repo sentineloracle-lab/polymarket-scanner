@@ -1661,3 +1661,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-06-16 22:07,564346,Minnesota Lynx vs. Golden State Valkyries,BUY_YES,0.685,82%,Game data found
 2026-06-16 22:07,600656,ITF Bourg-En-Bresse: Pierre Antoine Faut vs Elijah Sanogo,BUY_YES,0.615,100%,Valid input for analysis
 2026-06-16 22:07,601303,Valorant: REJECT vs QT DIG∞ (BO3) - VCL Japan Main Stage,BUY_YES,0.49,98%,
+2026-06-17 00:04,601700,ITF Lourinha: Robin Catry vs Mario Gonzalez Fernandez,BUY_YES,0.48,100%,
+2026-06-17 00:04,600692,ITF Bolszewo: Ivana Sebestova vs Khrystyna Vozniak,BUY_YES,0.515,83%,
+2026-06-17 00:05,600703,ITF San Gregorio: Anastasia Abbagnato vs Ruien Zhang,BUY_YES,0.66,90%,"Anastasia Abbagnato vs Ruien Zhang is a valid match announcement, however the news about next match and h2h are not very recent."
