@@ -1743,3 +1743,5 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-06-24 13:53,629000,ITF Claremont: Evan Bynoe vs Gus Grumet,BUY_NO,0.635,100%,Valid ITF Claremont: Evan Bynoe vs Gus Grumet market with news available.
 2026-06-24 18:24,579193,Counter-Strike: 3DMAX vs NIP (BO1) - XSE Pro League Group Stage,BUY_YES,0.395,85%,
 2026-06-24 22:01,623746,Wimbledon 2026: Longest Match,BUY_YES,0.76,100%,
+2026-06-24 23:03,623746,Wimbledon 2026: Longest Match,BUY_YES,0.76,100%,
+2026-06-24 23:03,631027,ITF Gdansk: Amarissa Kiara Toth vs Daria Kuczer,BUY_YES,0.75,83%,"Both news sources have a score above 0.7, so the score is likely reliable"
