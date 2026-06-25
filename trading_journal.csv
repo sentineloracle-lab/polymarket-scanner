@@ -1745,3 +1745,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-06-24 22:01,623746,Wimbledon 2026: Longest Match,BUY_YES,0.76,100%,
 2026-06-24 23:03,623746,Wimbledon 2026: Longest Match,BUY_YES,0.76,100%,
 2026-06-24 23:03,631027,ITF Gdansk: Amarissa Kiara Toth vs Daria Kuczer,BUY_YES,0.75,83%,"Both news sources have a score above 0.7, so the score is likely reliable"
+2026-06-25 01:37,623709,Wimbledon 2026: Top-10 Seed to Lose in First Round? (Women’s Singles),BUY_YES,0.52,100%,No top-10 seeds have lost in the first round of Women's Singles in the provided news sources as of 2026.
+2026-06-25 01:37,618781,Rainbow Six Siege: Team Liquid vs Black Dragons e-Sports (BO1) - South America League Stage 1 Group Stage,BUY_YES,0.78,84%,
+2026-06-25 01:37,579193,Counter-Strike: 3DMAX vs NIP (BO1) - XSE Pro League Group Stage,BUY_YES,0.395,92%,
