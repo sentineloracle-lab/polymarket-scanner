@@ -1798,3 +1798,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-07-02 15:56,623746,Wimbledon 2026: Longest Match,BUY_YES,0.75,100%,Input is valid
 2026-07-02 15:56,653247,Dota 2: Inner Circle vs 1win (BO2) - Esports World Cup Group D,BUY_YES,0.45,90%,Sufficient data found
 2026-07-02 15:56,658278,ITF Umag: Andrej Martin vs Ivan Biletic,BUY_YES,0.9945,90%,Both news sources have sufficient info.
+2026-07-02 17:26,626602,FK Vardar Skopje vs. Kuopion PS,BUY_YES,0.47,100%,
+2026-07-02 17:26,659177,ITF San Diego: Vignesh Gogineni vs Stian Klaassen,BUY_YES,0.63,99%,Enough news articles found
+2026-07-02 17:26,659212,ITF Maanshan: JiaYi Wang vs Yuhan Wang,BUY_YES,0.63,83%,
