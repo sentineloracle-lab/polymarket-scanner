@@ -1810,3 +1810,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-07-03 01:26,647772,Tampa Bay Rays vs. Houston Astros,BUY_YES,0.564,90%,
 2026-07-03 01:26,658423,Valorant: Team Secret vs VARREL (BO3) - VCT Pacific Group Omega,BUY_YES,0.505,82%,"Match details not available directly in the news articles, however they match EWC 2026 results"
 2026-07-03 01:26,647767,Baltimore Orioles vs. Cincinnati Reds,BUY_NO,0.52,100%,
+2026-07-03 05:36,623746,Wimbledon 2026: Longest Match,BUY_YES,0.75,100%,Input is a valid list of dictionaries with required keys
+2026-07-03 05:36,626602,FK Vardar Skopje vs. Kuopion PS,BUY_NO,0.535,100%,Match valid with available details
+2026-07-03 05:36,647767,Baltimore Orioles vs. Cincinnati Reds,BUY_YES,0.495,90%,game_result_available
