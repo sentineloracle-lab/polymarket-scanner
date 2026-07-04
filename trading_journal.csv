@@ -1838,3 +1838,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-07-03 23:42,646996,Syria vs. Iran,BUY_NO,0.515,83%,Both countries have significant presence in news articles
 2026-07-03 23:42,662910,Wimbledon ATP (Doubles): Bolelli/Vavassori vs Jong/Royer,BUY_YES,0.87,95%,
 2026-07-03 23:43,663924,ITF Monastir: Cesar Bouchelaghem vs Aziz Ouakaa,BUY_YES,0.67,87%,score_available
+2026-07-04 01:15,623746,Wimbledon 2026: Longest Match,BUY_YES,0.75,80.98936%,
+2026-07-04 01:16,646995,China vs. Chinese Taipei,BUY_YES,0.695,100%,
+2026-07-04 01:16,663897,ITF Kursumlijska Banja: Semen Pankin vs Timofei Derepasko,BUY_YES,0.705,100%,Match exists
+2026-07-04 01:16,663926,ITF Amstelveen: Abel Forger vs Pieter De Lange,BUY_YES,0.625,100%,Valid input
