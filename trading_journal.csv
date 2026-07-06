@@ -1938,3 +1938,6 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-07-06 14:47,664043,Dota 2: Team Spirit vs MOUZ - Match Result (1x2),BUY_NO,0.345,81%,
 2026-07-06 17:32,671547,Valorant: MIR vs Fire Flux Esports (BO3) - VCL EMEA: Last Chance Qualifier Group B,BUY_YES,0.62,86%,Match details available from two sources: vlr.gg and escorenews.com.
 2026-07-06 17:32,669858,Valorant: FunPlus Phoenix vs Trace Esports (BO3) - VCT China Stage 2 Group Alpha,BUY_YES,0.45,90%,Match stats are available from two sources.
+2026-07-06 19:25,671547,Valorant: MIR vs Fire Flux Esports (BO3) - VCL EMEA: Last Chance Qualifier Group B,BUY_YES,0.615,100%,Matches found
+2026-07-06 19:25,669859,Valorant: JD Gaming vs TYLOO (BO3) - VCT China Stage 2 Group Alpha,BUY_NO,0.57,81%,Match available on multiple sources
+2026-07-06 19:25,669858,Valorant: FunPlus Phoenix vs Trace Esports (BO3) - VCT China Stage 2 Group Alpha,BUY_NO,0.55,100%,Both scores are greater than zero
