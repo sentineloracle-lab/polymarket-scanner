@@ -1950,3 +1950,5 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-07-07 05:53,675461,ITF Hillcrest: Marilouise Van Zyl vs Isabella Wong,BUY_YES,0.47,90%,
 2026-07-07 05:53,674537,ITF The Hague: Federica Urgesi vs Lucija Ciric Bagaric,BUY_YES,0.64,100%,Valid data provided
 2026-07-07 05:53,675433,ITF Wuning: Yecong Mo vs Daniil Sarksian,BUY_YES,0.735,100%,
+2026-07-07 09:02,675464,ITF Hillcrest: Abigayel Vosloo vs Polina Leykina,SELL_NO,0.935,83%,
+2026-07-07 09:02,675458,ITF Hillcrest: Jenny Duerst vs Gloria Pop,BUY_YES,0.93,85%,"no upcoming match found, but recent results available"
