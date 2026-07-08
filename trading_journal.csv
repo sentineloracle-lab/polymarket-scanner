@@ -1986,3 +1986,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-07-08 07:22,634115,SK Dila Gori vs. AC Virtus - Halftime Result,BUY_YES,0.6,100%,Both news sources show a score above 0.5
 2026-07-08 07:22,677679,Los Angeles Angels vs. Texas Rangers - First 5 Innings Winner,BUY_YES,0.34,82%,
 2026-07-08 07:22,678252,ITF Kursumlijska Banja: Kristijan Juhas vs Denis Klok,BUY_YES,0.645,100%,No issues detected
+2026-07-08 10:00,679171,ITF Rio Claro: Laura Badia vs Bruna Melato,BUY_YES,0.89,87.5%,Multiple sources with confidence scores available for market: ITF Rio Claro: Laura Badia vs Bruna Melato.
+2026-07-08 10:01,677679,Los Angeles Angels vs. Texas Rangers - First 5 Innings Winner,BUY_NO,0.665,100%,"Winner of first 5 innings has already occurred, Texas Rangers won"
+2026-07-08 10:01,678252,ITF Kursumlijska Banja: Kristijan Juhas vs Denis Klok,BUY_YES,0.635,100%,Sufficient news about ITF Kursumlijska Banja: Kristijan Juhas vs Denis Klok were found.
+2026-07-08 10:01,678223,ITF Kassel: Dominik Recek vs Luca Castagnola,BUY_YES,0.55,82%,Data is available for the match.
