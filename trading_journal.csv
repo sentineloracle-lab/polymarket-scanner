@@ -2009,3 +2009,7 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-07-09 05:50,682900,ITF Monastir: Tanisha Kashyap vs Sofia Camila Rojas,BUY_NO,0.845,100%,News found for the specified match.
 2026-07-09 05:50,682908,ITF Hillcrest: Ofek Shimanov vs Preston Brown,BUY_YES,0.785,186.5%,Both news sources have scored this match favoring Ofek Shimanov
 2026-07-09 05:50,682876,ITF Bucharest: Matei Florin Breazu vs Michele Mecarelli,BUY_YES,0.35,90%,"Both sources report a score of approximately 0.8, indicating a strong favorite for Matei Florin Breazu"
+2026-07-09 09:09,634162,Europa FC vs. KF Shkëndija 79 - Exact Score,BUY_YES,0.0435,81%,exact score prediction model suggests a 2-1 win for Europa FC over Shkendija 79
+2026-07-09 09:09,656338,US announces military base in Israel in 2026?,YES,0.205,90%,US announces military base in Israel in 2026: multiple news sources confirm
+2026-07-09 09:10,652371,SP La Fiorita vs. FC UNA Strassen - Exact Score,BUY_YES,0.44,95%,The prediction model has sufficient information to make a prediction.
+2026-07-09 09:10,682899,ITF Monastir: Matilde Mariani vs Katja Wiersholm,BUY_NO,0.42,95%,Match is found
