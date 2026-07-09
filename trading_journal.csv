@@ -2003,3 +2003,9 @@ Date,ID,Marche,Action,Prix,Confiance,Raison
 2026-07-08 23:58,669514,CD Moquegua vs. CD Comerciantes Unidos - More Markets,BUY_NO,0.76,88%,Valid market and news
 2026-07-08 23:58,652259,PFK Levski Sofia vs. FK Borac Banja Luka - More Markets,BUY_NO,0.74,82%,Market information available
 2026-07-09 01:32,656338,US announces military base in Israel in 2026?,BUY_YES,0.21,85%,The US military base in Israel was announced in 2026.
+2026-07-09 05:49,669514,CD Moquegua vs. CD Comerciantes Unidos - More Markets,BUY_YES,0.255,100%,No issues with the market and news data provided.
+2026-07-09 05:50,675922,Honor of Kings: Wolves vs EDward Gaming (BO5) - King Pro League Stage 2 Group A,BUY_YES,0.49,100%,
+2026-07-09 05:50,682875,ITF Bucharest: Ergi Kirkin vs William Mirarchi,BUY_YES,0.845,87%,match found
+2026-07-09 05:50,682900,ITF Monastir: Tanisha Kashyap vs Sofia Camila Rojas,BUY_NO,0.845,100%,News found for the specified match.
+2026-07-09 05:50,682908,ITF Hillcrest: Ofek Shimanov vs Preston Brown,BUY_YES,0.785,186.5%,Both news sources have scored this match favoring Ofek Shimanov
+2026-07-09 05:50,682876,ITF Bucharest: Matei Florin Breazu vs Michele Mecarelli,BUY_YES,0.35,90%,"Both sources report a score of approximately 0.8, indicating a strong favorite for Matei Florin Breazu"
