@@ -2233,3 +2233,8 @@ Match yet to begin"
 2026-08-04 10:24,769262,Universitatea Craiova CS vs. FC Argeș Pitești,BUY_YES,0.625,91%,Successful prediction
 2026-08-04 10:24,731807,Pro Football: Falcons vs. Saints Season Series Winner,PASS_NO,0.74,99%,The Saints have won 9 out of the 14 games against the Falcons in the season series since 2021
 2026-08-04 10:24,762933,Cribbs FC vs. Fairford Town FC,BUY_YES,0.455,100%,No football information found.
+2026-08-04 12:32,753049,Ferencvárosi TC vs. PAOK WF,${p_YES} > ${p_NO},0.435,99%,Valid input
+2026-08-04 12:32,734628,SKN St. Pölten Frauen vs. BSC Young Boys Frauen,BUY_YES,0.335,81%,"Both news sources report that the match takes place on August 5, 2026, with SKN St. Pölten playing against BSC Young Boys Frauen. The confidence level is high as both sources have a confidence score over 0.7."
+2026-08-04 12:33,787013,CA Boca Juniors vs. Recoleta FC,BUY_YES,0.715,100%,
+2026-08-04 12:33,783307,Tianjin Jinmen Hu FC vs. Beijing Guoan FC,BUY_YES,0.405,100%,
+2026-08-04 12:33,769262,Universitatea Craiova CS vs. FC Argeș Pitești,BUY_YES,0.6,100%,
